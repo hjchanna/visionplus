@@ -12,10 +12,10 @@ package com.supervision.visionplus.view;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class PatientRegistration extends javax.swing.JPanel {
+public class VisionDetails extends javax.swing.JPanel {
 
     /** Creates new form PatientRegistration */
-    public PatientRegistration() {
+    public VisionDetails() {
         initComponents();
     }
 
@@ -305,7 +305,7 @@ public class PatientRegistration extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel22.setText("vision Details");
+        jLabel22.setText("Vision Details");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -460,7 +460,7 @@ public class PatientRegistration extends javax.swing.JPanel {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, 120, 40));
 
         jButton3.setBackground(new java.awt.Color(102, 204, 255));
-        jButton3.setText("Payment");
+        jButton3.setText("Save");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 540, 120, 40));
 
         jButton4.setBackground(new java.awt.Color(102, 204, 255));

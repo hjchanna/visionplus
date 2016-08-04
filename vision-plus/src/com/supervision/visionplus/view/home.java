@@ -90,7 +90,7 @@ public class home extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         displayPanel.removeAll();
-        PatientRegistration patientRegistration = new PatientRegistration();
+        VisionDetails patientRegistration = new VisionDetails();
         displayPanel.add(patientRegistration);
         repaint();
         revalidate();
