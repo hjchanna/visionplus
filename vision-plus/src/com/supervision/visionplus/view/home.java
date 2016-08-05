@@ -170,11 +170,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        displayPanel.removeAll();
-        CustomerPayment customerPayment=new CustomerPayment();
-        displayPanel.add(customerPayment);
-        repaint();
-        revalidate();
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
@@ -182,11 +178,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        displayPanel.removeAll();
-        Templete templete=new Templete();
-        displayPanel.add(templete);
-        repaint();
-        revalidate();
+
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
@@ -234,7 +226,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-<<<<<<< HEAD
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
@@ -245,9 +236,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-=======
-    private javax.swing.JMenuItem jMenuItem2;
->>>>>>> c2ab12d0b35c89c73ba0a7b3e670abda2cea9d09
     // End of variables declaration//GEN-END:variables
 
 }
