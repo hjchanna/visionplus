@@ -12,10 +12,10 @@ package com.supervision.visionplus;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class Sample extends javax.swing.JPanel {
+public class VisionDetail extends javax.swing.JPanel {
 
     /** Creates new form Sample */
-    public Sample() {
+    public VisionDetail() {
         initComponents();
     }
 
@@ -259,7 +259,7 @@ public class Sample extends javax.swing.JPanel {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
