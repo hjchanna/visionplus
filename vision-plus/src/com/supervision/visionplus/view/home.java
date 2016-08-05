@@ -51,7 +51,6 @@ public class home extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         displayPanel.setBackground(new java.awt.Color(255, 255, 255));
         displayPanel.setLayout(new java.awt.BorderLayout());
@@ -88,6 +87,8 @@ public class home extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem2.setText("Invoice");
+        jMenu1.add(jMenuItem2);
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Supplier");
@@ -158,7 +159,7 @@ public class home extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         displayPanel.removeAll();
-        PatientRegistration patientRegistration = new PatientRegistration();
+        VisionDetails patientRegistration = new VisionDetails();
         displayPanel.add(patientRegistration);
         repaint();
         revalidate();
@@ -233,6 +234,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+<<<<<<< HEAD
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
@@ -243,6 +245,9 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+=======
+    private javax.swing.JMenuItem jMenuItem2;
+>>>>>>> c2ab12d0b35c89c73ba0a7b3e670abda2cea9d09
     // End of variables declaration//GEN-END:variables
 
 }
