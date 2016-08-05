@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.supervision.visionplus;
+package com.supervision.visionplus.view;
 
 /**
  * Date : Aug 4, 2016
