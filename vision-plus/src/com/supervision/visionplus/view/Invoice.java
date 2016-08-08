@@ -12,10 +12,10 @@ package com.supervision.visionplus.view;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class TempInvoice extends javax.swing.JPanel {
+public class Invoice extends javax.swing.JPanel {
 
     /** Creates new form Invoice2 */
-    public TempInvoice() {
+    public Invoice() {
         initComponents();
     }
 
