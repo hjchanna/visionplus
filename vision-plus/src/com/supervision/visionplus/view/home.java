@@ -151,7 +151,7 @@ public class home extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         displayPanel.removeAll();
-        Invoice invoice = new Invoice();
+        TempInvoice invoice = new TempInvoice();
         displayPanel.add(invoice);
         revalidate();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
