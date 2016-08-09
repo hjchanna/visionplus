@@ -17,7 +17,9 @@ public class SearchInvoice extends javax.swing.JDialog {
     public SearchInvoice(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
