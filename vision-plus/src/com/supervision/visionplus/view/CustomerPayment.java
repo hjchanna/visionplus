@@ -18,6 +18,8 @@ public class CustomerPayment extends javax.swing.JPanel {
         initComponents();
         chequePanel.setVisible(false);
         cardPanel.setVisible(false);
+        setCardPayment(false);
+        setChequePayment(false);
     }
 
     /**
@@ -29,6 +31,7 @@ public class CustomerPayment extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
@@ -46,20 +49,20 @@ public class CustomerPayment extends javax.swing.JPanel {
         paymentTypePanel = new javax.swing.JPanel();
         cardPanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        cardAmountText = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        cardCardNoText = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        cardPaymentRadio = new javax.swing.JRadioButton();
+        cardBankCombo = new javax.swing.JComboBox();
         chequePanel = new javax.swing.JPanel();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jTextField13 = new javax.swing.JTextField();
+        chequePaymentRadio = new javax.swing.JRadioButton();
+        chequeAmountText = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        chequeBankCombo = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        chequeChequeNoText = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -195,20 +198,26 @@ public class CustomerPayment extends javax.swing.JPanel {
 
         jLabel13.setText("Bank :");
 
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
+        cardCardNoText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
+                cardCardNoTextActionPerformed(evt);
             }
         });
 
         jLabel14.setText(" Card No :");
 
-        jRadioButton4.setText("Card Payment");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sampath Bank", "HNB", "People's Bank", "Other" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(cardPaymentRadio);
+        cardPaymentRadio.setText("Card Payment");
+        cardPaymentRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cardPaymentRadioActionPerformed(evt);
+            }
+        });
+
+        cardBankCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sampath Bank", "HNB", "People's Bank", "Other" }));
+        cardBankCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardBankComboActionPerformed(evt);
             }
         });
 
@@ -220,7 +229,7 @@ public class CustomerPayment extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cardPanelLayout.createSequentialGroup()
-                        .addComponent(jRadioButton4)
+                        .addComponent(cardPaymentRadio)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPanelLayout.createSequentialGroup()
                         .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,41 +238,47 @@ public class CustomerPayment extends javax.swing.JPanel {
                             .addComponent(jLabel12))
                         .addGap(24, 24, 24)
                         .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField12)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField14))
+                            .addComponent(cardAmountText)
+                            .addComponent(cardBankCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cardCardNoText))
                         .addGap(31, 31, 31))))
         );
         cardPanelLayout.setVerticalGroup(
             cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton4)
+                .addComponent(cardPaymentRadio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cardAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cardBankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cardCardNoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
         chequePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Cheque Payment"));
 
-        jRadioButton5.setText("Cheque Payment");
+        buttonGroup1.add(chequePaymentRadio);
+        chequePaymentRadio.setText("Cheque Payment");
+        chequePaymentRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chequePaymentRadioActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText(" Amount :");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sampath Bank", "HNB", "People's Bank", "Other" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        chequeBankCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sampath Bank", "HNB", "People's Bank", "Other" }));
+        chequeBankCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                chequeBankComboActionPerformed(evt);
             }
         });
 
@@ -286,11 +301,11 @@ public class CustomerPayment extends javax.swing.JPanel {
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField15)
-                            .addComponent(jTextField13)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(chequeChequeNoText)
+                            .addComponent(chequeAmountText)
+                            .addComponent(chequeBankCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(chequePanelLayout.createSequentialGroup()
-                        .addComponent(jRadioButton5)
+                        .addComponent(chequePaymentRadio)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -298,19 +313,19 @@ public class CustomerPayment extends javax.swing.JPanel {
             chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chequePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton5)
+                .addComponent(chequePaymentRadio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chequeAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chequeBankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chequeChequeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
@@ -573,34 +588,74 @@ public class CustomerPayment extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cardBankComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardBankComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cardBankComboActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void chequeBankComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chequeBankComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_chequeBankComboActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
+    private void cardCardNoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardCardNoTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
+    }//GEN-LAST:event_cardCardNoTextActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-           chequePanel.setVisible(true);
-           cardPanel.setVisible(true);
+        if (jButton5.getText() == "+") {
+            chequePanel.setVisible(true);
+            cardPanel.setVisible(true);
+            jButton5.setText("-");
+        } else {
+            buttonGroup1.clearSelection();
+            setCardPayment(false);
+            setChequePayment(false);
+            chequePanel.setVisible(false);
+            cardPanel.setVisible(false);
+            jButton5.setText("+");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void cardPaymentRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardPaymentRadioActionPerformed
+        if (cardPaymentRadio.isSelected()) {
+            setCardPayment(true);
+            setChequePayment(false);
+        } else {
+            setCardPayment(false);
+            setChequePayment(true);
+        }
+    }//GEN-LAST:event_cardPaymentRadioActionPerformed
+
+    private void chequePaymentRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chequePaymentRadioActionPerformed
+        if (chequePaymentRadio.isSelected()) {
+            setChequePayment(true);
+            setCardPayment(false);
+
+        } else {
+            setChequePayment(false);
+            setCardPayment(true);
+        }
+    }//GEN-LAST:event_chequePaymentRadioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField cardAmountText;
+    private javax.swing.JComboBox cardBankCombo;
+    private javax.swing.JTextField cardCardNoText;
     private javax.swing.JPanel cardPanel;
+    private javax.swing.JRadioButton cardPaymentRadio;
+    private javax.swing.JTextField chequeAmountText;
+    private javax.swing.JComboBox chequeBankCombo;
+    private javax.swing.JTextField chequeChequeNoText;
     private javax.swing.JPanel chequePanel;
+    private javax.swing.JRadioButton chequePaymentRadio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -608,8 +663,6 @@ public class CustomerPayment extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -633,18 +686,12 @@ public class CustomerPayment extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -654,4 +701,16 @@ public class CustomerPayment extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel paymentTypePanel;
     // End of variables declaration//GEN-END:variables
+
+    private void setCardPayment(boolean res) {
+        cardAmountText.setEnabled(res);
+        cardCardNoText.setEnabled(res);
+        cardBankCombo.setEnabled(res);
+    }
+
+    private void setChequePayment(boolean res) {
+        chequeAmountText.setEnabled(res);
+        chequeChequeNoText.setEnabled(res);
+        chequeBankCombo.setEnabled(res);
+    }
 }
