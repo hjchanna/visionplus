@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package com.supervision.visionplus.service;
+package com.supervision.visionplus.dao;
 
 /**
  * Date : Aug 12, 2016
- * Time : 12:10:50 PM
+ * Time : 3:29:21 PM
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class NewClass {
+public class GrnDetailDao {
 
 }

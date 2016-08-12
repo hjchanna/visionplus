@@ -8,10 +8,10 @@ package com.supervision.visionplus.dao;
 
 /**
  * Date : Aug 12, 2016
- * Time : 12:10:30 PM
+ * Time : 2:06:27 PM
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class NewClass {
+public class PaymentDao {
 
 }
