@@ -6,6 +6,7 @@
 package com.supervision.visionplus.service;
 
 import com.supervision.visionplus.model.MCustomer;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,14 +17,14 @@ import java.util.ArrayList;
  */
 public interface CustomerService {
 
-    public boolean addCustomer(MCustomer customer);
+    public boolean addCustomer(MCustomer customer) throws ClassNotFoundException,SQLException;
 
-    public boolean deleteCustomer(String id);
+    public boolean deleteCustomer(String id) throws ClassNotFoundException,SQLException;
 
-    public boolean updateCustomer(MCustomer customer);
+    public boolean updateCustomer(MCustomer customer) throws ClassNotFoundException,SQLException;
 
-    public ArrayList<MCustomer> searchCustomer(String id);
+    public ArrayList<MCustomer> searchCustomer(String id) throws ClassNotFoundException,SQLException;
 
-    public ArrayList<MCustomer> getAllCustomer();
+    public ArrayList<MCustomer> getAllCustomer() throws ClassNotFoundException,SQLException;
 
 }

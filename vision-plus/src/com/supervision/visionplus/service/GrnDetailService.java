@@ -5,6 +5,7 @@
  */
 package com.supervision.visionplus.service;
 
+import com.supervision.visionplus.model.TGrnItem;
 import java.util.ArrayList;
 
 /**
@@ -15,11 +16,11 @@ import java.util.ArrayList;
  */
 public interface GrnDetailService {
 
-    public boolean addGrnDetails(Object object);
+    public boolean addGrnDetails(TGrnItem grn);
 
-    public boolean updateGrnDetails(Object object);
+    public boolean updateGrnDetails(TGrnItem grn);
 
-    public ArrayList<Object> searchGrnDetails(String id);
+    public ArrayList<TGrnItem> searchGrnDetails(String id);
 
-    public ArrayList<Object> getAllGrnDetails();
+    public ArrayList<TGrnItem> getAllGrnDetails();
 }

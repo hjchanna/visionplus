@@ -6,6 +6,7 @@
 
 package com.supervision.visionplus.dao;
 
+import com.supervision.visionplus.model.MItem;
 import com.supervision.visionplus.service.ItemService;
 import java.util.ArrayList;
 
@@ -15,6 +16,31 @@ import java.util.ArrayList;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class ItemDao{
+public class ItemDao implements ItemService{
+
+    @Override
+    public boolean addItems(MItem item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean deleteItems(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateItems(MItem item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<MItem> searchItems(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<MItem> getAllItems() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

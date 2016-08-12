@@ -6,6 +6,7 @@
 
 package com.supervision.visionplus.dao;
 
+import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.service.InvoiceService;
 import java.util.ArrayList;
 
@@ -15,7 +16,27 @@ import java.util.ArrayList;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class InvoiceDao{
+public class InvoiceDao implements InvoiceService{
+
+    @Override
+    public boolean addInvoice(TInvoice invoice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateInvoice(TInvoice invoice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<TInvoice> searchInvoice(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<TInvoice> getAllInvoice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
    
 
