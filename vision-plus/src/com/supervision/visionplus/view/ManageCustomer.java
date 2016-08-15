@@ -10,6 +10,7 @@ import com.supervision.visionplus.model.MCustomer;
 import com.supervision.visionplus.service.CustomerService;
 import com.supervision.visionplus.service.SupplierService;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,12 +26,14 @@ import javax.swing.table.TableModel;
 public class ManageCustomer extends javax.swing.JPanel {
 
     private DefaultTableModel model;
+
     /**
      * Creates new form ManageCustomer
      */
     public ManageCustomer() {
         initComponents();
-        model=(DefaultTableModel) customer_table.getModel();
+        model = (DefaultTableModel) customer_table.getModel();
+        getAllCustomers();
     }
 
     /**
@@ -55,9 +58,10 @@ public class ManageCustomer extends javax.swing.JPanel {
         name_text = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         nic_text = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customer_table = new javax.swing.JTable();
@@ -70,16 +74,35 @@ public class ManageCustomer extends javax.swing.JPanel {
 
         jLabel1.setText("CustomerId.:");
 
+        customerId_text.setEditable(false);
+
         jLabel2.setText("Name :");
 
-        jButton1.setText("Update");
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
-
-        addButton.setText("Add");
+        addButton.setText("Save");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -87,31 +110,36 @@ public class ManageCustomer extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton))
+                        .addComponent(searchButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
                             .addComponent(jLabel9)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(name_text)
                             .addComponent(nic_text)
-                            .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(contactNo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(customerId_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(52, 52, 52))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(contactNo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(customerId_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 2, Short.MAX_VALUE)))
+                        .addGap(52, 52, 52))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,12 +164,13 @@ public class ManageCustomer extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
+                .addGap(70, 70, 70)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(addButton))
-                .addContainerGap(214, Short.MAX_VALUE))
+                    .addComponent(deleteButton)
+                    .addComponent(addButton)
+                    .addComponent(searchButton)
+                    .addComponent(jButton1))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         customer_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -152,6 +181,11 @@ public class ManageCustomer extends javax.swing.JPanel {
                 "Id", "Name", "Nic", "Contact No", "Address"
             }
         ));
+        customer_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customer_tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(customer_table);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -220,22 +254,104 @@ public class ManageCustomer extends javax.swing.JPanel {
         String contactNo = contactNo_text.getText();
 
         MCustomer customer = new MCustomer(customerId, name, nic, address, contactNo);
-        
+
         try {
-           boolean res=CustomerDao.addCustomer(customer);
-           if(res==true){
-               Object[] rd={customerId,name,nic,contactNo,address};
-               model.addRow(rd);
-               JOptionPane.showMessageDialog(this, "Added....");
-           }else{ 
-               System.out.println("fail...");
-           }
+            boolean customer1 = CustomerDao.getInstance().isCustomer(customerId_text.getText());
+            if (customer1) {
+                boolean updateCustomer = CustomerDao.getInstance().updateCustomer(customer);
+                if (updateCustomer) {
+                    removeAllTextField();
+                    getAllCustomers();
+                    JOptionPane.showMessageDialog(this, "Success....");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail....!");
+                }
+
+            } else {
+                if (!name_text.getText().trim().equals("") && !address_text.getText().trim().equals("")) {
+                    try {
+                        boolean addCustomer = CustomerDao.getInstance().addCustomer(customer);
+                        if (addCustomer == true) {
+                            removeAllTextField();
+                            getAllCustomers();
+                            JOptionPane.showMessageDialog(this, "Success....");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Fail....");
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Text field Empty..");
+                }
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try {
+            boolean customer1 = CustomerDao.getInstance().isCustomer(customerId_text.getText());
+            if (customer1) {
+                boolean deleteCustomer = CustomerDao.getInstance().deleteCustomer(customerId_text.getText());
+                if (deleteCustomer) {
+                    removeAllTextField();
+                    getAllCustomers();
+                    JOptionPane.showMessageDialog(this, "Delete...");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail...");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a customer");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        int customerId = Integer.parseInt(customerId_text.getText());
+        String name = name_text.getText();
+        String nic = nic_text.getText();
+        String address = address_text.getText();
+        String contactNo = contactNo_text.getText();
+
+        MCustomer customer = new MCustomer(customerId, name, nic, address, contactNo);
+        try {
+            ArrayList<MCustomer> searchCustomer = CustomerDao.getInstance().searchCustomer(customer);
+            model.setRowCount(0);
+            for (MCustomer searchCustomer1 : searchCustomer) {
+                Object[] rd = {searchCustomer1.getIndexNo(), searchCustomer1.getName(), searchCustomer1.getNic(), searchCustomer1.getContactNo(), searchCustomer1.getAddress()};
+                model.addRow(rd);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void customer_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customer_tableMouseClicked
+        customerId_text.setText(model.getValueAt(customer_table.getSelectedRow(), 0).toString());
+        name_text.setText((String) model.getValueAt(customer_table.getSelectedRow(), 1));
+        nic_text.setText((String) model.getValueAt(customer_table.getSelectedRow(), 2));
+        contactNo_text.setText((String) model.getValueAt(customer_table.getSelectedRow(), 3));
+        address_text.setText((String) model.getValueAt(customer_table.getSelectedRow(), 4));
+    }//GEN-LAST:event_customer_tableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       removeAllTextField();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -244,8 +360,8 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JTextField contactNo_text;
     private javax.swing.JTextField customerId_text;
     private javax.swing.JTable customer_table;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -258,6 +374,29 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField name_text;
     private javax.swing.JTextField nic_text;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
+
+    void getAllCustomers() {
+        try {
+            ArrayList<MCustomer> allCustomer = CustomerDao.getInstance().getAllCustomer();
+            model.setRowCount(0);
+            for (MCustomer customer : allCustomer) {
+                Object[] rd = {customer.getIndexNo(), customer.getName(), customer.getNic(), customer.getContactNo(), customer.getAddress()};
+                model.addRow(rd);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void removeAllTextField() {
+        name_text.setText("");
+        nic_text.setText("");
+        contactNo_text.setText("");
+        address_text.setText("");
+    }
 
 }
