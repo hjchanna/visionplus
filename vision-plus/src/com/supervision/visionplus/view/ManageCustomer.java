@@ -12,6 +12,9 @@ import com.supervision.visionplus.service.SupplierService;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * Date : Aug 7, 2016 Time : 10:03:57 PM
@@ -21,11 +24,13 @@ import java.util.logging.Logger;
  */
 public class ManageCustomer extends javax.swing.JPanel {
 
+    private DefaultTableModel model;
     /**
      * Creates new form ManageCustomer
      */
     public ManageCustomer() {
         initComponents();
+        model=(DefaultTableModel) customer_table.getModel();
     }
 
     /**
@@ -55,7 +60,7 @@ public class ManageCustomer extends javax.swing.JPanel {
         addButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        customer_table = new javax.swing.JTable();
 
         jLabel4.setText("Nic :");
 
@@ -139,7 +144,7 @@ public class ManageCustomer extends javax.swing.JPanel {
                 .addContainerGap(214, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        customer_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -147,7 +152,7 @@ public class ManageCustomer extends javax.swing.JPanel {
                 "Id", "Name", "Nic", "Contact No", "Address"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(customer_table);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -219,7 +224,9 @@ public class ManageCustomer extends javax.swing.JPanel {
         try {
            boolean res=CustomerDao.addCustomer(customer);
            if(res==true){
-               System.out.println("Added Success...:");
+               Object[] rd={customerId,name,nic,contactNo,address};
+               model.addRow(rd);
+               JOptionPane.showMessageDialog(this, "Added....");
            }else{ 
                System.out.println("fail...");
            }
@@ -228,9 +235,6 @@ public class ManageCustomer extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-
-
     }//GEN-LAST:event_addButtonActionPerformed
 
 
@@ -239,6 +243,7 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JTextField address_text;
     private javax.swing.JTextField contactNo_text;
     private javax.swing.JTextField customerId_text;
+    private javax.swing.JTable customer_table;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -251,7 +256,6 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField name_text;
     private javax.swing.JTextField nic_text;
     // End of variables declaration//GEN-END:variables
