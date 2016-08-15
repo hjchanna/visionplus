@@ -6,6 +6,7 @@
 package com.supervision.visionplus.service;
 
 import com.supervision.visionplus.model.MItem;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,14 +17,14 @@ import java.util.ArrayList;
  */
 public interface ItemService {
 
-    public boolean addItems(MItem item);
+    public boolean addItems(MItem item) throws ClassNotFoundException, SQLException;
 
-    public boolean deleteItems(String id);
+    public boolean deleteItems(String id) throws ClassNotFoundException, SQLException;
 
-    public boolean updateItems(MItem item);
+    public boolean updateItems(MItem item) throws ClassNotFoundException, SQLException;
 
-    public ArrayList<MItem> searchItems(String id);
+    public ArrayList<MItem> searchItems(String id) throws ClassNotFoundException, SQLException;
 
-    public ArrayList<MItem> getAllItems();
+    public ArrayList<MItem> getAllItems() throws ClassNotFoundException, SQLException;
 
 }
