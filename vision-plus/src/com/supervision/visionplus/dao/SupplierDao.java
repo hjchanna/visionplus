@@ -7,7 +7,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.MSupplier;
-import com.supervision.visionplus.service.SupplierService;
+//import com.supervision.visionplus.service.SupplierService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,10 +27,9 @@ import java.util.ArrayList;
  private String contactNo;
  private String email;
  */
-public class SupplierDao implements SupplierService {
+public class SupplierDao{
 
-    @Override
-    public boolean addSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
+    public static boolean addSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
         String query = "INSERT INTO MSupplier VALUE(?,?,?,?)";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -41,16 +40,14 @@ public class SupplierDao implements SupplierService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean deleteSupplier(String id) throws ClassNotFoundException, SQLException {
+    public static boolean deleteSupplier(String id) throws ClassNotFoundException, SQLException {
         String query = "DELETE FROM MSupplier WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean updateSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
+    public static boolean updateSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
         String query = "UPDATE MSupplier SET name=?,contactNo=?,email=? WHERE index_no=?";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -61,8 +58,7 @@ public class SupplierDao implements SupplierService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public ArrayList<MSupplier> searchSupplier(String id) throws ClassNotFoundException, SQLException {
+    public static ArrayList<MSupplier> searchSupplier(String id) throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MSupplier WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();
@@ -75,8 +71,7 @@ public class SupplierDao implements SupplierService {
         return suppliers;
     }
 
-    @Override
-    public ArrayList<MSupplier> getAllSupplier() throws ClassNotFoundException, SQLException {
+    public static ArrayList<MSupplier> getAllSupplier() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MSupplier";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();

@@ -9,7 +9,7 @@ package com.supervision.visionplus.dao;
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TGrnItem;
 import com.supervision.visionplus.model.TInvoice;
-import com.supervision.visionplus.service.GrnDetailService;
+//import com.supervision.visionplus.service.GrnDetailService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,10 +22,9 @@ import java.util.ArrayList;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class GrnDetailDao implements GrnDetailService{
+public class GrnDetailDao {
 
-    @Override
-    public boolean addGrnDetails(ArrayList<TGrnItem> grnItems) throws ClassNotFoundException, SQLException {
+    public static boolean addGrnDetails(ArrayList<TGrnItem> grnItems) throws ClassNotFoundException, SQLException {
         int res = 0 ;
         for (TGrnItem grnItem : grnItems) {
             
@@ -49,8 +48,7 @@ public class GrnDetailDao implements GrnDetailService{
     }
 
    
-    @Override
-    public ArrayList<TGrnItem> searchGrnItemsByGrn(String grn) throws ClassNotFoundException, SQLException {
+    public static ArrayList<TGrnItem> searchGrnItemsByGrn(String grn) throws ClassNotFoundException, SQLException {
     String sql = "SELECT * FROM t_grn_item WHERE grn=?";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);

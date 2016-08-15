@@ -7,7 +7,7 @@
 package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.model.TInvoiceItem;
-import com.supervision.visionplus.service.InvoiceItemDetailService;
+//import com.supervision.visionplus.service.InvoiceItemDetailService;
 import java.util.ArrayList;
 
 /**
@@ -16,25 +16,21 @@ import java.util.ArrayList;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class InvoiceItemDetailDao implements InvoiceItemDetailService{
+public class InvoiceItemDetailDao {
 
-    @Override
-    public boolean addInvoiceItemDetail(TInvoiceItem invoiceItem) {
+    public static boolean addInvoiceItemDetail(TInvoiceItem invoiceItem) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean updateInvoiceItemDetail(TInvoiceItem invoiceItem) {
+    public static boolean updateInvoiceItemDetail(TInvoiceItem invoiceItem) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public ArrayList<TInvoiceItem> searchInvoiceItemDetail(String id) {
+    public static ArrayList<TInvoiceItem> searchInvoiceItemDetail(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public ArrayList<TInvoiceItem> getAllInvoiceItemDetail() {
+    public static ArrayList<TInvoiceItem> getAllInvoiceItemDetail() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

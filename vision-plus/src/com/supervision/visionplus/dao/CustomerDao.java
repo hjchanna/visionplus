@@ -7,7 +7,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.MCustomer;
-import com.supervision.visionplus.service.CustomerService;
+//import com.supervision.visionplus.service.CustomerService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,10 +23,9 @@ import java.util.logging.Logger;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class CustomerDao implements CustomerService {
+public class CustomerDao  {
 
-    @Override
-    public boolean addCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
+    public static boolean addCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
         String query = "INSERT INTO MCustomer VALUE(?,?,?,?,?)";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -38,16 +37,14 @@ public class CustomerDao implements CustomerService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean deleteCustomer(String id) throws ClassNotFoundException, SQLException {
+    public static boolean deleteCustomer(String id) throws ClassNotFoundException, SQLException {
         String query = "DELETE FROM MCustomer WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean updateCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
+    public static boolean updateCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
         String query = "UPDATE MCustomer SET name=?,nic=?,address=?,contactNo=? WHERE index_no=?";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -59,8 +56,7 @@ public class CustomerDao implements CustomerService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public ArrayList<MCustomer> searchCustomer(String id) throws ClassNotFoundException, SQLException {
+    public static ArrayList<MCustomer> searchCustomer(String id) throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MCustomer WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();
@@ -75,8 +71,7 @@ public class CustomerDao implements CustomerService {
 
     }
 
-    @Override
-    public ArrayList<MCustomer> getAllCustomer() throws ClassNotFoundException, SQLException {
+    public  static ArrayList<MCustomer> getAllCustomer() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MCustomer";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();

@@ -8,7 +8,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TPayment;
-import com.supervision.visionplus.service.PaymentService;
+//import com.supervision.visionplus.service.PaymentService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,10 +19,9 @@ import java.sql.SQLException;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class PaymentDao implements PaymentService{
+public class PaymentDao {
 
-    @Override
-    public boolean addPayment(TPayment payment) throws ClassNotFoundException , SQLException{
+    public static boolean addPayment(TPayment payment) throws ClassNotFoundException , SQLException{
         String sql = "INSERT INTO t_payment VALUES(?,?,?,?,?,?,?)";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);

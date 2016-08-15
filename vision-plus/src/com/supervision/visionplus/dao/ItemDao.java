@@ -7,7 +7,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.MItem;
-import com.supervision.visionplus.service.ItemService;
+//import com.supervision.visionplus.service.ItemService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,10 +29,9 @@ import java.util.ArrayList;
  private Double salePrice;
  private Double costPrice;
  */
-public class ItemDao implements ItemService {
+public class ItemDao  {
 
-    @Override
-    public boolean addItems(MItem item) throws ClassNotFoundException, SQLException {
+    public static boolean addItems(MItem item) throws ClassNotFoundException, SQLException {
         String query = "INSERT INTO MItem VALUE(?,?,?,?,?)";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -44,16 +43,14 @@ public class ItemDao implements ItemService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean deleteItems(String id) throws ClassNotFoundException, SQLException {
+    public static boolean deleteItems(String id) throws ClassNotFoundException, SQLException {
         String query = "DELETE FROM MItem WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public boolean updateItems(MItem item) throws ClassNotFoundException, SQLException {
+    public static boolean updateItems(MItem item) throws ClassNotFoundException, SQLException {
         String query = "UPDATE MItem SET code=?,name=?,salePrice=?,costPrice=? WHERE index_no=?";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -65,8 +62,7 @@ public class ItemDao implements ItemService {
         return stm.executeUpdate() > 0;
     }
 
-    @Override
-    public ArrayList<MItem> searchItems(String id) throws ClassNotFoundException, SQLException {
+    public static ArrayList<MItem> searchItems(String id) throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MItem WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();
@@ -78,8 +74,7 @@ public class ItemDao implements ItemService {
         return items;
     }
 
-    @Override
-    public ArrayList<MItem> getAllItems() throws ClassNotFoundException, SQLException {
+    public static ArrayList<MItem> getAllItems() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MItem";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();

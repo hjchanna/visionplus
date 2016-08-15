@@ -8,7 +8,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TInvoice;
-import com.supervision.visionplus.service.InvoiceService;
+//import com.supervision.visionplus.service.InvoiceService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +21,9 @@ import java.util.ArrayList;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class InvoiceDao implements InvoiceService{
+public class InvoiceDao {
 
-    @Override
-    public boolean addInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
+    public static boolean addInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO t_invoice VALUES(?,?,?,?,?,?,?,?)";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -40,8 +39,7 @@ public class InvoiceDao implements InvoiceService{
         return  stm.executeUpdate()>0;
     }
 
-    @Override
-    public boolean updateInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
+    public static boolean updateInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
          String sql = "UPDATE T_Invoice SET transaction=?,customer=?,payment=?,patient_information=?,invoice_date=? ,amount=? ,status=? WHERE index_no=?";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -55,8 +53,7 @@ public class InvoiceDao implements InvoiceService{
         return  stm.executeUpdate()>0;
     }
 
-    @Override
-    public ArrayList<TInvoice> searchInvoice(String index_no) throws ClassNotFoundException, SQLException {
+    public static ArrayList<TInvoice> searchInvoice(String index_no) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM t_invoice WHERE index_no=?";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -70,8 +67,7 @@ public class InvoiceDao implements InvoiceService{
         return invoices;
     }
 
-    @Override
-    public ArrayList<TInvoice> getAllInvoice() throws ClassNotFoundException, SQLException {
+    public static ArrayList<TInvoice> getAllInvoice() throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM t_invoice";
         Connection conn = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -84,8 +80,5 @@ public class InvoiceDao implements InvoiceService{
         return invoices;
     }
 
-    
-
-   
-
+  
 }
