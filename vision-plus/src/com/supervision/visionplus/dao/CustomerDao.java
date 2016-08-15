@@ -67,10 +67,9 @@ public class CustomerDao implements CustomerService {
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MCustomer> customers = new ArrayList<>();
         if (rst.next()) {
-            MCustomer customer = new MCustomer(rst.getInt("index_no"),
+            customers.add(new MCustomer(rst.getInt("index_no"),
                     rst.getString("name"), rst.getString("nic"),
-                    rst.getString("address"), rst.getString("contactNo"));
-            customers.add(customer);
+                    rst.getString("address"), rst.getString("contactNo")));
         }
         return customers;
 
@@ -84,10 +83,9 @@ public class CustomerDao implements CustomerService {
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MCustomer> customers = new ArrayList<>();
         if (rst.next()) {
-            MCustomer customer = new MCustomer(rst.getInt("index_no"),
+            customers.add(new MCustomer(rst.getInt("index_no"),
                     rst.getString("name"), rst.getString("nic"),
-                    rst.getString("address"), rst.getString("contactNo"));
-            customers.add(customer);
+                    rst.getString("address"), rst.getString("contactNo")));
         }
         return customers;
     }
