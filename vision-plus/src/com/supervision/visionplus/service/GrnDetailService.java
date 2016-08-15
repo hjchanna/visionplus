@@ -6,6 +6,7 @@
 package com.supervision.visionplus.service;
 
 import com.supervision.visionplus.model.TGrnItem;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,11 +17,8 @@ import java.util.ArrayList;
  */
 public interface GrnDetailService {
 
-    public boolean addGrnDetails(TGrnItem grn);
+    public boolean addGrnDetails(ArrayList<TGrnItem> grnItems) throws ClassNotFoundException, SQLException;
 
-    public boolean updateGrnDetails(TGrnItem grn);
+    public ArrayList<TGrnItem> searchGrnItemsByGrn(String grn) throws ClassNotFoundException, SQLException;
 
-    public ArrayList<TGrnItem> searchGrnDetails(String id);
-
-    public ArrayList<TGrnItem> getAllGrnDetails();
 }

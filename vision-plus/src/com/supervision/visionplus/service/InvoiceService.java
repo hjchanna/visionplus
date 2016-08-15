@@ -6,6 +6,7 @@
 package com.supervision.visionplus.service;
 
 import com.supervision.visionplus.model.TInvoice;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +17,12 @@ import java.util.ArrayList;
  */
 public interface InvoiceService {
 
-    public boolean addInvoice(TInvoice invoice);
+    public boolean addInvoice(TInvoice invoice) throws ClassNotFoundException ,SQLException;
 
-    public boolean updateInvoice(TInvoice invoice);
+    public boolean updateInvoice(TInvoice invoice) throws ClassNotFoundException ,SQLException;
 
-    public ArrayList<TInvoice> searchInvoice(String id);
+    public ArrayList<TInvoice> searchInvoice(String id) throws ClassNotFoundException ,SQLException;
 
-    public ArrayList<TInvoice> getAllInvoice();
+    public ArrayList<TInvoice> getAllInvoice() throws ClassNotFoundException ,SQLException;
 
 }

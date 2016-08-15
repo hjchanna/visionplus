@@ -27,6 +27,18 @@ public class TGrnItem{
         this.indexNo = indexNo;
     }
 
+    public TGrnItem(Integer indexNo, Double unitPrice, Double qty, Double value, Double discount, Double netValue, Integer mItem, Integer tGrn) {
+        this.indexNo = indexNo;
+        this.unitPrice = unitPrice;
+        this.qty = qty;
+        this.value = value;
+        this.discount = discount;
+        this.netValue = netValue;
+        this.mItem = mItem;
+        this.tGrn = tGrn;
+    }
+
+    
     public Integer getIndexNo() {
         return indexNo;
     }

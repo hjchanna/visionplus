@@ -7,6 +7,7 @@
 package com.supervision.visionplus.service;
 
 import com.supervision.visionplus.model.TPayment;
+import java.sql.SQLException;
 
 /**
  * Date : Aug 12, 2016 Time : 2:05:05 PM
@@ -16,6 +17,6 @@ import com.supervision.visionplus.model.TPayment;
  */
 public interface PaymentService {
 
-    public boolean addPayment(TPayment payment);
+    public boolean addPayment(TPayment payment) throws ClassNotFoundException,SQLException;
     
 }

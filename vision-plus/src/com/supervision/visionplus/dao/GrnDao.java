@@ -6,8 +6,14 @@
 
 package com.supervision.visionplus.dao;
 
+import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TGrn;
+import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.service.GrnService;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,25 +25,48 @@ import java.util.ArrayList;
 public class GrnDao implements GrnService{
 
     @Override
-    public boolean addGrn(TGrn grn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addGrn(TGrn grn) throws ClassNotFoundException , SQLException{
+        String sql = "INSERT INTO t_grn VALUES(?,?,?,?,?,?)";
+        Connection conn = DBConnection.getDBConnection().getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setObject(1, grn.getIndexNo());
+        stm.setObject(2, grn.getTransaction());
+        stm.setObject(3, grn.getMSupplier());
+        stm.setObject(4, grn.getTPayment());
+        stm.setObject(5, grn.getDate());
+        stm.setObject(6, grn.getAmount());
+        
+        return  stm.executeUpdate()>0;
     }
 
     @Override
-    public boolean updateGrn(TGrn grn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateGrn(TGrn grn) throws ClassNotFoundException , SQLException{
+        String sql = "UPDATE T_grn SET transaction=?,supplier=?,payment=?,date=?,amount=? WHERE index_no=?";
+        Connection conn = DBConnection.getDBConnection().getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setObject(1, grn.getTransaction());
+        stm.setObject(2, grn.getMSupplier());
+        stm.setObject(3, grn.getTPayment());
+        stm.setObject(4, grn.getDate());
+        stm.setObject(5, grn.getAmount());
+        stm.setObject(6, grn.getIndexNo());
+        return  stm.executeUpdate()>0;
     }
 
     @Override
-    public ArrayList<TGrn> searchGrn(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<TGrn> searchGrn(String index_no) throws ClassNotFoundException , SQLException{
+        String sql = "SELECT * FROM t_grn WHERE index_no=?";
+        Connection conn = DBConnection.getDBConnection().getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setObject(1, index_no);
+        ResultSet rst = stm.executeQuery();
+        ArrayList<TGrn> grns=new ArrayList<>();
+        while(rst.next()){
+            TGrn grn = new TGrn(rst.getInt("index_no"), rst.getInt("transaction"),rst.getDate("date"), rst.getDouble("amount"), rst.getInt("payment"), rst.getInt("supplier"));
+            grns.add(grn);
+        }
+        return grns;
+        
     }
-
-    @Override
-    public ArrayList<TGrn> getAllGrn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 
 }

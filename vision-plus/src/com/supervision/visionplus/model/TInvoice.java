@@ -28,6 +28,18 @@ public class TInvoice{
         this.indexNo = indexNo;
     }
 
+    public TInvoice(Integer indexNo, Integer transaction, Date invoiceDate, Double amount, String status, Integer tInvoicePatientInfomation, Integer tPayment, Integer mCustomer) {
+        this.indexNo = indexNo;
+        this.transaction = transaction;
+        this.invoiceDate = invoiceDate;
+        this.amount = amount;
+        this.status = status;
+        this.tInvoicePatientInfomation = tInvoicePatientInfomation;
+        this.tPayment = tPayment;
+        this.mCustomer = mCustomer;
+    }
+
+    
     public Integer getIndexNo() {
         return indexNo;
     }

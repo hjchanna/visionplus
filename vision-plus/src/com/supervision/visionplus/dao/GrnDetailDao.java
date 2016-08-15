@@ -6,8 +6,14 @@
 
 package com.supervision.visionplus.dao;
 
+import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TGrnItem;
+import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.service.GrnDetailService;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,23 +25,44 @@ import java.util.ArrayList;
 public class GrnDetailDao implements GrnDetailService{
 
     @Override
-    public boolean addGrnDetails(TGrnItem grn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addGrnDetails(ArrayList<TGrnItem> grnItems) throws ClassNotFoundException, SQLException {
+        int res = 0 ;
+        for (TGrnItem grnItem : grnItems) {
+            
+            String sql = "INSERT INTO Pawn_Item VALUES(?,?,?,?,?,?,?,?)";
+            Connection conn = DBConnection.getDBConnection().getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setObject(1,grnItem.getIndexNo());
+            stm.setObject(2,grnItem.getTGrn());
+            stm.setObject(3,grnItem.getMItem());
+            stm.setObject(4,grnItem.getUnitPrice());
+            stm.setObject(5,grnItem.getQty());
+            stm.setObject(6,grnItem.getValue());
+            stm.setObject(7,grnItem.getDiscount());
+            stm.setObject(8,grnItem.getNetValue());
+            res += stm.executeUpdate();
+        }
+        if (res == grnItems.size()) {
+            return true ;
+        }
+        return false ;
     }
 
+   
     @Override
-    public boolean updateGrnDetails(TGrnItem grn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<TGrnItem> searchGrnItemsByGrn(String grn) throws ClassNotFoundException, SQLException {
+    String sql = "SELECT * FROM t_grn_item WHERE grn=?";
+        Connection conn = DBConnection.getDBConnection().getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setObject(1, grn);
+        ResultSet rst = stm.executeQuery();
+        ArrayList<TGrnItem> grnItems=new ArrayList<>();
+        while(rst.next()){
+            TGrnItem grnItem=new TGrnItem(rst.getInt("index_no"), rst.getDouble("unit_price"), rst.getDouble("qty"), rst.getDouble("value"), rst.getDouble("discount"), rst.getDouble("net_value"),rst.getInt("item"), rst.getInt("grn"));
+            grnItems.add(grnItem);
+        }
+        return grnItems;
     }
 
-    @Override
-    public ArrayList<TGrnItem> searchGrnDetails(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<TGrnItem> getAllGrnDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
 }
