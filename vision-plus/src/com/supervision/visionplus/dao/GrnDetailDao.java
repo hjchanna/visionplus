@@ -28,7 +28,7 @@ public class GrnDetailDao {
         int res = 0 ;
         for (TGrnItem grnItem : grnItems) {
             
-            String sql = "INSERT INTO Pawn_Item VALUES(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO t_grn_item VALUES(?,?,?,?,?,?,?,?)";
             Connection conn = DBConnection.getDBConnection().getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setObject(1,grnItem.getIndexNo());
