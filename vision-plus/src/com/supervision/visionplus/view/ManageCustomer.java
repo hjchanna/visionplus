@@ -9,6 +9,9 @@ import com.supervision.visionplus.dao.CustomerDao;
 import com.supervision.visionplus.model.MCustomer;
 import com.supervision.visionplus.service.CustomerService;
 import com.supervision.visionplus.service.SupplierService;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Date : Aug 7, 2016 Time : 10:03:57 PM
@@ -213,6 +216,18 @@ public class ManageCustomer extends javax.swing.JPanel {
 
         MCustomer customer = new MCustomer(customerId, name, nic, address, contactNo);
         
+        try {
+           boolean res=CustomerDao.addCustomer(customer);
+           if(res==true){
+               System.out.println("Added Success...:");
+           }else{ 
+               System.out.println("fail...");
+           }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 
 

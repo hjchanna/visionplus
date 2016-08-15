@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class CustomerDao  {
 
     public static boolean addCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
-        String query = "INSERT INTO MCustomer VALUE(?,?,?,?,?)";
+        String query = "INSERT INTO m_customer VALUES(?,?,?,?,?)";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, customer.getIndexNo());
@@ -38,14 +38,14 @@ public class CustomerDao  {
     }
 
     public static boolean deleteCustomer(String id) throws ClassNotFoundException, SQLException {
-        String query = "DELETE FROM MCustomer WHERE index_no=" + id + "";
+        String query = "DELETE FROM m_customer WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
     public static boolean updateCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
-        String query = "UPDATE MCustomer SET name=?,nic=?,address=?,contactNo=? WHERE index_no=?";
+        String query = "UPDATE m_customer SET name=?,nic=?,address=?,contactNo=? WHERE index_no=?";
         Connection con = DBConnection.getDBConnection().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, customer.getIndexNo());
@@ -57,7 +57,7 @@ public class CustomerDao  {
     }
 
     public static ArrayList<MCustomer> searchCustomer(String id) throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM MCustomer WHERE index_no=" + id + "";
+        String query = "SELECT * FROM m_customer WHERE index_no=" + id + "";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
@@ -72,7 +72,7 @@ public class CustomerDao  {
     }
 
     public  static ArrayList<MCustomer> getAllCustomer() throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM MCustomer";
+        String query = "SELECT * FROM m_customer";
         Connection con = DBConnection.getDBConnection().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
