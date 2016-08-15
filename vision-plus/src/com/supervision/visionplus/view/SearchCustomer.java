@@ -6,6 +6,9 @@
 
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.model.MCustomer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  * Date : Aug 5, 2016
  * Time : 1:16:00 AM
@@ -13,11 +16,12 @@ package com.supervision.visionplus.view;
  * @author Nidura Prageeth
  */
 public class SearchCustomer extends javax.swing.JFrame {
-
+    DefaultTableModel model;
     /** Creates new form SearchCustomer */
     public SearchCustomer() {
         initComponents();
         setLocationRelativeTo(null);
+        model=(DefaultTableModel) customerTable.getModel();
     }
 
     /** This method is called from within the constructor to
@@ -42,7 +46,7 @@ public class SearchCustomer extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        customerTable = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -112,18 +116,32 @@ public class SearchCustomer extends javax.swing.JFrame {
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"1", "1212", "kaza", "panadura", "0711"},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "NIC", "Name", "Address", "Mobile"
+                "#", "NIC", "Name", "Address", "Mobile"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        customerTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        customerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(customerTable);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -205,6 +223,27 @@ public class SearchCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
+        if (evt.getClickCount()>=2) {
+            Invoice invoice=new Invoice();
+            int indexNo = Integer.parseInt(model.getValueAt(customerTable.getSelectedRow(), 0).toString());
+            String nic = model.getValueAt(customerTable.getSelectedRow(), 1).toString();
+            String name = model.getValueAt(customerTable.getSelectedRow(), 2).toString();
+            String address = model.getValueAt(customerTable.getSelectedRow(), 3).toString();
+            String mobile = model.getValueAt(customerTable.getSelectedRow(), 4).toString();
+            
+            MCustomer customer=new MCustomer();
+            customer.setAddress(address);
+            customer.setContactNo(mobile);
+            customer.setIndexNo(indexNo);
+            customer.setName(name);
+            customer.setNic(nic);
+            
+            this.dispose();
+            invoice.setCustomer(customer);
+        }
+    }//GEN-LAST:event_customerTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -241,6 +280,7 @@ public class SearchCustomer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable customerTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -254,7 +294,6 @@ public class SearchCustomer extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
