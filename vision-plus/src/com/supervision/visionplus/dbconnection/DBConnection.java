@@ -3,37 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.supervision.visionplus.dbconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Date : Aug 12, 2016
- * Time : 12:52:19 PM
+ * Date : Aug 12, 2016 Time : 12:52:19 PM
+ *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
 public class DBConnection {
-    
-    private Connection connection;
-    private static DBConnection dBConnection;
 
-    private DBConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+    private Connection connection;
+
+    //singleton instance
+    private static DBConnection instance;
+
+    private DBConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        }
         connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "mysql");
     }
 
-    public static DBConnection getDBConnection() throws SQLException, ClassNotFoundException {
-        if (dBConnection == null) {
-            dBConnection = new DBConnection();
+    public static DBConnection getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new DBConnection();
         }
-        return dBConnection;
+        return instance;
     }
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public Connection getConnection() throws SQLException {
         return connection;
     }
 

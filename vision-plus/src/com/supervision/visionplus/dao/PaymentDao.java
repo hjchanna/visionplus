@@ -23,7 +23,7 @@ public class PaymentDao {
 
     public static boolean addPayment(TPayment payment) throws ClassNotFoundException , SQLException{
         String sql = "INSERT INTO t_payment VALUES(?,?,?,?,?,?,?)";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, payment.getIndexNo());
         stm.setObject(2, payment.getTransaction());

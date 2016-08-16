@@ -23,10 +23,24 @@ import java.util.ArrayList;
  * @author Nidura Prageeth
  */
 public class GrnDao{
+    
+    private static GrnDao INSTANCE;
 
-    public static boolean addGrn(TGrn grn) throws ClassNotFoundException , SQLException{
+    public static final GrnDao getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new GrnDao();
+        }
+        return INSTANCE;
+    }
+    
+    private GrnDao(){
+        
+    }
+
+
+    public  boolean addGrn(TGrn grn) throws ClassNotFoundException , SQLException{
         String sql = "INSERT INTO t_grn VALUES(?,?,?,?,?,?)";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, grn.getIndexNo());
         stm.setObject(2, grn.getTransaction());
@@ -38,9 +52,9 @@ public class GrnDao{
         return  stm.executeUpdate()>0;
     }
 
-    public static boolean updateGrn(TGrn grn) throws ClassNotFoundException , SQLException{
+    public  boolean updateGrn(TGrn grn) throws ClassNotFoundException , SQLException{
         String sql = "UPDATE T_grn SET transaction=?,supplier=?,payment=?,date=?,amount=? WHERE index_no=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, grn.getTransaction());
         stm.setObject(2, grn.getMSupplier());
@@ -51,9 +65,9 @@ public class GrnDao{
         return  stm.executeUpdate()>0;
     }
 
-    public static ArrayList<TGrn> searchGrn(String index_no) throws ClassNotFoundException , SQLException{
+    public  ArrayList<TGrn> searchGrn(String index_no) throws ClassNotFoundException , SQLException{
         String sql = "SELECT * FROM t_grn WHERE index_no=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, index_no);
         ResultSet rst = stm.executeQuery();

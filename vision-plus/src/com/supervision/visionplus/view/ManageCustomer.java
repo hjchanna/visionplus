@@ -392,16 +392,8 @@ public class ManageCustomer extends javax.swing.JPanel {
     }
 
     void getLastId() {
-        try {
-            String newId = IDGenerator.getNewId("m_customer", "index_no");
-            System.out.println(newId);
-            customerId_text.setText(newId);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+            int newId = IDGenerator.getNewId("m_customer", "index_no");
+            customerId_text.setText(Integer.toString(newId));
     }
 
     void removeAllTextField() {

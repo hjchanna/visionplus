@@ -7,16 +7,17 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
  * @author KAZA
  */
 public class IDGeneraterDao {
- private static IDGeneraterDao INSTANCE;
+
+    private static IDGeneraterDao INSTANCE;
 
     public static final IDGeneraterDao getInstance() {
         if (INSTANCE == null) {
@@ -29,15 +30,19 @@ public class IDGeneraterDao {
     private IDGeneraterDao() {
     }
 
-    public  String getLastId(String tableName, String columnName) throws ClassNotFoundException, SQLException {
-        String sql = "select "+columnName + " from "+tableName+" order by 1 desc limit 1";
-        Connection connection = DBConnection.getDBConnection().getConnection();
-        Statement stm = connection.createStatement();
-        ResultSet rst = stm.executeQuery(sql);
-        if (rst.next()) {
-            return rst.getString(1);
+    public int getLastId(String tableName, String columnName) throws SQLException {
+        String sql = "select max(?) as id from ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, columnName);
+        preparedStatement.setString(2, tableName);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
         }
-        return null;
+
+        return 0;
     }
-    
+
 }

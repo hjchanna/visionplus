@@ -29,7 +29,7 @@ public class GrnDetailDao {
         for (TGrnItem grnItem : grnItems) {
             
             String sql = "INSERT INTO t_grn_item VALUES(?,?,?,?,?,?,?,?)";
-            Connection conn = DBConnection.getDBConnection().getConnection();
+            Connection conn = DBConnection.getInstance().getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setObject(1,grnItem.getIndexNo());
             stm.setObject(2,grnItem.getTGrn());
@@ -50,7 +50,7 @@ public class GrnDetailDao {
    
     public static ArrayList<TGrnItem> searchGrnItemsByGrn(String grn) throws ClassNotFoundException, SQLException {
     String sql = "SELECT * FROM t_grn_item WHERE grn=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, grn);
         ResultSet rst = stm.executeQuery();

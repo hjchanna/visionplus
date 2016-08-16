@@ -30,6 +30,7 @@ public class Invoice extends javax.swing.JPanel {
      */
     public Invoice() {
         initComponents();
+        
         otherComplainsText.setEnabled(false);
         invoiceNoText.setEnabled(false);
         invoiceDateText.setEnabled(false);
@@ -917,16 +918,14 @@ public class Invoice extends javax.swing.JPanel {
 
     }
 
-    private String createId() {
-        String newId="1";
-        try {
-            newId = IDGenerator.getNewId("t_invoice", "index_no");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return newId;
-    }
+//    private String createId() {
+//        String newId="1";
+//        try {
+//            newId = IDGenerator.getNewId("t_invoice", "index_no");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return newId;
+//    }
 
 }

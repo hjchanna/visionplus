@@ -25,7 +25,7 @@ public class InvoiceDao {
 
     public static boolean addInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO t_invoice VALUES(?,?,?,?,?,?,?,?)";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, invoice.getIndexNo());
         stm.setObject(2, invoice.getTransaction());
@@ -41,7 +41,7 @@ public class InvoiceDao {
 
     public static boolean updateInvoice(TInvoice invoice) throws ClassNotFoundException, SQLException {
          String sql = "UPDATE T_Invoice SET transaction=?,customer=?,payment=?,patient_information=?,invoice_date=? ,amount=? ,status=? WHERE index_no=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, invoice.getTransaction());
         stm.setObject(1, invoice.getMCustomer());
@@ -55,7 +55,7 @@ public class InvoiceDao {
 
     public static ArrayList<TInvoice> searchInvoice(String index_no) throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM t_invoice WHERE index_no=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, index_no);
         ResultSet rst = stm.executeQuery();
@@ -69,7 +69,7 @@ public class InvoiceDao {
 
     public static ArrayList<TInvoice> getAllInvoice() throws ClassNotFoundException, SQLException {
         String sql = "SELECT * FROM t_invoice";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         ResultSet rst = stm.executeQuery();
         ArrayList<TInvoice> invoices=new ArrayList<>();

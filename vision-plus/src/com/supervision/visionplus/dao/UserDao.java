@@ -23,7 +23,7 @@ public class UserDao {
 
     public static MUser searchUser(String userName, String password) throws ClassNotFoundException, SQLException {
         String sql = "Select * From m_user where user_name=? and password=?";
-        Connection conn = DBConnection.getDBConnection().getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setObject(1, userName);
         stm.setObject(2, password);

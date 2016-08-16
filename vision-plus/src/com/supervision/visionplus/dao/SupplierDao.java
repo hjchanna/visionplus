@@ -42,12 +42,12 @@ public class SupplierDao {
     private SupplierDao() {
     }
 
-    public  boolean addSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
+    public  boolean addSupplier(MSupplier supplier) throws  SQLException {
         boolean isSupplier = isSupplier(supplier.getIndexNo());
         if (!isSupplier) {
 
-            String query = "INSERT INTO m_supplier VALUE(?,?,?,?)";
-            Connection con = DBConnection.getDBConnection().getConnection();
+            String query = "INSERT INTO m_supplier VALUES(?,?,?,?)";
+            Connection con = DBConnection.getInstance().getConnection();
             PreparedStatement stm = con.prepareStatement(query);
             stm.setObject(1, supplier.getIndexNo());
             stm.setObject(2, supplier.getName());
@@ -60,16 +60,16 @@ public class SupplierDao {
         }
     }
 
-    public boolean deleteSupplier(int id) throws ClassNotFoundException, SQLException {
+    public boolean deleteSupplier(int id) throws SQLException {
         String query = "DELETE FROM m_supplier WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    public boolean updateSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
+    public boolean updateSupplier(MSupplier supplier) throws SQLException {
         String query = "UPDATE m_supplier SET name=?,contact_no=?,email=? WHERE index_no=?";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(4, supplier.getIndexNo());
         stm.setObject(1, supplier.getName());
@@ -78,9 +78,9 @@ public class SupplierDao {
         return stm.executeUpdate() > 0;
     }
 
-    public ArrayList<MSupplier> searchSupplier(MSupplier supplier) throws ClassNotFoundException, SQLException {
+    public ArrayList<MSupplier> searchSupplier(MSupplier supplier) throws SQLException {
         String query = "SELECT * FROM m_supplier WHERE name like '%"+supplier.getName()+"%' and contact_no like '%"+supplier.getContactNo()+"%' and email like '%"+supplier.getEmail()+"%'  ";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MSupplier> suppliers = new ArrayList<>();
@@ -91,9 +91,9 @@ public class SupplierDao {
         return suppliers;
     }
 
-    public boolean isSupplier(int id) throws ClassNotFoundException, SQLException {
+    public boolean isSupplier(int id) throws SQLException {
         String query = "SELECT * FROM m_supplier WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         if (rst.next()) {
@@ -102,9 +102,9 @@ public class SupplierDao {
         return false;
     }
 
-    public ArrayList<MSupplier> getAllSupplier() throws ClassNotFoundException, SQLException {
+    public ArrayList<MSupplier> getAllSupplier() throws SQLException {
         String query = "SELECT * FROM m_supplier";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MSupplier> suppliers = new ArrayList<>();

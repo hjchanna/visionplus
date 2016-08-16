@@ -38,9 +38,9 @@ public class CustomerDao {
         
     }
 
-    public boolean addCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
+    public boolean addCustomer(MCustomer customer) throws SQLException {
         String query = "INSERT INTO m_customer VALUES(?,?,?,?,?)";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, customer.getIndexNo());
         stm.setObject(2, customer.getName());
@@ -50,16 +50,16 @@ public class CustomerDao {
         return stm.executeUpdate() > 0;
     }
 
-    public boolean deleteCustomer(String id) throws ClassNotFoundException, SQLException {
+    public boolean deleteCustomer(String id) throws SQLException {
         String query = "DELETE FROM m_customer WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    public boolean updateCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
+    public boolean updateCustomer(MCustomer customer) throws SQLException {
         String query = "UPDATE m_customer SET name=?,nic=?,address=?,contact_no=? WHERE index_no=?";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(5, customer.getIndexNo());
         stm.setObject(1, customer.getName());
@@ -69,9 +69,9 @@ public class CustomerDao {
         return stm.executeUpdate() > 0;
     }
 
-    public  ArrayList<MCustomer> searchCustomer(MCustomer customer) throws ClassNotFoundException, SQLException {
+    public  ArrayList<MCustomer> searchCustomer(MCustomer customer) throws SQLException {
         String query = "SELECT * FROM m_customer WHERE name LIKE '%"+customer.getName()+"%' and nic LIKE '%"+customer.getNic()+"%' and address LIKE '%"+customer.getAddress()+"%' and contact_no LIKE '%"+customer.getContactNo()+"%'";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MCustomer> customers = new ArrayList<>();
@@ -83,9 +83,9 @@ public class CustomerDao {
         return customers;
 
     }
-    public boolean isCustomer(String id) throws ClassNotFoundException, SQLException {
+    public boolean isCustomer(String id) throws SQLException {
         String query = "SELECT * FROM m_customer WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         if (rst.next()) {
@@ -95,9 +95,9 @@ public class CustomerDao {
 
     }
 
-    public ArrayList<MCustomer> getAllCustomer() throws ClassNotFoundException, SQLException {
+    public ArrayList<MCustomer> getAllCustomer() throws SQLException {
         String query = "SELECT * FROM m_customer";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MCustomer> customers = new ArrayList<>();

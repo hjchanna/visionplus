@@ -33,7 +33,7 @@ public class ItemDao  {
 
     public static boolean addItems(MItem item) throws ClassNotFoundException, SQLException {
         String query = "INSERT INTO MItem VALUE(?,?,?,?,?)";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, item.getIndexNo());
         stm.setObject(2, item.getCode());
@@ -45,14 +45,14 @@ public class ItemDao  {
 
     public static boolean deleteItems(String id) throws ClassNotFoundException, SQLException {
         String query = "DELETE FROM MItem WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
     public static boolean updateItems(MItem item) throws ClassNotFoundException, SQLException {
         String query = "UPDATE MItem SET code=?,name=?,salePrice=?,costPrice=? WHERE index_no=?";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, item.getIndexNo());
         stm.setObject(2, item.getCode());
@@ -64,7 +64,7 @@ public class ItemDao  {
 
     public static ArrayList<MItem> searchItems(String id) throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MItem WHERE index_no=" + id + "";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MItem> items = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ItemDao  {
 
     public static ArrayList<MItem> getAllItems() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM MItem";
-        Connection con = DBConnection.getDBConnection().getConnection();
+        Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MItem> items = new ArrayList<>();
