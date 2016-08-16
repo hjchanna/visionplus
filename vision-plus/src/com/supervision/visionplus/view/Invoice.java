@@ -69,7 +69,6 @@ public class Invoice extends javax.swing.JPanel {
         searchCustomerButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         ageText = new javax.swing.JTextField();
-        newCustomerButton = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -203,13 +202,6 @@ public class Invoice extends javax.swing.JPanel {
 
         jLabel7.setText("Age :");
 
-        newCustomerButton.setText("+");
-        newCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newCustomerButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -230,8 +222,6 @@ public class Invoice extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(nameText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newCustomerButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchCustomerButton))
                     .addComponent(ageText))
                 .addContainerGap())
@@ -243,8 +233,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchCustomerButton)
-                    .addComponent(newCustomerButton))
+                    .addComponent(searchCustomerButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -822,10 +811,6 @@ public class Invoice extends javax.swing.JPanel {
         new SearchInvoice(null, true).setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void newCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newCustomerButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newCustomerButtonActionPerformed
-
     private void searchCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCustomerButtonActionPerformed
         SearchCustomer searchCustomer = new SearchCustomer(null, true);
         searchCustomer.setFrame(this);
@@ -906,7 +891,6 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField lenseTypeText;
     private javax.swing.JTextField nameText;
-    private javax.swing.JButton newCustomerButton;
     private javax.swing.JTextField nicText;
     private javax.swing.JTextField ntcLeftText;
     private javax.swing.JTextField ntcRightText;
