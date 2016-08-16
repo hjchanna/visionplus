@@ -31,11 +31,9 @@ public class IDGeneraterDao {
     }
 
     public int getLastId(String tableName, String columnName) throws SQLException {
-        String sql = "select max(?) as id from ?";
+        String sql = "select max(" + columnName + ") as id from " + tableName;
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, columnName);
-        preparedStatement.setString(2, tableName);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {

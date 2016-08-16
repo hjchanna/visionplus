@@ -6,10 +6,12 @@
 package com.supervision.visionplus.view;
 
 import com.supervision.visionplus.config.IDGenerator;
+import com.supervision.visionplus.dao.CustomerDao;
 import com.supervision.visionplus.model.MCustomer;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ import javax.swing.JOptionPane;
 public class Invoice extends javax.swing.JPanel {
 
     private MCustomer selectedCustomer;
+    private int invoiceId;
 
     /**
      * Creates new form Invoice2
@@ -185,6 +188,12 @@ public class Invoice extends javax.swing.JPanel {
         jLabel3.setText("Name :");
 
         jLabel4.setText("NIC :");
+
+        nicText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nicTextActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Address :");
 
@@ -809,7 +818,9 @@ public class Invoice extends javax.swing.JPanel {
     }//GEN-LAST:event_otherComplainsRadioButtonActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        new SearchInvoice(null, true).setVisible(true);
+        SearchInvoice searchInvoice=new SearchInvoice(null, true);
+        searchInvoice.setFrame(this);
+        searchInvoice.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void searchCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCustomerButtonActionPerformed
@@ -821,6 +832,35 @@ public class Invoice extends javax.swing.JPanel {
     private void hbRxSubLeftTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hbRxSubLeftTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hbRxSubLeftTextActionPerformed
+
+    private void nicTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nicTextActionPerformed
+        String name = "";
+        String address = "";
+        String contactNo = "";
+        String nic = nicText.getText();
+
+        MCustomer customer = new MCustomer();
+        customer.setAddress(address);
+        customer.setName(name);
+        customer.setContactNo(contactNo);
+        customer.setNic(nic);
+        try {
+            ArrayList<MCustomer> searchCustomer = CustomerDao.getInstance().searchCustomer(customer);
+            if (searchCustomer.size() == 1) {
+                for (MCustomer mcustomer : searchCustomer) {
+                    setCustomer(mcustomer);
+                }
+            } else {
+                SearchCustomer searchCustomer1 = new SearchCustomer(null, true);
+                searchCustomer1.setFrame(this);
+                searchCustomer1.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        customer.setIndexNo(IDGenerator.getNewId("m_customer", "index_no"));
+
+    }//GEN-LAST:event_nicTextActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -910,10 +950,14 @@ public class Invoice extends javax.swing.JPanel {
 
     void setCustomer(MCustomer customer) {
         if (customer != null) {
-            System.out.println(customer.getName());
-            System.out.println(customer.getIndexNo());
             nameText.setText(customer.getName());
             addressText.setText(customer.getAddress());
+            contactNoText.setText(customer.getContactNo());
+            nicText.setText(customer.getNic());
+
+            int birthYear = Integer.parseInt("19" + customer.getNic().substring(0, 2));
+            int thisYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
+            ageText.setText((thisYear - birthYear) + "");
         }
 
     }
@@ -922,6 +966,11 @@ public class Invoice extends javax.swing.JPanel {
         int newId = IDGenerator.getNewId("t_invoice", "index_no");
 
         return newId;
+    }
+
+    void setInvoice(int indexNo) {
+        this.invoiceId=indexNo;
+        invoiceNoText.setText(invoiceId+"");
     }
 
 }

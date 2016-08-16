@@ -131,7 +131,7 @@ public class Login extends javax.swing.JFrame {
         try {
             MUser user = UserDao.searchUser(userName,password);
             if (user !=null) {
-                new Home().setVisible(true);
+//                new Home().setVisible(true);
                 this.setVisible(false);
                 
             }else{

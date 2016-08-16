@@ -5,11 +5,18 @@
  */
 package com.supervision.visionplus.view;
 
+import javax.swing.JOptionPane;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author KAZA
  */
 public class SearchInvoice extends javax.swing.JDialog {
+
+    private Invoice invoice;
+    DefaultTableModel model;
 
     /**
      * Creates new form SearchInvoice
@@ -18,8 +25,8 @@ public class SearchInvoice extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        model = (DefaultTableModel) invoiceTable.getModel();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,24 +39,25 @@ public class SearchInvoice extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        indexNoText = new javax.swing.JTextField();
+        addressText = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
+        nameText = new javax.swing.JTextField();
+        invoiceDate = new javax.swing.JTextField();
+        contactNOText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        invoiceTable = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTextField10.setPreferredSize(new java.awt.Dimension(50, 20));
+        indexNoText.setPreferredSize(new java.awt.Dimension(50, 20));
 
-        jTextField12.setMinimumSize(new java.awt.Dimension(50, 20));
-        jTextField12.setPreferredSize(new java.awt.Dimension(20, 20));
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+        addressText.setMinimumSize(new java.awt.Dimension(50, 20));
+        addressText.setPreferredSize(new java.awt.Dimension(20, 20));
+        addressText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+                addressTextActionPerformed(evt);
             }
         });
 
@@ -61,26 +69,26 @@ public class SearchInvoice extends javax.swing.JDialog {
             }
         });
 
-        jTextField17.setMinimumSize(new java.awt.Dimension(50, 20));
-        jTextField17.setPreferredSize(new java.awt.Dimension(20, 20));
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+        nameText.setMinimumSize(new java.awt.Dimension(50, 20));
+        nameText.setPreferredSize(new java.awt.Dimension(20, 20));
+        nameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
+                nameTextActionPerformed(evt);
             }
         });
 
-        jTextField13.setMinimumSize(new java.awt.Dimension(40, 20));
-        jTextField13.setPreferredSize(new java.awt.Dimension(20, 20));
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        invoiceDate.setMinimumSize(new java.awt.Dimension(40, 20));
+        invoiceDate.setPreferredSize(new java.awt.Dimension(20, 20));
+        invoiceDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                invoiceDateActionPerformed(evt);
             }
         });
 
-        jTextField18.setPreferredSize(new java.awt.Dimension(20, 20));
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
+        contactNOText.setPreferredSize(new java.awt.Dimension(20, 20));
+        contactNOText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
+                contactNOTextActionPerformed(evt);
             }
         });
 
@@ -90,15 +98,15 @@ public class SearchInvoice extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(indexNoText, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(invoiceDate, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addressText, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(contactNOText, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -108,21 +116,18 @@ public class SearchInvoice extends javax.swing.JDialog {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(indexNoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addressText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invoiceDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contactNOText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        invoiceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Res001", "2016.03.12", "kasun chamara", "#38,Mudungama,siripura ", "0711727579 "},
-                {"Res002", "2016.04.05", "kasun chamara", "#38,Mudungama,siripura", "0711727579"},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Receipt No.", "Date", "Name", "Address", "Mobile"
@@ -136,7 +141,21 @@ public class SearchInvoice extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        invoiceTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        invoiceTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                invoiceTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(invoiceTable);
+
+        jButton7.setText("Select");
+        jButton7.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,7 +164,11 @@ public class SearchInvoice extends javax.swing.JDialog {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,8 +177,10 @@ public class SearchInvoice extends javax.swing.JDialog {
                 .addGap(71, 71, 71)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,25 +197,35 @@ public class SearchInvoice extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void addressTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_addressTextActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+    private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
+    }//GEN-LAST:event_nameTextActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void invoiceDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_invoiceDateActionPerformed
 
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+    private void contactNOTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactNOTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
+    }//GEN-LAST:event_contactNOTextActionPerformed
+
+    private void invoiceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_invoiceTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            selectInvoice();
+        }
+    }//GEN-LAST:event_invoiceTableMouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        selectInvoice();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,15 +270,38 @@ public class SearchInvoice extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField addressText;
+    private javax.swing.JTextField contactNOText;
+    private javax.swing.JTextField indexNoText;
+    private javax.swing.JTextField invoiceDate;
+    private javax.swing.JTable invoiceTable;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField nameText;
     // End of variables declaration//GEN-END:variables
+
+    void setFrame(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    private void selectInvoice() {
+        if (invoiceTable.getRowCount() == 1) {
+            findSelectedCustomer(0);
+        } else if (invoiceTable.getSelectedRowCount() == 1) {
+            findSelectedCustomer(invoiceTable.getSelectedRow());
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a Customer..");
+        }
+    }
+
+    private void findSelectedCustomer(int value) {
+        int indexNo = Integer.parseInt(model.getValueAt(value, 0).toString());
+
+        this.dispose();
+        invoice.setInvoice(indexNo);
+    }
 }

@@ -26,6 +26,6 @@ public class IDGenerator {
             lastId = 0;
         }
 
-        return lastId++;
+        return lastId+1;
     }
 }
