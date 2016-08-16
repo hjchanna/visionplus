@@ -6,12 +6,20 @@
 package com.supervision.visionplus.view;
 
 import com.supervision.visionplus.config.IDGenerator;
+import com.supervision.visionplus.dao.ItemDao;
+import com.supervision.visionplus.model.MItem;
+import com.supervision.visionplus.model.MStore;
 import com.supervision.visionplus.model.MSupplier;
+import com.supervision.visionplus.model.TStockLedger;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.omg.CORBA.MARSHAL;
 
 /**
  * Date : Aug 7, 2016 Time : 9:43:24 PM
@@ -21,11 +29,14 @@ import java.util.logging.Logger;
  */
 public class Grn extends javax.swing.JPanel {
 
+    private DefaultTableModel model;
+
     /**
      * Creates new form Grn
      */
     public Grn() {
         initComponents();
+        model = (DefaultTableModel) itemTable.getModel();
         getLastId();
         getDate();
     }
@@ -50,7 +61,7 @@ public class Grn extends javax.swing.JPanel {
         email_text = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        itemTable = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         itemCode_text = new javax.swing.JTextField();
         description_text = new javax.swing.JTextField();
@@ -58,6 +69,7 @@ public class Grn extends javax.swing.JPanel {
         unitPrice_text = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         salePrice_text = new javax.swing.JTextField();
+        addButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         amount_text = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -142,7 +154,7 @@ public class Grn extends javax.swing.JPanel {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -150,12 +162,19 @@ public class Grn extends javax.swing.JPanel {
                 "Item Code", "Description", "Qty", "Unit Price", "Sales Price", "Amount"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(itemTable);
 
         jButton3.setText("+");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
             }
         });
 
@@ -176,7 +195,9 @@ public class Grn extends javax.swing.JPanel {
                 .addComponent(unitPrice_text)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salePrice_text)
-                .addGap(165, 165, 165))
+                .addGap(18, 18, 18)
+                .addComponent(addButton)
+                .addGap(74, 74, 74))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +209,8 @@ public class Grn extends javax.swing.JPanel {
                     .addComponent(qty_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(unitPrice_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
-                    .addComponent(salePrice_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salePrice_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -328,7 +350,9 @@ public class Grn extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new SearchItem(null, true).setVisible(true);
+        SearchItem searchItem = new SearchItem(null, true);
+        searchItem.setFrame(this);
+        searchItem.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -361,8 +385,54 @@ public class Grn extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_email_textActionPerformed
 
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        int indexNo = IDGenerator.getNewId("m_item", "index_no");
+        int indexNo2 = IDGenerator.getNewId("t_stock_ledger", "index_no");
+
+        Date date = new Date();
+        Date currenDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date1 = dateFormat.format(date);
+        try {
+            currenDate = dateFormat.parse(date1);
+        } catch (ParseException ex) {
+            Logger.getLogger(Grn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String itemCode = itemCode_text.getText();
+        String description = description_text.getText();
+        Double inQty = Double.parseDouble(qty_text.getText());
+        double costPrice = Double.parseDouble(unitPrice_text.getText());
+        double salePrice = Double.parseDouble(salePrice_text.getText());
+        double outQty = 0;
+
+        MItem item = new MItem(indexNo, itemCode, description, salePrice, costPrice);
+        TStockLedger ledger = new TStockLedger(indexNo2, currenDate, inQty, outQty , 2 , indexNo);
+        
+        try {
+            boolean itemcode = ItemDao.getInstance().isItem(itemCode_text.getText());
+            if (itemcode) {
+
+            } else {
+                boolean addItems = ItemDao.getInstance().addItems(item,ledger);
+                if (addItems){
+                    Object[] rd = {itemCode, description, inQty, costPrice, salePrice};
+                    model.addRow(rd);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail...." );
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Grn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_addButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JTextField amount_text;
     private javax.swing.JTextField contactNo_text;
     private javax.swing.JTextField date_text;
@@ -370,6 +440,7 @@ public class Grn extends javax.swing.JPanel {
     private javax.swing.JTextField email_text;
     private javax.swing.JTextField grnNo_text;
     private javax.swing.JTextField itemCode_text;
+    private javax.swing.JTable itemTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
@@ -385,7 +456,6 @@ public class Grn extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField name_text;
@@ -396,8 +466,8 @@ public class Grn extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     void getLastId() {
-            int newId = IDGenerator.getNewId("t_grn", "index_no");
-            grnNo_text.setText(Integer.toString(newId));
+        int newId = IDGenerator.getNewId("t_grn", "index_no");
+        grnNo_text.setText(Integer.toString(newId));
     }
 
     void getDate() {
