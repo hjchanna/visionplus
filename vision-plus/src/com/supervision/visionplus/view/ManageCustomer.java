@@ -5,10 +5,10 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.config.IDGenerator;
 import com.supervision.visionplus.dao.CustomerDao;
+import com.supervision.visionplus.dao.IDGeneraterDao;
 import com.supervision.visionplus.model.MCustomer;
-import com.supervision.visionplus.service.CustomerService;
-import com.supervision.visionplus.service.SupplierService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -34,6 +34,7 @@ public class ManageCustomer extends javax.swing.JPanel {
         initComponents();
         model = (DefaultTableModel) customer_table.getModel();
         getAllCustomers();
+        getLastId();
     }
 
     /**
@@ -61,7 +62,7 @@ public class ManageCustomer extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customer_table = new javax.swing.JTable();
@@ -99,10 +100,10 @@ public class ManageCustomer extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        refreshButton.setText("refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                refreshButtonActionPerformed(evt);
             }
         });
 
@@ -114,7 +115,7 @@ public class ManageCustomer extends javax.swing.JPanel {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(refreshButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,15 +132,12 @@ public class ManageCustomer extends javax.swing.JPanel {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(customerId_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(name_text)
                             .addComponent(nic_text)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(contactNo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(customerId_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 2, Short.MAX_VALUE)))
-                        .addGap(52, 52, 52))))
+                            .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contactNo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(54, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,8 +167,8 @@ public class ManageCustomer extends javax.swing.JPanel {
                     .addComponent(deleteButton)
                     .addComponent(addButton)
                     .addComponent(searchButton)
-                    .addComponent(jButton1))
-                .addContainerGap(207, Short.MAX_VALUE))
+                    .addComponent(refreshButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         customer_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -234,7 +232,7 @@ public class ManageCustomer extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+            .addGap(0, 973, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -275,6 +273,8 @@ public class ManageCustomer extends javax.swing.JPanel {
                             removeAllTextField();
                             getAllCustomers();
                             JOptionPane.showMessageDialog(this, "Success....");
+                            getLastId();
+
                         } else {
                             JOptionPane.showMessageDialog(this, "Fail....");
                         }
@@ -304,6 +304,7 @@ public class ManageCustomer extends javax.swing.JPanel {
                     removeAllTextField();
                     getAllCustomers();
                     JOptionPane.showMessageDialog(this, "Delete...");
+                    getLastId();
                 } else {
                     JOptionPane.showMessageDialog(this, "Fail...");
                 }
@@ -315,8 +316,6 @@ public class ManageCustomer extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -349,9 +348,9 @@ public class ManageCustomer extends javax.swing.JPanel {
         address_text.setText((String) model.getValueAt(customer_table.getSelectedRow(), 4));
     }//GEN-LAST:event_customer_tableMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       removeAllTextField();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        removeAllTextField();
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,7 +360,6 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JTextField customerId_text;
     private javax.swing.JTable customer_table;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -374,6 +372,7 @@ public class ManageCustomer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField name_text;
     private javax.swing.JTextField nic_text;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
@@ -392,11 +391,25 @@ public class ManageCustomer extends javax.swing.JPanel {
         }
     }
 
+    void getLastId() {
+        try {
+            String newId = IDGenerator.getNewId("m_customer", "index_no");
+            System.out.println(newId);
+            customerId_text.setText(newId);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     void removeAllTextField() {
         name_text.setText("");
         nic_text.setText("");
         contactNo_text.setText("");
         address_text.setText("");
+        getLastId();
     }
 
 }

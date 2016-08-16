@@ -17,7 +17,7 @@ public class IDGenerator {
     
     public static String getNewId(String tableName, String columnName) throws ClassNotFoundException, SQLException {
         String lastId = IDGeneraterDao.getInstance().getLastId(tableName, columnName);
-        int id=0;
+        int id=1;
         if (lastId != null) {
             id = Integer.parseInt(lastId);
             id++;
