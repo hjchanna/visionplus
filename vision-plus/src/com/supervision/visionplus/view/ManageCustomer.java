@@ -267,29 +267,23 @@ public class ManageCustomer extends javax.swing.JPanel {
 
             } else {
                 if (!name_text.getText().trim().equals("") && !address_text.getText().trim().equals("")) {
-                    try {
-                        boolean addCustomer = CustomerDao.getInstance().addCustomer(customer);
-                        if (addCustomer == true) {
-                            removeAllTextField();
-                            getAllCustomers();
-                            JOptionPane.showMessageDialog(this, "Success....");
-                            getLastId();
 
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Fail....");
-                        }
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                    boolean addCustomer = CustomerDao.getInstance().addCustomer(customer);
+                    if (addCustomer == true) {
+                        removeAllTextField();
+                        getAllCustomers();
+                        JOptionPane.showMessageDialog(this, "Success....");
+                        getLastId();
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Fail....");
                     }
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Text field Empty..");
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -311,8 +305,6 @@ public class ManageCustomer extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a customer");
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -333,8 +325,6 @@ public class ManageCustomer extends javax.swing.JPanel {
                 Object[] rd = {searchCustomer1.getIndexNo(), searchCustomer1.getName(), searchCustomer1.getNic(), searchCustomer1.getContactNo(), searchCustomer1.getAddress()};
                 model.addRow(rd);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -384,16 +374,14 @@ public class ManageCustomer extends javax.swing.JPanel {
                 Object[] rd = {customer.getIndexNo(), customer.getName(), customer.getNic(), customer.getContactNo(), customer.getAddress()};
                 model.addRow(rd);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     void getLastId() {
-            int newId = IDGenerator.getNewId("m_customer", "index_no");
-            customerId_text.setText(Integer.toString(newId));
+        int newId = IDGenerator.getNewId("m_customer", "index_no");
+        customerId_text.setText(Integer.toString(newId));
     }
 
     void removeAllTextField() {

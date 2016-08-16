@@ -30,13 +30,13 @@ public class Invoice extends javax.swing.JPanel {
      */
     public Invoice() {
         initComponents();
-        
+
         otherComplainsText.setEnabled(false);
         invoiceNoText.setEnabled(false);
         invoiceDateText.setEnabled(false);
-        invoiceNoText.setText(createId());
+        invoiceNoText.setText(createId() + "");
         invoiceDateText.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        
+
     }
 
     /**
@@ -914,18 +914,14 @@ public class Invoice extends javax.swing.JPanel {
             System.out.println(customer.getIndexNo());
             nameText.setText(customer.getName());
             addressText.setText(customer.getAddress());
-    }
+        }
 
     }
 
-//    private String createId() {
-//        String newId="1";
-//        try {
-//            newId = IDGenerator.getNewId("t_invoice", "index_no");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return newId;
-//    }
+    private int createId() {
+        int newId = IDGenerator.getNewId("t_invoice", "index_no");
+
+        return newId;
+    }
 
 }

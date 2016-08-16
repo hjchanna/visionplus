@@ -241,8 +241,6 @@ public class SearchCustomer extends javax.swing.JDialog {
         try {
             ArrayList<MCustomer> customers = CustomerDao.getInstance().searchCustomer(customer);
             addDataToTable(customers);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -314,7 +312,7 @@ private void getAllCustomers() {
         try {
             ArrayList<MCustomer> customers = CustomerDao.getInstance().getAllCustomer();
             addDataToTable(customers);
-        } catch (ClassNotFoundException ex) {
+       
         } catch (SQLException ex) {
             Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }

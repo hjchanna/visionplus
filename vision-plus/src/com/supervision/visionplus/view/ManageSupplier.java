@@ -36,7 +36,7 @@ public class ManageSupplier extends javax.swing.JPanel {
         indexNoText.setEnabled(false);
         try {
             getAllSupplier();
-            newId = IDGenerator.getNewId("m_supplier", "index_no");//id generater
+            newId = IDGenerator.getNewId("m_supplier", "index_no")+"";//id generater
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -252,7 +252,7 @@ public class ManageSupplier extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "success");
                     getAllSupplier();
                     refresh();
-                    indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no"));//id generater
+                    indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no")+"");//id generater
                 } else {
                     JOptionPane.showMessageDialog(this, "fail");
                 }
@@ -284,7 +284,7 @@ public class ManageSupplier extends javax.swing.JPanel {
             if (res) {
                 getAllSupplier();
                 refresh();
-                indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no"));//id generater
+                indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no")+"");//id generater
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,8 +307,6 @@ public class ManageSupplier extends javax.swing.JPanel {
         try {
             ArrayList<MSupplier> searchSupplier = SupplierDao.getInstance().searchSupplier(supplier);
             addTableData(searchSupplier);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -318,7 +316,7 @@ public class ManageSupplier extends javax.swing.JPanel {
         refresh();
         try {
             getAllSupplier();
-            indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no"));//id generater
+            indexNoText.setText(IDGenerator.getNewId("m_supplier", "index_no")+"");//id generater
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
