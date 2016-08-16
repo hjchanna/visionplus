@@ -11,6 +11,8 @@ package com.supervision.visionplus.view;
  */
 public class SearchItem extends javax.swing.JDialog {
 
+    private Grn grn;
+
     /**
      * Creates new form ItemSearch
      */
@@ -45,10 +47,7 @@ public class SearchItem extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Is001", "Gold rectangle medium m1", "Front Store", "12"},
-                {"Is001", "Gold rectangle medium m1", "Bulk Store", "8"},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item Code", "Description", "Type", "Qty On Hand"
@@ -221,4 +220,8 @@ public class SearchItem extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField17;
     // End of variables declaration//GEN-END:variables
+
+    void setFrame(Grn grn) {
+        this.grn = grn;
+    }
 }

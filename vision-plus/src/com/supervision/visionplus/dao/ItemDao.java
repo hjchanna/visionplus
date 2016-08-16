@@ -7,6 +7,7 @@ package com.supervision.visionplus.dao;
 
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.MItem;
+import com.supervision.visionplus.model.TStockLedger;
 //import com.supervision.visionplus.service.ItemService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,28 +30,58 @@ import java.util.ArrayList;
  private Double salePrice;
  private Double costPrice;
  */
-public class ItemDao  {
+public class ItemDao {
 
-    public static boolean addItems(MItem item) throws ClassNotFoundException, SQLException {
+    private static ItemDao INSTANCE;
+
+    public static final ItemDao getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ItemDao();
+        }
+        return INSTANCE;
+    }
+
+    private ItemDao() {
+
+    }
+
+    public boolean addItems(MItem item,TStockLedger ladger) throws SQLException {
         String query = "INSERT INTO MItem VALUE(?,?,?,?,?)";
         Connection con = DBConnection.getInstance().getConnection();
+        con.setAutoCommit(false);
         PreparedStatement stm = con.prepareStatement(query);
         stm.setObject(1, item.getIndexNo());
         stm.setObject(2, item.getCode());
         stm.setObject(3, item.getName());
         stm.setObject(4, item.getSalePrice());
         stm.setObject(5, item.getCostPrice());
-        return stm.executeUpdate() > 0;
+        
+        try{
+            int isSaved = stm.executeUpdate();
+            if (isSaved > 0) {
+                boolean isAllAdded = StockLedgerDao.getInstance().addStockLedger(ladger,con);
+                if (isAllAdded) {
+                    return true;
+                } else {
+                    con.rollback();
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } finally {
+            con.setAutoCommit(true);
+        }
     }
 
-    public static boolean deleteItems(String id) throws ClassNotFoundException, SQLException {
+    public boolean deleteItems(String id) throws SQLException {
         String query = "DELETE FROM MItem WHERE index_no=" + id + "";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
         return stm.executeUpdate() > 0;
     }
 
-    public static boolean updateItems(MItem item) throws ClassNotFoundException, SQLException {
+    public boolean updateItems(MItem item) throws SQLException {
         String query = "UPDATE MItem SET code=?,name=?,salePrice=?,costPrice=? WHERE index_no=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
@@ -62,7 +93,7 @@ public class ItemDao  {
         return stm.executeUpdate() > 0;
     }
 
-    public static ArrayList<MItem> searchItems(String id) throws ClassNotFoundException, SQLException {
+    public ArrayList<MItem> searchItems(String id) throws SQLException {
         String query = "SELECT * FROM MItem WHERE index_no=" + id + "";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
@@ -74,7 +105,7 @@ public class ItemDao  {
         return items;
     }
 
-    public static ArrayList<MItem> getAllItems() throws ClassNotFoundException, SQLException {
+    public ArrayList<MItem> getAllItems() throws SQLException {
         String query = "SELECT * FROM MItem";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
@@ -86,4 +117,14 @@ public class ItemDao  {
         return items;
     }
 
+    public boolean isItem(String code) throws SQLException {
+        String query = "SELECT * FROM m_item WHERE index_no=" + code + "";
+        Connection con = DBConnection.getInstance().getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rst = stm.executeQuery(query);
+        if (rst.next()) {
+            return true;
+        }
+        return false;
+    }
 }
