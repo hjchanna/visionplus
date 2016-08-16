@@ -12,8 +12,8 @@ import java.util.Date;
  * @author KAZA
  */
 public class searchInvoiceMix {
-    private int invoiceNo;
-    private Date date;
+    private String invoiceNo;
+    private String date;
     private String name;
     private String address;
     private String contactNO;
@@ -21,7 +21,7 @@ public class searchInvoiceMix {
     public searchInvoiceMix() {
     }
 
-    public searchInvoiceMix(int invoiceNo, Date date, String name, String address, String contactNO) {
+    public searchInvoiceMix(String invoiceNo, String date, String name, String address, String contactNO) {
         this.invoiceNo = invoiceNo;
         this.date = date;
         this.name = name;
@@ -29,19 +29,19 @@ public class searchInvoiceMix {
         this.contactNO = contactNO;
     }
 
-    public int getInvoiceNo() {
+    public String getInvoiceNo() {
         return invoiceNo;
     }
 
-    public void setInvoiceNo(int invoiceNo) {
+    public void setInvoiceNo(String invoiceNo) {
         this.invoiceNo = invoiceNo;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

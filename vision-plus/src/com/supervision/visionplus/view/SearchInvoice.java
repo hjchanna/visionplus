@@ -5,6 +5,12 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.dao.InvoiceDao;
+import com.supervision.visionplus.model.mixModel.searchInvoiceMix;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.table.DefaultTableModel;
@@ -202,7 +208,35 @@ public class SearchInvoice extends javax.swing.JDialog {
     }//GEN-LAST:event_addressTextActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        String invoiceNo = indexNoText.getText();
+        String date = invoiceDate.getText();
+        String name = nameText.getText();
+        String address = addressText.getText();
+        String contactNo= contactNOText.getText();
+        
+        searchInvoiceMix invoiceMix=new searchInvoiceMix();
+        invoiceMix.setAddress(address);
+        invoiceMix.setContactNO(contactNo);
+        invoiceMix.setDate(date);
+        invoiceMix.setInvoiceNo(invoiceNo);
+        invoiceMix.setName(name);
+        
+        try {
+            ArrayList<searchInvoiceMix> searchInvoice = InvoiceDao.getInstance().searchInvoice(invoiceMix);
+            model.setRowCount(0);
+            for (searchInvoiceMix invoice : searchInvoice) {
+                Object[] rowdate={
+                    invoice.getInvoiceNo(),
+                    invoice.getDate(),
+                    invoice.getName(),
+                    invoice.getAddress(),
+                    invoice.getContactNO()
+                };
+                model.addRow(rowdate);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchInvoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
