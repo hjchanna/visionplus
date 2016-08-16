@@ -523,13 +523,13 @@
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField20" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="hbRxLeftText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="ntcLeftText" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jTextField21" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField23" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField25" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField27" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField11" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="vaWithoutGlassLeftText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="vaWithPhLeftText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="vaWithGlassLeftText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="hbRxSubLeftText" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -540,13 +540,13 @@
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel15" pref="189" max="32767" attributes="0"/>
-                                      <Component id="jTextField10" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField19" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField22" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField24" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField26" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField28" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField12" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="hbRxRightText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="autoRefRightText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="ntcRightText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="vaWithoutGlassRightText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="vaWithPhRight" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="vaWithGlassRight" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="hbRxSubRightText" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -572,13 +572,13 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="hbRxRightText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="hbRxLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="hbRxSubLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="hbRxSubRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel16" max="32767" attributes="0"/>
@@ -587,8 +587,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ntcLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoRefRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -596,25 +596,25 @@
                               <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jTextField21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ntcRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField23" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField24" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithoutGlassLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithoutGlassRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField25" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField26" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithPhLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithPhRight" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField27" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField28" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithGlassLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vaWithGlassRight" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -657,9 +657,9 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField9">
+                <Component class="javax.swing.JTextField" name="hbRxLeftText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField10">
+                <Component class="javax.swing.JTextField" name="hbRxRightText">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
@@ -671,29 +671,32 @@
                     <Property name="text" type="java.lang.String" value="NTC :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField19">
+                <Component class="javax.swing.JTextField" name="autoRefRightText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField20">
+                <Component class="javax.swing.JTextField" name="ntcLeftText">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField21">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField22">
+                <Component class="javax.swing.JTextField" name="ntcRightText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField23">
+                <Component class="javax.swing.JTextField" name="vaWithoutGlassLeftText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField24">
+                <Component class="javax.swing.JTextField" name="vaWithoutGlassRightText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField25">
+                <Component class="javax.swing.JTextField" name="vaWithPhLeftText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField26">
+                <Component class="javax.swing.JTextField" name="vaWithPhRight">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField27">
+                <Component class="javax.swing.JTextField" name="vaWithGlassLeftText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField28">
+                <Component class="javax.swing.JTextField" name="vaWithGlassRight">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField11">
+                <Component class="javax.swing.JTextField" name="hbRxSubLeftText">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hbRxSubLeftTextActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField12">
+                <Component class="javax.swing.JTextField" name="hbRxSubRightText">
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel6">
                   <Properties>
@@ -850,7 +853,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="patientEyeDetailTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="6" rowCount="2">
@@ -889,13 +892,13 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jTextField13" max="32767" attributes="0"/>
+                                              <Component id="lenseTypeText" max="32767" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jTextField14" min="-2" pref="156" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jTextField7" max="32767" attributes="0"/>
+                                          <Component id="remarksText" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -927,11 +930,11 @@
                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lenseTypeText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="remarksText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -977,7 +980,7 @@
                         <Property name="text" type="java.lang.String" value="Lens type :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField13">
+                    <Component class="javax.swing.JTextField" name="lenseTypeText">
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField14">
                     </Component>
@@ -986,7 +989,7 @@
                         <Property name="text" type="java.lang.String" value="Amount :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField7">
+                    <Component class="javax.swing.JTextField" name="remarksText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel14">
                       <Properties>
