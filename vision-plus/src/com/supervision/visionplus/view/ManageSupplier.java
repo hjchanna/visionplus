@@ -351,8 +351,6 @@ public class ManageSupplier extends javax.swing.JPanel {
     private void getAllSupplier() throws ClassNotFoundException, SQLException {
         ArrayList<MSupplier> suppliers = SupplierDao.getInstance().getAllSupplier();
         addTableData(suppliers);
-        
-
     }
 
     private void refresh() {
