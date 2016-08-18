@@ -83,6 +83,19 @@ public class CustomerDao {
         return customers;
 
     }
+    public  MCustomer searchCustomerById(Integer indexNo) throws SQLException {
+        String query = "SELECT * FROM m_customer WHERE indx_no="+indexNo+"";
+        Connection con = DBConnection.getInstance().getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rst = stm.executeQuery(query);
+        if(rst.next()) {
+            return new MCustomer(rst.getInt("index_no"),
+                    rst.getString("name"), rst.getString("nic"),
+                    rst.getString("address"), rst.getString("contact_no"));
+        }
+        return null;
+
+    }
     public boolean isCustomer(String id) throws SQLException {
         String query = "SELECT * FROM m_customer WHERE index_no=" + id + "";
         Connection con = DBConnection.getInstance().getConnection();

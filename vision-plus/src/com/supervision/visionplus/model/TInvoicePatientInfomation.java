@@ -184,7 +184,7 @@ public class TInvoicePatientInfomation{
         return vaWithPhLeft;
     }
 
-    public void setHLeft(String vaWithPhLeft) {
+    public void setVaWithPhLeft(String vaWithPhLeft) {
         this.vaWithPhLeft = vaWithPhLeft;
     }
 
@@ -192,7 +192,7 @@ public class TInvoicePatientInfomation{
         return vaWithPhRight;
     }
 
-    public void setHRight(String vaWithPhRight) {
+    public void setVaWithPhRight(String vaWithPhRight) {
         this.vaWithPhRight = vaWithPhRight;
     }
 

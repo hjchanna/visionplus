@@ -66,8 +66,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jPanel4" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" max="32767" attributes="0"/>
+                          <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -338,19 +338,18 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jScrollPane3" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="itemAmountLabel" min="-2" pref="82" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -362,10 +361,11 @@
                                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="itemAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="228" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="219" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -403,7 +403,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel11">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Total Amount : 200000"/>
+                        <Property name="text" type="java.lang.String" value="Total Amount :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton11">
@@ -413,6 +413,15 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="itemAmountLabel">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1200"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Default Cursor"/>
+                        </Property>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -516,8 +525,8 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="hbRxLeftText" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="autoRefLeftText" alignment="0" max="32767" attributes="0"/>
                                               <Component id="ntcLeftText" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTextField21" alignment="0" max="32767" attributes="0"/>
                                               <Component id="vaWithoutGlassLeftText" alignment="0" max="32767" attributes="0"/>
                                               <Component id="vaWithPhLeftText" alignment="0" max="32767" attributes="0"/>
                                               <Component id="vaWithGlassLeftText" alignment="0" max="32767" attributes="0"/>
@@ -579,7 +588,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="ntcLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoRefLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="autoRefRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -587,7 +596,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ntcLeftText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ntcRightText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -665,9 +674,9 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="autoRefRightText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="ntcLeftText">
+                <Component class="javax.swing.JTextField" name="autoRefLeftText">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField21">
+                <Component class="javax.swing.JTextField" name="ntcLeftText">
                 </Component>
                 <Component class="javax.swing.JTextField" name="ntcRightText">
                 </Component>
@@ -705,27 +714,26 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="otherComplainsText" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="otherComplainsText" pref="454" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jRadioButton7" min="-2" pref="75" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="otherComplainsRadioButton" min="-2" pref="75" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButton2" min="-2" pref="57" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButton3" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <Component id="visionNDCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="tearingCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="redCheckBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jRadioButton4" min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Component id="headacheCheckBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButton5" min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Component id="itchingCheckBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jRadioButton6" min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Component id="dischargeCheckBox" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="irritationCheckBox" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="otherChechBox" min="-2" pref="57" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
@@ -737,23 +745,20 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="jRadioButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="visionNDCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="redCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="headacheCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="itchingCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                      <Component id="dischargeCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="irritationCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jRadioButton7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="otherComplainsRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tearingCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="otherChechBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="otherComplainsText" min="-2" max="-2" attributes="0"/>
@@ -762,50 +767,50 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Vision-N/D"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="otherComplainsText">
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Red"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+                    <Component class="javax.swing.JCheckBox" name="headacheCheckBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Headache"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton4">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Itching"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton5">
+                    <Component class="javax.swing.JCheckBox" name="dischargeCheckBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Discharge"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton6">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Irritation"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton7">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Tearing"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JRadioButton" name="otherComplainsRadioButton">
+                    <Component class="javax.swing.JCheckBox" name="otherChechBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Other"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="otherComplainsRadioButtonActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="otherChechBoxActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="otherComplainsText">
+                    <Component class="javax.swing.JCheckBox" name="irritationCheckBox">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Irritation"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="visionNDCheckBox">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Vision-N/D"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="tearingCheckBox">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Tearing"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="itchingCheckBox">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Itching"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="redCheckBox">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Red"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -848,7 +853,7 @@
                     <Component class="javax.swing.JTable" name="patientEyeDetailTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="2">
+                          <Table columnCount="7" rowCount="2">
                             <Column editable="true" title="" type="java.lang.Object">
                               <Data value="      DIST"/>
                               <Data value="      NEAR"/>
@@ -856,9 +861,49 @@
                             <Column editable="true" title="SPH" type="java.lang.Object"/>
                             <Column editable="true" title="CYL" type="java.lang.Object"/>
                             <Column editable="true" title="AXIS" type="java.lang.Object"/>
+                            <Column editable="true" title="SPH" type="java.lang.Object"/>
                             <Column editable="true" title="CYL" type="java.lang.Object"/>
                             <Column editable="true" title="AXIS" type="java.lang.Object"/>
                           </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
                         </Property>
                         <Property name="rowHeight" type="int" value="25"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -873,7 +918,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
@@ -888,19 +933,19 @@
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jTextField14" min="-2" pref="156" max="-2" attributes="0"/>
+                                              <Component id="lenseAmountText" min="-2" pref="156" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="remarksText" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jRadioButton15" min="-2" pref="87" max="-2" attributes="0"/>
+                                      <Component id="myopiaRadio" min="-2" pref="87" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jRadioButton16" max="32767" attributes="0"/>
+                                      <Component id="presbyopiaRadio" pref="132" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButton9" max="32767" attributes="0"/>
+                                      <Component id="hypermtropiaRadio" pref="144" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jRadioButton10" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Component id="astimatismRadio" min="-2" pref="103" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -912,16 +957,16 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jRadioButton15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="myopiaRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="presbyopiaRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="hypermtropiaRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="astimatismRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lenseAmountText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lenseTypeText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -929,42 +974,42 @@
                                   <Component id="remarksText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="130" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton15">
+                    <Component class="javax.swing.JRadioButton" name="myopiaRadio">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Myopia"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton15ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myopiaRadioActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton16">
+                    <Component class="javax.swing.JRadioButton" name="presbyopiaRadio">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Presbyopia"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton16ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="presbyopiaRadioActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton9">
+                    <Component class="javax.swing.JRadioButton" name="hypermtropiaRadio">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Hypermtropia"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton9ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hypermtropiaRadioActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JRadioButton" name="jRadioButton10">
+                    <Component class="javax.swing.JRadioButton" name="astimatismRadio">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Astimatism"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton10ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="astimatismRadioActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel18">
@@ -974,7 +1019,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="lenseTypeText">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField14">
+                    <Component class="javax.swing.JTextField" name="lenseAmountText">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel19">
                       <Properties>

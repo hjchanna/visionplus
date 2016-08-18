@@ -6,10 +6,16 @@
 package com.supervision.visionplus.view;
 
 import com.supervision.visionplus.config.IDGenerator;
+import com.supervision.visionplus.config.InvoiceStatus;
+import com.supervision.visionplus.config.SpritConfig;
 import com.supervision.visionplus.dao.CustomerDao;
+import com.supervision.visionplus.dao.InvoiceDao;
 import com.supervision.visionplus.model.MCustomer;
+import com.supervision.visionplus.model.TInvoice;
+import com.supervision.visionplus.model.TInvoicePatientInfomation;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,6 +85,7 @@ public class Invoice extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
+        itemAmountLabel = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -98,8 +105,8 @@ public class Invoice extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         autoRefRightText = new javax.swing.JTextField();
+        autoRefLeftText = new javax.swing.JTextField();
         ntcLeftText = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
         ntcRightText = new javax.swing.JTextField();
         vaWithoutGlassLeftText = new javax.swing.JTextField();
         vaWithoutGlassRightText = new javax.swing.JTextField();
@@ -110,26 +117,26 @@ public class Invoice extends javax.swing.JPanel {
         hbRxSubLeftText = new javax.swing.JTextField();
         hbRxSubRightText = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        otherComplainsRadioButton = new javax.swing.JRadioButton();
         otherComplainsText = new javax.swing.JTextField();
+        headacheCheckBox = new javax.swing.JCheckBox();
+        dischargeCheckBox = new javax.swing.JCheckBox();
+        otherChechBox = new javax.swing.JCheckBox();
+        irritationCheckBox = new javax.swing.JCheckBox();
+        visionNDCheckBox = new javax.swing.JCheckBox();
+        tearingCheckBox = new javax.swing.JCheckBox();
+        itchingCheckBox = new javax.swing.JCheckBox();
+        redCheckBox = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         patientEyeDetailTable = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jRadioButton15 = new javax.swing.JRadioButton();
-        jRadioButton16 = new javax.swing.JRadioButton();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jRadioButton10 = new javax.swing.JRadioButton();
+        myopiaRadio = new javax.swing.JRadioButton();
+        presbyopiaRadio = new javax.swing.JRadioButton();
+        hypermtropiaRadio = new javax.swing.JRadioButton();
+        astimatismRadio = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         lenseTypeText = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        lenseAmountText = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         remarksText = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -279,7 +286,7 @@ public class Invoice extends javax.swing.JPanel {
             }
         });
 
-        jLabel11.setText("Total Amount : 200000");
+        jLabel11.setText("Total Amount :");
 
         jButton11.setText("Remove");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -288,6 +295,10 @@ public class Invoice extends javax.swing.JPanel {
             }
         });
 
+        itemAmountLabel.setText("1200");
+        itemAmountLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        itemAmountLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -295,16 +306,16 @@ public class Invoice extends javax.swing.JPanel {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
-                        .addContainerGap())
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11)
-                        .addGap(23, 23, 23))))
+                        .addGap(18, 18, 18)
+                        .addComponent(itemAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,10 +324,11 @@ public class Invoice extends javax.swing.JPanel {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jLabel11)
-                    .addComponent(jButton11))
+                    .addComponent(jButton11)
+                    .addComponent(itemAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -339,7 +351,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -409,7 +421,7 @@ public class Invoice extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
@@ -448,26 +460,26 @@ public class Invoice extends javax.swing.JPanel {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Complains"));
 
-        jRadioButton1.setText("Vision-N/D");
+        headacheCheckBox.setText("Headache");
 
-        jRadioButton2.setText("Red");
+        dischargeCheckBox.setText("Discharge");
 
-        jRadioButton3.setText("Headache");
-
-        jRadioButton4.setText("Itching");
-
-        jRadioButton5.setText("Discharge");
-
-        jRadioButton6.setText("Irritation");
-
-        jRadioButton7.setText("Tearing");
-
-        otherComplainsRadioButton.setText("Other");
-        otherComplainsRadioButton.addActionListener(new java.awt.event.ActionListener() {
+        otherChechBox.setText("Other");
+        otherChechBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                otherComplainsRadioButtonActionPerformed(evt);
+                otherChechBoxActionPerformed(evt);
             }
         });
+
+        irritationCheckBox.setText("Irritation");
+
+        visionNDCheckBox.setText("Vision-N/D");
+
+        tearingCheckBox.setText("Tearing");
+
+        itchingCheckBox.setText("Itching");
+
+        redCheckBox.setText("Red");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -476,45 +488,42 @@ public class Invoice extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(otherComplainsText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(otherComplainsText, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(visionNDCheckBox)
+                            .addComponent(tearingCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jRadioButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(otherComplainsRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(redCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(headacheCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(itchingCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(dischargeCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(irritationCheckBox))
+                            .addComponent(otherChechBox, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton5)
-                        .addComponent(jRadioButton6))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton3)
-                        .addComponent(jRadioButton4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton7)
-                    .addComponent(otherComplainsRadioButton))
+                    .addComponent(visionNDCheckBox)
+                    .addComponent(redCheckBox)
+                    .addComponent(headacheCheckBox)
+                    .addComponent(itchingCheckBox)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dischargeCheckBox)
+                        .addComponent(irritationCheckBox)))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tearingCheckBox)
+                    .addComponent(otherChechBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(otherComplainsText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -539,8 +548,8 @@ public class Invoice extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(hbRxLeftText)
+                                    .addComponent(autoRefLeftText)
                                     .addComponent(ntcLeftText)
-                                    .addComponent(jTextField21)
                                     .addComponent(vaWithoutGlassLeftText)
                                     .addComponent(vaWithPhLeftText)
                                     .addComponent(vaWithGlassLeftText)
@@ -587,13 +596,13 @@ public class Invoice extends javax.swing.JPanel {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ntcLeftText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(autoRefLeftText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(autoRefRightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ntcLeftText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(ntcRightText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -615,41 +624,50 @@ public class Invoice extends javax.swing.JPanel {
 
         patientEyeDetailTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"      DIST", null, null, null, null, null},
-                {"      NEAR", null, null, null, null, null}
+                {"      DIST", null, null, null, null, null, null},
+                {"      NEAR", null, null, null, null, null, null}
             },
             new String [] {
-                "", "SPH", "CYL", "AXIS", "CYL", "AXIS"
+                "", "SPH", "CYL", "AXIS", "SPH", "CYL", "AXIS"
             }
         ));
         patientEyeDetailTable.setRowHeight(25);
         jScrollPane2.setViewportView(patientEyeDetailTable);
+        if (patientEyeDetailTable.getColumnModel().getColumnCount() > 0) {
+            patientEyeDetailTable.getColumnModel().getColumn(0).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(1).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(2).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(3).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(4).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(5).setResizable(false);
+            patientEyeDetailTable.getColumnModel().getColumn(6).setResizable(false);
+        }
 
-        jRadioButton15.setText("Myopia");
-        jRadioButton15.addActionListener(new java.awt.event.ActionListener() {
+        myopiaRadio.setText("Myopia");
+        myopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton15ActionPerformed(evt);
+                myopiaRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton16.setText("Presbyopia");
-        jRadioButton16.addActionListener(new java.awt.event.ActionListener() {
+        presbyopiaRadio.setText("Presbyopia");
+        presbyopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton16ActionPerformed(evt);
+                presbyopiaRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton9.setText("Hypermtropia");
-        jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
+        hypermtropiaRadio.setText("Hypermtropia");
+        hypermtropiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton9ActionPerformed(evt);
+                hypermtropiaRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton10.setText("Astimatism");
-        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
+        astimatismRadio.setText("Astimatism");
+        astimatismRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton10ActionPerformed(evt);
+                astimatismRadioActionPerformed(evt);
             }
         });
 
@@ -677,16 +695,16 @@ public class Invoice extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lenseAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(remarksText)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jRadioButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(myopiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(presbyopiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(hypermtropiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(astimatismRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -694,21 +712,21 @@ public class Invoice extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton15)
-                    .addComponent(jRadioButton16)
-                    .addComponent(jRadioButton9)
-                    .addComponent(jRadioButton10))
+                    .addComponent(myopiaRadio)
+                    .addComponent(presbyopiaRadio)
+                    .addComponent(hypermtropiaRadio)
+                    .addComponent(astimatismRadio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lenseAmountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lenseTypeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remarksText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -761,17 +779,17 @@ public class Invoice extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton15ActionPerformed
+    private void myopiaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myopiaRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton15ActionPerformed
+    }//GEN-LAST:event_myopiaRadioActionPerformed
 
-    private void jRadioButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton16ActionPerformed
+    private void presbyopiaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presbyopiaRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton16ActionPerformed
+    }//GEN-LAST:event_presbyopiaRadioActionPerformed
 
-    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton9ActionPerformed
+    private void hypermtropiaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hypermtropiaRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton9ActionPerformed
+    }//GEN-LAST:event_hypermtropiaRadioActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -781,9 +799,9 @@ public class Invoice extends javax.swing.JPanel {
         new SearchItem(null, true).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
+    private void astimatismRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_astimatismRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton10ActionPerformed
+    }//GEN-LAST:event_astimatismRadioActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -794,7 +812,122 @@ public class Invoice extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        TInvoice invoice = new TInvoice();
+        invoice.setIndexNo(IDGenerator.getNewId("t_invoice", "index_no"));
+        invoice.setInvoiceDate(invoiceDateText.getText());
+        invoice.setMCustomer(selectedCustomer.getIndexNo());
+        invoice.setStatus(InvoiceStatus.ordered);
+        invoice.setTInvoicePatientInfomation(null);
+        invoice.setTPayment(null);
+        invoice.setTransaction(null);
+
+        double invoiceAmount = 0.00;
+        String itemAmount = itemAmountLabel.getText();
+        if (itemAmount == "" || itemAmount.equals(null)) {
+            itemAmount = "0.00";
+            invoiceAmount += Double.parseDouble(itemAmount);
+        } else {
+            invoiceAmount += Double.parseDouble(itemAmount);
+        }
+        String lenseAmount = lenseAmountText.getText();
+        if (lenseAmount == "" || lenseAmount.equals(null)) {
+            lenseAmount = "0.00";
+            invoiceAmount += Double.parseDouble(lenseAmount);
+        } else {
+            invoiceAmount += Double.parseDouble(lenseAmount);
+        }
+
+        invoice.setAmount(invoiceAmount);
+
+        TInvoicePatientInfomation patientInfomation = new TInvoicePatientInfomation();
+        patientInfomation.setIndexNo(IDGenerator.getNewId("t_invoice_patient_infomation", "index_no"));
+        patientInfomation.setAutoRefLeft(autoRefLeftText.getText());
+        patientInfomation.setAutoRefRight(autoRefRightText.getText());
+
+        String complains = "";
+        if (visionNDCheckBox.isSelected()) {
+            complains += "VISION-N/D" + SpritConfig.spritComplains;
+        }
+        if (redCheckBox.isSelected()) {
+            complains += "RED" + SpritConfig.spritComplains;
+        }
+        if (headacheCheckBox.isSelected()) {
+            complains += "HEADACHE" + SpritConfig.spritComplains;
+        }
+        if (itchingCheckBox.isSelected()) {
+            complains += "ITCHING" + SpritConfig.spritComplains;
+        }
+        if (dischargeCheckBox.isSelected()) {
+            complains += "DISCHARGE" + SpritConfig.spritComplains;
+        }
+        if (irritationCheckBox.isSelected()) {
+            complains += "IRRITATION" + SpritConfig.spritComplains;
+        }
+        if (tearingCheckBox.isSelected()) {
+            complains += "TEARING" + SpritConfig.spritComplains;
+        }
+        if (otherChechBox.isSelected()) {
+            String otherComplains = otherComplainsText.getText();
+            if (otherComplains == "" || otherComplains.equals(null)) {
+                otherComplains = "OTHER COMPLAINS";
+            }
+            complains += otherComplains + SpritConfig.spritComplains;
+        }
+        patientInfomation.setComplains(complains);
+        patientInfomation.setHbRxLeft(hbRxLeftText.getText());
+        patientInfomation.setHbRxRight(hbRxRightText.getText());
+        patientInfomation.setHbRxSubLeft(hbRxSubLeftText.getText());
+        patientInfomation.setHbRxSubRight(hbRxSubRightText.getText());
+        patientInfomation.setLenseType(lenseTypeText.getText());
+        patientInfomation.setNtcLeft(ntcLeftText.getText());
+        patientInfomation.setNtcRight(ntcRightText.getText());
+
+        String refractiveError = "";
+        if (myopiaRadio.isSelected()) {
+            refractiveError = "MYOPIA";
+        } else if (presbyopiaRadio.isSelected()) {
+            refractiveError = "PREABYOPIA";
+        } else if (hypermtropiaRadio.isSelected()) {
+            refractiveError = "HYPERMTROPIA";
+        } else if (astimatismRadio.isSelected()) {
+            refractiveError = "ASTIMATISM";
+        } else {
+            refractiveError = "";
+        }
+        patientInfomation.setRefractiveError(refractiveError);
+        patientInfomation.setRemarks(remarksText.getText());
+        patientInfomation.setVaWithGlassLeft(vaWithGlassLeftText.getText());
+        patientInfomation.setVaWithGlassRight(vaWithGlassRight.getText());
+        patientInfomation.setVaWithPhLeft(vaWithPhLeftText.getText());
+        patientInfomation.setVaWithPhRight(vaWithPhRight.getText());
+        patientInfomation.setVaWithoutGlassLeft(vaWithGlassLeftText.getText());
+        patientInfomation.setVaWithoutGlassRight(vaWithGlassRight.getText());
+
+        //table Date add to model
+        patientInfomation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 0) + "");
+        patientInfomation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
+        patientInfomation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
+        patientInfomation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 3) + "");
+        patientInfomation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 4) + "");
+        patientInfomation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 5) + "");
+
+        patientInfomation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 0) + "");
+        patientInfomation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
+        patientInfomation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
+        patientInfomation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 3) + "");
+        patientInfomation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 4) + "");
+        patientInfomation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 5) + "");
+
+        try {
+            boolean res = InvoiceDao.getInstance().addInvoice(invoice, patientInfomation);
+            if (res) {
+                JOptionPane.showMessageDialog(this, "Invoice Saved..");
+            } else {
+                JOptionPane.showMessageDialog(this, "Invoice Fail. Refresh and try again.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -809,16 +942,8 @@ public class Invoice extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void otherComplainsRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherComplainsRadioButtonActionPerformed
-        if (otherComplainsRadioButton.isSelected()) {
-            otherComplainsText.setEnabled(true);
-        } else {
-            otherComplainsText.setEnabled(false);
-        }
-    }//GEN-LAST:event_otherComplainsRadioButtonActionPerformed
-
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        SearchInvoice searchInvoice=new SearchInvoice(null, true);
+        SearchInvoice searchInvoice = new SearchInvoice(null, true);
         searchInvoice.setFrame(this);
         searchInvoice.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -862,18 +987,34 @@ public class Invoice extends javax.swing.JPanel {
 
     }//GEN-LAST:event_nicTextActionPerformed
 
+    private void otherChechBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherChechBoxActionPerformed
+        if (otherChechBox.isSelected()) {
+            otherComplainsText.setEnabled(true);
+        } else {
+            otherComplainsText.setEnabled(false);
+        }
+    }//GEN-LAST:event_otherChechBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;
     private javax.swing.JTextField ageText;
+    private javax.swing.JRadioButton astimatismRadio;
+    private javax.swing.JTextField autoRefLeftText;
     private javax.swing.JTextField autoRefRightText;
     private javax.swing.JTextField contactNoText;
+    private javax.swing.JCheckBox dischargeCheckBox;
     private javax.swing.JTextField hbRxLeftText;
     private javax.swing.JTextField hbRxRightText;
     private javax.swing.JTextField hbRxSubLeftText;
     private javax.swing.JTextField hbRxSubRightText;
+    private javax.swing.JCheckBox headacheCheckBox;
+    private javax.swing.JRadioButton hypermtropiaRadio;
     private javax.swing.JTextField invoiceDateText;
     private javax.swing.JTextField invoiceNoText;
+    private javax.swing.JCheckBox irritationCheckBox;
+    private javax.swing.JCheckBox itchingCheckBox;
+    private javax.swing.JLabel itemAmountLabel;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
@@ -913,43 +1054,37 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton15;
-    private javax.swing.JRadioButton jRadioButton16;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane3;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField lenseAmountText;
     private javax.swing.JTextField lenseTypeText;
+    private javax.swing.JRadioButton myopiaRadio;
     private javax.swing.JTextField nameText;
     private javax.swing.JTextField nicText;
     private javax.swing.JTextField ntcLeftText;
     private javax.swing.JTextField ntcRightText;
-    private javax.swing.JRadioButton otherComplainsRadioButton;
+    private javax.swing.JCheckBox otherChechBox;
     private javax.swing.JTextField otherComplainsText;
     private javax.swing.JTable patientEyeDetailTable;
+    private javax.swing.JRadioButton presbyopiaRadio;
+    private javax.swing.JCheckBox redCheckBox;
     private javax.swing.JTextField remarksText;
     private javax.swing.JButton searchCustomerButton;
+    private javax.swing.JCheckBox tearingCheckBox;
     private javax.swing.JTextField vaWithGlassLeftText;
     private javax.swing.JTextField vaWithGlassRight;
     private javax.swing.JTextField vaWithPhLeftText;
     private javax.swing.JTextField vaWithPhRight;
     private javax.swing.JTextField vaWithoutGlassLeftText;
     private javax.swing.JTextField vaWithoutGlassRightText;
+    private javax.swing.JCheckBox visionNDCheckBox;
     // End of variables declaration//GEN-END:variables
 
     void setCustomer(MCustomer customer) {
         if (customer != null) {
+            this.selectedCustomer = customer;
             nameText.setText(customer.getName());
             addressText.setText(customer.getAddress());
             contactNoText.setText(customer.getContactNo());
@@ -969,8 +1104,21 @@ public class Invoice extends javax.swing.JPanel {
     }
 
     void setInvoice(int indexNo) {
-        this.invoiceId=indexNo;
-        invoiceNoText.setText(invoiceId+"");
+        this.invoiceId = indexNo;
+
+        try {
+            TInvoice searchInvoice = InvoiceDao.getInstance().searchInvoiceById(indexNo);
+            MCustomer customer=CustomerDao.getInstance().searchCustomerById(searchInvoice.getMCustomer());
+            //TODO
+            if (searchInvoice != null) {
+                invoiceNoText.setText(searchInvoice.getIndexNo()+"");
+                invoiceDateText.setText(searchInvoice.getInvoiceDate());
+                invoiceDateText.setText(searchInvoice.getInvoiceDate());
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

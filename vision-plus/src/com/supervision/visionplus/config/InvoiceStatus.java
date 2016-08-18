@@ -12,6 +12,9 @@ package com.supervision.visionplus.config;
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class NewClass {
-
+public class InvoiceStatus {
+     public static final String ordered ="NOW_ORDERED";
+     public static final String released ="RELEASED";
+     public static final String reserved ="RESERVED";
+     public static final String issue ="ISSUE";
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 public class TInvoice{
     private Integer indexNo;
     private Integer transaction;
-    private Date invoiceDate;
+    private String invoiceDate;
     private Double amount;
     private String status;
     private Integer tInvoicePatientInfomation;
@@ -28,7 +28,7 @@ public class TInvoice{
         this.indexNo = indexNo;
     }
 
-    public TInvoice(Integer indexNo, Integer transaction, Date invoiceDate, Double amount, String status, Integer tInvoicePatientInfomation, Integer tPayment, Integer mCustomer) {
+    public TInvoice(Integer indexNo, Integer transaction, String invoiceDate, Double amount, String status, Integer tInvoicePatientInfomation, Integer tPayment, Integer mCustomer) {
         this.indexNo = indexNo;
         this.transaction = transaction;
         this.invoiceDate = invoiceDate;
@@ -56,11 +56,11 @@ public class TInvoice{
         this.transaction = transaction;
     }
 
-    public Date getInvoiceDate() {
+    public String getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
+    public void setInvoiceDate(String invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 

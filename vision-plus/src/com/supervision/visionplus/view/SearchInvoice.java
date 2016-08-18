@@ -6,6 +6,7 @@
 package com.supervision.visionplus.view;
 
 import com.supervision.visionplus.dao.InvoiceDao;
+import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.model.mixModel.searchInvoiceMix;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class SearchInvoice extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         model = (DefaultTableModel) invoiceTable.getModel();
+        searchButton.doClick();
     }
 
     /**
@@ -47,7 +49,7 @@ public class SearchInvoice extends javax.swing.JDialog {
         jPanel7 = new javax.swing.JPanel();
         indexNoText = new javax.swing.JTextField();
         addressText = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
         nameText = new javax.swing.JTextField();
         invoiceDate = new javax.swing.JTextField();
         contactNOText = new javax.swing.JTextField();
@@ -67,11 +69,11 @@ public class SearchInvoice extends javax.swing.JDialog {
             }
         });
 
-        jButton6.setText("Search");
-        jButton6.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setText("Search");
+        searchButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
 
@@ -114,7 +116,7 @@ public class SearchInvoice extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contactNOText, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -124,7 +126,7 @@ public class SearchInvoice extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(indexNoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addressText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(invoiceDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contactNOText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +209,7 @@ public class SearchInvoice extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_addressTextActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         String invoiceNo = indexNoText.getText();
         String date = invoiceDate.getText();
         String name = nameText.getText();
@@ -237,7 +239,7 @@ public class SearchInvoice extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(SearchInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     private void nameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextActionPerformed
         // TODO add your handling code here:
@@ -309,12 +311,12 @@ public class SearchInvoice extends javax.swing.JDialog {
     private javax.swing.JTextField indexNoText;
     private javax.swing.JTextField invoiceDate;
     private javax.swing.JTable invoiceTable;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameText;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
     void setFrame(Invoice invoice) {
@@ -338,4 +340,6 @@ public class SearchInvoice extends javax.swing.JDialog {
         this.dispose();
         invoice.setInvoice(indexNo);
     }
+
+    
 }
