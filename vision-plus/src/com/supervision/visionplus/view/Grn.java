@@ -386,8 +386,8 @@ public class Grn extends javax.swing.JPanel {
     }//GEN-LAST:event_email_textActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        int indexNo = IDGenerator.getNewId("m_item", "index_no");
-        int indexNo2 = IDGenerator.getNewId("t_stock_ledger", "index_no");
+
+        int indexNo = IDGenerator.getNewId("t_stock_ledger", "index_no");
 
         Date date = new Date();
         Date currenDate = new Date();
@@ -399,33 +399,10 @@ public class Grn extends javax.swing.JPanel {
             Logger.getLogger(Grn.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String itemCode = itemCode_text.getText();
-        String description = description_text.getText();
-        Double inQty = Double.parseDouble(qty_text.getText());
-        double costPrice = Double.parseDouble(unitPrice_text.getText());
-        double salePrice = Double.parseDouble(salePrice_text.getText());
-        double outQty = 0;
 
-        MItem item = new MItem(indexNo, itemCode, description, salePrice, costPrice);
-        TStockLedger ledger = new TStockLedger(indexNo2, currenDate, inQty, outQty , 2 , indexNo);
-        
-        try {
-            boolean itemcode = ItemDao.getInstance().isItem(itemCode_text.getText());
-            if (itemcode) {
+//        TStockLedger ledger = new TStockLedger(indexNo2, currenDate, inQty, outQty, 2, indexNo);
 
-            } else {
-                boolean addItems = ItemDao.getInstance().addItems(item,ledger);
-                if (addItems){
-                    Object[] rd = {itemCode, description, inQty, costPrice, salePrice};
-                    model.addRow(rd);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Fail...." );
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Grn.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
 
 
     }//GEN-LAST:event_addButtonActionPerformed

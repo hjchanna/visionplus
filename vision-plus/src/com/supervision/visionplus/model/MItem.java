@@ -12,32 +12,51 @@ package com.supervision.visionplus.model;
 
 public class MItem{
     private Integer indexNo;
+    private Integer brand;
+    private Integer category;
     private String code;
     private String name;
     private Double salePrice;
     private Double costPrice;
+    private Integer reorderQty;
+    
 
     public MItem() {
     }
 
-    public MItem(Integer indexNo) {
+    public MItem(Integer indexNo, Integer brand, Integer category, String code, String name, Double salePrice, Double costPrice, Integer reorderQty) {
         this.indexNo = indexNo;
-    }
-
-    public MItem(Integer indexNo, String code, String name, Double salePrice, Double costPrice) {
-        this.indexNo = indexNo;
+        this.brand = brand;
+        this.category = category;
         this.code = code;
         this.name = name;
         this.salePrice = salePrice;
         this.costPrice = costPrice;
+        this.reorderQty = reorderQty;
     }
-    
+
     public Integer getIndexNo() {
         return indexNo;
     }
 
     public void setIndexNo(Integer indexNo) {
         this.indexNo = indexNo;
+    }
+
+    public Integer getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Integer brand) {
+        this.brand = brand;
+    }
+
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     public String getCode() {
@@ -71,5 +90,16 @@ public class MItem{
     public void setCostPrice(Double costPrice) {
         this.costPrice = costPrice;
     }
+
+    public Integer getReorderQty() {
+        return reorderQty;
+    }
+
+    public void setReorderQty(Integer reorderQty) {
+        this.reorderQty = reorderQty;
+    }
+
+   
+    
 
 }
