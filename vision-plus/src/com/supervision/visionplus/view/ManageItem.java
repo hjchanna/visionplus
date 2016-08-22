@@ -295,24 +295,24 @@ public class ManageItem extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "success....");
                 }
             } else {
-//                if (!itemCode_text.getText().trim().equals("") && !description_text.getText().trim().equals("") && !salePrice_text.getText().trim().equals("") && costPrice_text.getText().trim().equals("")) {
-//
-//                    MBrand brand = BrandDao.getInstance().searchBrand((String) brand_combo.getSelectedItem());
-//                    if (brand != null) {
-//                        brandId = brand.getIndexNo();
-//                    }
-//                    MCategory category = CategoryDao.getInstance().searchCategory((String) category_combo.getSelectedItem());
-//                    if (category != null) {
-//                        categoryId = category.getIndexNo();
-//                    }
-//
-//                    boolean addItems = ItemDao.getInstance().addItems(item);
-//                    if (addItems) {
-//                        getAllItems();
-//                        JOptionPane.showMessageDialog(this, "success....");
-//                        removeAllTextField();
-//                    }
-//                }
+                if (!itemCode_text.getText().trim().equals("") && !description_text.getText().trim().equals("") && !salePrice_text.getText().trim().equals("") && costPrice_text.getText().trim().equals("")) {
+
+                    MBrand brand = BrandDao.getInstance().searchBrand((String) brand_combo.getSelectedItem());
+                    if (brand != null) {
+                        brandId = brand.getIndexNo();
+                    }
+                    MCategory category = CategoryDao.getInstance().searchCategory((String) category_combo.getSelectedItem());
+                    if (category != null) {
+                        categoryId = category.getIndexNo();
+                    }
+
+                    boolean addItems = ItemDao.getInstance().addItems(item);
+                    if (addItems) {
+                        getAllItems();
+                        JOptionPane.showMessageDialog(this, "success....");
+                        removeAllTextField();
+                    }
+                }
             }
 
         } catch (SQLException ex) {

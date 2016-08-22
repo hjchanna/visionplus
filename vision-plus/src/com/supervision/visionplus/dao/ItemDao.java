@@ -70,17 +70,15 @@ public class ItemDao {
     }
 
     public boolean updateItems(MItem item) throws SQLException {
-        String query = "UPDATE m_item SET index_no=?,brand=?,category=?,name=?,sale_price=?,cost_price=?,reorder_qty=? WHERE code=?";
+        String query = "UPDATE m_item SET index_no=?,name=?,sale_price=?,cost_price=?,reorder_qty=? WHERE code=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
-        stm.setObject(8, item.getCode());
+        stm.setObject(6, item.getCode());
         stm.setObject(1, item.getIndexNo());
-        stm.setObject(2, item.getBrand());
-        stm.setObject(3, item.getCategory());
-        stm.setObject(4, item.getName());
-        stm.setObject(5, item.getSalePrice());
-        stm.setObject(6, item.getCostPrice());
-        stm.setObject(7, item.getReorderQty());
+        stm.setObject(2, item.getName());
+        stm.setObject(3, item.getSalePrice());
+        stm.setObject(4, item.getCostPrice());
+        stm.setObject(5, item.getReorderQty());
         return stm.executeUpdate() > 0;
     }
 
