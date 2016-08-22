@@ -8,7 +8,7 @@ package com.supervision.visionplus.dao;
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.model.TInvoicePatientInfomation;
-import com.supervision.visionplus.model.mixModel.searchInvoiceMix;
+import com.supervision.visionplus.model.mixModel.SearchInvoiceMix;
 //import com.supervision.visionplus.service.InvoiceService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,7 +83,7 @@ public class InvoiceDao {
         return stm.executeUpdate() > 0;
     }
 
-    public  ArrayList<searchInvoiceMix> searchInvoice(searchInvoiceMix invoiceMix) throws  SQLException {
+    public  ArrayList<SearchInvoiceMix> searchInvoice(SearchInvoiceMix invoiceMix) throws  SQLException {
         String sql = "SELECT i.index_no, i.invoice_date, c.name, c.address, c.contact_no \n"
                 + "from t_invoice i,m_customer c \n"
                 + "where c.index_no=i.customer and\n"
@@ -92,9 +92,9 @@ public class InvoiceDao {
         PreparedStatement stm = conn.prepareStatement(sql);
         
         ResultSet rst = stm.executeQuery();
-        ArrayList<searchInvoiceMix> invoices = new ArrayList<>();
+        ArrayList<SearchInvoiceMix> invoices = new ArrayList<>();
         while (rst.next()) {
-            searchInvoiceMix mix=new searchInvoiceMix(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
+            SearchInvoiceMix mix=new SearchInvoiceMix(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
             invoices.add(mix);
         }
         return invoices;

@@ -8,7 +8,7 @@ package com.supervision.visionplus.app.transaction.invoice;
 import com.supervision.visionplus.app.transaction.invoice.Invoice;
 import com.supervision.visionplus.dao.InvoiceDao;
 import com.supervision.visionplus.model.TInvoice;
-import com.supervision.visionplus.model.mixModel.searchInvoiceMix;
+import com.supervision.visionplus.model.mixModel.SearchInvoiceMix;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -217,7 +217,7 @@ public class SearchInvoice extends javax.swing.JDialog {
         String address = addressText.getText();
         String contactNo= contactNOText.getText();
         
-        searchInvoiceMix invoiceMix=new searchInvoiceMix();
+        SearchInvoiceMix invoiceMix=new SearchInvoiceMix();
         invoiceMix.setAddress(address);
         invoiceMix.setContactNO(contactNo);
         invoiceMix.setDate(date);
@@ -225,9 +225,9 @@ public class SearchInvoice extends javax.swing.JDialog {
         invoiceMix.setName(name);
         
         try {
-            ArrayList<searchInvoiceMix> searchInvoice = InvoiceDao.getInstance().searchInvoice(invoiceMix);
+            ArrayList<SearchInvoiceMix> searchInvoice = InvoiceDao.getInstance().searchInvoice(invoiceMix);
             model.setRowCount(0);
-            for (searchInvoiceMix invoice : searchInvoice) {
+            for (SearchInvoiceMix invoice : searchInvoice) {
                 Object[] rowdate={
                     invoice.getInvoiceNo(),
                     invoice.getDate(),
