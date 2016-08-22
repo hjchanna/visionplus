@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.supervision.visionplus.view;
+package com.supervision.visionplus.app.transaction.invoice;
 
+import com.supervision.visionplus.app.transaction.invoice.Invoice;
 import com.supervision.visionplus.dao.InvoiceDao;
 import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.model.mixModel.searchInvoiceMix;

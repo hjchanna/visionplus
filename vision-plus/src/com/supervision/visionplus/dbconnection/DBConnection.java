@@ -31,7 +31,7 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(1);
         }
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "mysql");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "7259");
     }
 
     public static DBConnection getInstance() throws SQLException {

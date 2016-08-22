@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.supervision.visionplus.view;
+package com.supervision.visionplus.app.transaction.invoice;
 
+import com.supervision.visionplus.app.transaction.invoice.ui.ItemListRenderer;
 import com.supervision.visionplus.config.IDGenerator;
 import com.supervision.visionplus.config.InvoiceStatus;
 import com.supervision.visionplus.config.SplitConfig;
@@ -14,6 +15,8 @@ import com.supervision.visionplus.dao.PatientHistoryDao;
 import com.supervision.visionplus.model.MCustomer;
 import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.model.TInvoicePatientInfomation;
+import com.supervision.visionplus.view.Home;
+import com.supervision.visionplus.view.SearchItem;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public class Invoice extends javax.swing.JPanel {
      */
     public Invoice() {
         initComponents();
+        
+        itemList.setCellRenderer(new ItemListRenderer());
 
         model = (DefaultTableModel) patientEyeDetailTable.getModel();
         otherComplainsText.setEnabled(false);
@@ -277,11 +282,6 @@ public class Invoice extends javax.swing.JPanel {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
-        itemList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(itemList);
 
         jButton2.setText("Add");

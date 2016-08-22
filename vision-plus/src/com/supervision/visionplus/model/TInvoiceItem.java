@@ -9,32 +9,18 @@ package com.supervision.visionplus.model;
  *
  * @author KAZA
  */
-public class TInvoiceItem{
+public class TInvoiceItem {
+
     private TInvoice indexNo;
     private Double unitPrice;
-    private TInvoice qty;
+    private Integer qty;
     private Double value;
     private Double discount;
     private Double netValue;
-    private TInvoice mItem;
-    private TInvoice tInvoice;
+    private MItem item;
+    private TInvoice invoice;
 
     public TInvoiceItem() {
-    }
-
-    public TInvoiceItem(TInvoice indexNo) {
-        this.indexNo = indexNo;
-    }
-
-    public TInvoiceItem(TInvoice indexNo, Double unitPrice, TInvoice qty, Double value, Double discount, Double netValue, TInvoice mItem, TInvoice tInvoice) {
-        this.indexNo = indexNo;
-        this.unitPrice = unitPrice;
-        this.qty = qty;
-        this.value = value;
-        this.discount = discount;
-        this.netValue = netValue;
-        this.mItem = mItem;
-        this.tInvoice = tInvoice;
     }
 
     public TInvoice getIndexNo() {
@@ -53,11 +39,11 @@ public class TInvoiceItem{
         this.unitPrice = unitPrice;
     }
 
-    public TInvoice getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(TInvoice qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
@@ -85,20 +71,20 @@ public class TInvoiceItem{
         this.netValue = netValue;
     }
 
-    public TInvoice getMItem() {
-        return mItem;
+    public MItem getItem() {
+        return item;
     }
 
-    public void setMItem(TInvoice mItem) {
-        this.mItem = mItem;
+    public void setItem(MItem item) {
+        this.item = item;
     }
 
-    public TInvoice getTInvoice() {
-        return tInvoice;
+    public TInvoice getInvoice() {
+        return invoice;
     }
 
-    public void setTInvoice(TInvoice tInvoice) {
-        this.tInvoice = tInvoice;
+    public void setInvoice(TInvoice invoice) {
+        this.invoice = invoice;
     }
 
 }

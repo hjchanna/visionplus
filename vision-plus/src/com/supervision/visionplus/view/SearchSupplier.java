@@ -5,6 +5,7 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.app.transaction.invoice.SearchCustomer;
 import com.supervision.visionplus.config.IDGenerator;
 import com.supervision.visionplus.dao.SupplierDao;
 import com.supervision.visionplus.model.MSupplier;
