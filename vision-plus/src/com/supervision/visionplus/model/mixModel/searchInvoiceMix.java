@@ -11,17 +11,17 @@ import java.util.Date;
  *
  * @author KAZA
  */
-public class searchInvoiceMix {
+public class SearchInvoiceMix {
     private String invoiceNo;
     private String date;
     private String name;
     private String address;
     private String contactNO;
 
-    public searchInvoiceMix() {
+    public SearchInvoiceMix() {
     }
 
-    public searchInvoiceMix(String invoiceNo, String date, String name, String address, String contactNO) {
+    public SearchInvoiceMix(String invoiceNo, String date, String name, String address, String contactNO) {
         this.invoiceNo = invoiceNo;
         this.date = date;
         this.name = name;
