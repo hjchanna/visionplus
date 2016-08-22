@@ -5,17 +5,32 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.dao.BankBranchDao;
+import com.supervision.visionplus.model.MBankBranch;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author KAZA
  */
 public class ManageBankBranch extends javax.swing.JPanel {
 
+    private DefaultTableModel model;
+
     /**
      * Creates new form ManageBankBranch
      */
     public ManageBankBranch() {
         initComponents();
+        bankNameText.setEnabled(false);
+        model = (DefaultTableModel) bankBranchTable.getModel();
+        getAllBankBranch();
+
     }
 
     /**
@@ -29,14 +44,18 @@ public class ManageBankBranch extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        bankBranchTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        branchNameText = new javax.swing.JTextField();
+        bankCombo = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        bankNameText = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        bankCodeText = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        bankBranchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -55,18 +74,32 @@ public class ManageBankBranch extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+        jScrollPane1.setViewportView(bankBranchTable);
+        if (bankBranchTable.getColumnModel().getColumnCount() > 0) {
+            bankBranchTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
 
         jLabel1.setText("Bank");
 
         jLabel2.setText("Branch");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "peoples bank", "sampath bank" }));
+        bankCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "peoples bank", "sampath bank", "Other" }));
+        bankCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                bankComboItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Remove");
+
+        jLabel3.setText("Bank Code");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,33 +108,50 @@ public class ManageBankBranch extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, 0, 224, Short.MAX_VALUE)
-                        .addComponent(jTextField2))
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bankCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(branchNameText, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bankNameText, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(153, 153, 153))
+                    .addComponent(bankCodeText)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1)
                 .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bankCodeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(bankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(bankNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(branchNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,15 +167,78 @@ public class ManageBankBranch extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bankComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bankComboItemStateChanged
+        String bankName = bankCombo.getSelectedItem().toString();
+        if ("Other".equals(bankName)) {
+            bankNameText.setEnabled(true);
+
+        } else {
+            bankNameText.setEnabled(false);
+            bankNameText.setText("");
+
+        }
+    }//GEN-LAST:event_bankComboItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String code = bankCodeText.getText();
+        String bank = bankCombo.getSelectedItem().toString();
+        String branch = branchNameText.getText();
+        if (bankCombo.getSelectedItem() == "Other") {
+            bank = bankNameText.getText();
+        }
+        if (!"".equals(code) && !"".equals(bank) && !"".equals(branch)) {
+
+            MBankBranch bankBranch = new MBankBranch();
+            bankBranch.setCode(code);
+            bankBranch.setBank(bank);
+            bankBranch.setBranch(branch);
+
+            try {
+                boolean res = BankBranchDao.getInstance().addBankBranch(bankBranch);
+                if (res) {
+                    JOptionPane.showMessageDialog(this, "new Branch Added Successfully");
+                    getAllBankBranch();
+                } else {
+                    JOptionPane.showMessageDialog(this, "added Fail or Already exists");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ManageBankBranch.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Fill Component to add Branch");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable bankBranchTable;
+    private javax.swing.JTextField bankCodeText;
+    private javax.swing.JComboBox bankCombo;
+    private javax.swing.JTextField bankNameText;
+    private javax.swing.JTextField branchNameText;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    private void getAllBankBranch() {
+        try {
+            ArrayList<MBankBranch> allBankBranch = BankBranchDao.getInstance().getAllBankBranch();
+            model.setRowCount(0);
+            for (MBankBranch branches : allBankBranch) {
+                Object[] rowData = {
+                    branches.getCode(),
+                    branches.getBank(),
+                    branches.getBranch()
+                };
+                model.addRow(rowData);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageBankBranch.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
