@@ -86,15 +86,14 @@ public class InvoiceDao {
     public  ArrayList<searchInvoiceMix> searchInvoice(searchInvoiceMix invoiceMix) throws  SQLException {
         String sql = "SELECT i.index_no, i.invoice_date, c.name, c.address, c.contact_no \n"
                 + "from t_invoice i,m_customer c \n"
-                + "where c.index_no=i.index_no and\n"
-                + " c.name like '%"+invoiceMix.getName()+"%' and c.address like '%"+invoiceMix.getAddress()+"%' and c.contact_no like '%"+invoiceMix.getContactNO()+"%' and i.invoice_date like '%"+invoiceMix.getDate()+"%' and i.index_no like '%"+invoiceMix.getInvoiceNo()+"%';";
+                + "where c.index_no=i.customer and\n"
+                + " c.name like '%"+invoiceMix.getName()+"%' and c.address like '%"+invoiceMix.getAddress()+"%' and c.contact_no like '%"+invoiceMix.getContactNO()+"%' and i.invoice_date like '%"+invoiceMix.getDate()+"%' and i.index_no like '%"+invoiceMix.getInvoiceNo()+"%'GROUP BY 1 LIMIT 100;";
         Connection conn = DBConnection.getInstance().getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         
         ResultSet rst = stm.executeQuery();
         ArrayList<searchInvoiceMix> invoices = new ArrayList<>();
         while (rst.next()) {
-//            TInvoice invoice = new TInvoice(rst.getInt("index_no"), rst.getInt("transaction"), rst.getDate("invoice_date"), rst.getDouble("amount"), rst.getString("status"), rst.getInt("patient_information"), rst.getInt("payment"), rst.getInt("customer"));
             searchInvoiceMix mix=new searchInvoiceMix(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5));
             invoices.add(mix);
         }

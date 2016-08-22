@@ -7,21 +7,21 @@ package com.supervision.visionplus.view;
 
 import com.supervision.visionplus.config.IDGenerator;
 import com.supervision.visionplus.config.InvoiceStatus;
-import com.supervision.visionplus.config.SpritConfig;
+import com.supervision.visionplus.config.SplitConfig;
 import com.supervision.visionplus.dao.CustomerDao;
 import com.supervision.visionplus.dao.InvoiceDao;
+import com.supervision.visionplus.dao.PatientHistoryDao;
 import com.supervision.visionplus.model.MCustomer;
 import com.supervision.visionplus.model.TInvoice;
 import com.supervision.visionplus.model.TInvoicePatientInfomation;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Date : Aug 7, 2016 Time : 10:37:22 PM
@@ -33,6 +33,8 @@ public class Invoice extends javax.swing.JPanel {
 
     private MCustomer selectedCustomer;
     private int invoiceId;
+    DefaultTableModel model;
+    private Home home;
 
     /**
      * Creates new form Invoice2
@@ -40,10 +42,12 @@ public class Invoice extends javax.swing.JPanel {
     public Invoice() {
         initComponents();
 
+        model = (DefaultTableModel) patientEyeDetailTable.getModel();
         otherComplainsText.setEnabled(false);
         invoiceNoText.setEnabled(false);
         invoiceDateText.setEnabled(false);
         invoiceNoText.setText(createId() + "");
+        lenseAmountText.setText("0.00");
         invoiceDateText.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
     }
@@ -57,6 +61,7 @@ public class Invoice extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -81,12 +86,12 @@ public class Invoice extends javax.swing.JPanel {
         ageText = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        itemList = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         itemAmountLabel = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        newButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -169,7 +174,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(invoiceNoText, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                        .addComponent(invoiceNoText, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton10))
                     .addComponent(invoiceDateText))
@@ -234,7 +239,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contactNoText)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                     .addComponent(nicText)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(nameText)
@@ -272,12 +277,12 @@ public class Invoice extends javax.swing.JPanel {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        itemList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(itemList);
 
         jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +332,7 @@ public class Invoice extends javax.swing.JPanel {
                     .addComponent(jButton11)
                     .addComponent(itemAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -355,10 +360,10 @@ public class Invoice extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton3.setText("New");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        newButton.setText("New");
+        newButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                newButtonActionPerformed(evt);
             }
         });
 
@@ -404,7 +409,7 @@ public class Invoice extends javax.swing.JPanel {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3)
+                .addComponent(newButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -424,7 +429,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(newButton)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -488,7 +493,7 @@ public class Invoice extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(otherComplainsText, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                    .addComponent(otherComplainsText, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(visionNDCheckBox)
@@ -512,14 +517,15 @@ public class Invoice extends javax.swing.JPanel {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(visionNDCheckBox)
-                    .addComponent(redCheckBox)
-                    .addComponent(headacheCheckBox)
-                    .addComponent(itchingCheckBox)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(dischargeCheckBox)
-                        .addComponent(irritationCheckBox)))
+                        .addComponent(irritationCheckBox))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(visionNDCheckBox)
+                        .addComponent(redCheckBox)
+                        .addComponent(headacheCheckBox)
+                        .addComponent(itchingCheckBox)))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tearingCheckBox)
@@ -556,10 +562,10 @@ public class Invoice extends javax.swing.JPanel {
                                     .addComponent(hbRxSubLeftText)))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGap(102, 102, 102)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                             .addComponent(hbRxRightText)
                             .addComponent(autoRefRightText)
                             .addComponent(ntcRightText)
@@ -619,7 +625,7 @@ public class Invoice extends javax.swing.JPanel {
                     .addComponent(vaWithGlassLeftText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vaWithGlassRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         patientEyeDetailTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -630,7 +636,15 @@ public class Invoice extends javax.swing.JPanel {
             new String [] {
                 "", "SPH", "CYL", "AXIS", "SPH", "CYL", "AXIS"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         patientEyeDetailTable.setRowHeight(25);
         jScrollPane2.setViewportView(patientEyeDetailTable);
         if (patientEyeDetailTable.getColumnModel().getColumnCount() > 0) {
@@ -643,6 +657,7 @@ public class Invoice extends javax.swing.JPanel {
             patientEyeDetailTable.getColumnModel().getColumn(6).setResizable(false);
         }
 
+        buttonGroup1.add(myopiaRadio);
         myopiaRadio.setText("Myopia");
         myopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -650,6 +665,7 @@ public class Invoice extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(presbyopiaRadio);
         presbyopiaRadio.setText("Presbyopia");
         presbyopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -657,6 +673,7 @@ public class Invoice extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(hypermtropiaRadio);
         hypermtropiaRadio.setText("Hypermtropia");
         hypermtropiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,6 +681,7 @@ public class Invoice extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(astimatismRadio);
         astimatismRadio.setText("Astimatism");
         astimatismRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,9 +718,9 @@ public class Invoice extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addComponent(myopiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(presbyopiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                        .addComponent(presbyopiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hypermtropiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                        .addComponent(hypermtropiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(astimatismRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -726,7 +744,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remarksText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -737,7 +755,7 @@ public class Invoice extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -791,9 +809,83 @@ public class Invoice extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_hypermtropiaRadioActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        invoiceNoText.setEnabled(false);
+        invoiceDateText.setEnabled(false);
+        invoiceNoText.setText(createId() + "");
+        invoiceDateText.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+        nameText.setText("");
+        contactNoText.setText("");
+        addressText.setText("");
+        nicText.setText("");
+        ageText.setText("");
+
+        itemAmountLabel.setText("0.00");
+        itemList.removeAll();
+
+        visionNDCheckBox.setSelected(false);
+        redCheckBox.setSelected(false);
+        headacheCheckBox.setSelected(false);
+        itchingCheckBox.setSelected(false);
+        dischargeCheckBox.setSelected(false);
+        irritationCheckBox.setSelected(false);
+        tearingCheckBox.setSelected(false);
+        otherChechBox.setSelected(false);
+        otherComplainsText.setText("");
+        otherComplainsText.setEnabled(false);
+
+        hbRxLeftText.setText("");
+        hbRxRightText.setText("");
+        hbRxSubRightText.setText("");
+        hbRxSubLeftText.setText("");
+        autoRefLeftText.setText("");
+        autoRefRightText.setText("");
+        ntcLeftText.setText("");
+        ntcRightText.setText("");
+        vaWithGlassLeftText.setText("");
+        vaWithGlassRight.setText("");
+        vaWithPhLeftText.setText("");
+        vaWithPhRight.setText("");
+        vaWithoutGlassLeftText.setText("");
+        vaWithoutGlassRightText.setText("");
+
+        model.setRowCount(0);
+        Object[] firstRowdata = {
+            "DIST",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        };
+        model.addRow(firstRowdata);
+        Object[] secondRowdata = {
+            "NEAR",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        };
+        model.addRow(secondRowdata);
+
+        myopiaRadio.setSelected(false);
+        presbyopiaRadio.setSelected(false);
+        hypermtropiaRadio.setSelected(false);
+        astimatismRadio.setSelected(false);
+        buttonGroup1.clearSelection();
+
+        lenseTypeText.setText("");
+        lenseAmountText.setText("");
+        remarksText.setText("");
+
+        selectedCustomer = null;
+        invoiceId = 0;
+
+    }//GEN-LAST:event_newButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new SearchItem(null, true).setVisible(true);
@@ -812,121 +904,120 @@ public class Invoice extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        TInvoice invoice = new TInvoice();
-        invoice.setIndexNo(IDGenerator.getNewId("t_invoice", "index_no"));
-        invoice.setInvoiceDate(invoiceDateText.getText());
-        invoice.setMCustomer(selectedCustomer.getIndexNo());
-        invoice.setStatus(InvoiceStatus.ordered);
-        invoice.setTInvoicePatientInfomation(null);
-        invoice.setTPayment(null);
-        invoice.setTransaction(null);
+        if (selectedCustomer != null) {
 
-        double invoiceAmount = 0.00;
-        String itemAmount = itemAmountLabel.getText();
-        if (itemAmount == "" || itemAmount.equals(null)) {
-            itemAmount = "0.00";
-            invoiceAmount += Double.parseDouble(itemAmount);
-        } else {
-            invoiceAmount += Double.parseDouble(itemAmount);
-        }
-        String lenseAmount = lenseAmountText.getText();
-        if (lenseAmount == "" || lenseAmount.equals(null)) {
-            lenseAmount = "0.00";
-            invoiceAmount += Double.parseDouble(lenseAmount);
-        } else {
-            invoiceAmount += Double.parseDouble(lenseAmount);
-        }
+            TInvoice invoice = new TInvoice();
+            invoice.setIndexNo(IDGenerator.getNewId("t_invoice", "index_no"));
+            invoice.setInvoiceDate(invoiceDateText.getText());
+            invoice.setMCustomer(selectedCustomer.getIndexNo());
+            invoice.setStatus(InvoiceStatus.ordered);
+            invoice.setTInvoicePatientInfomation(null);
+            invoice.setTPayment(null);
+            invoice.setTransaction(null);
 
-        invoice.setAmount(invoiceAmount);
-
-        TInvoicePatientInfomation patientInfomation = new TInvoicePatientInfomation();
-        patientInfomation.setIndexNo(IDGenerator.getNewId("t_invoice_patient_infomation", "index_no"));
-        patientInfomation.setAutoRefLeft(autoRefLeftText.getText());
-        patientInfomation.setAutoRefRight(autoRefRightText.getText());
-
-        String complains = "";
-        if (visionNDCheckBox.isSelected()) {
-            complains += "VISION-N/D" + SpritConfig.spritComplains;
-        }
-        if (redCheckBox.isSelected()) {
-            complains += "RED" + SpritConfig.spritComplains;
-        }
-        if (headacheCheckBox.isSelected()) {
-            complains += "HEADACHE" + SpritConfig.spritComplains;
-        }
-        if (itchingCheckBox.isSelected()) {
-            complains += "ITCHING" + SpritConfig.spritComplains;
-        }
-        if (dischargeCheckBox.isSelected()) {
-            complains += "DISCHARGE" + SpritConfig.spritComplains;
-        }
-        if (irritationCheckBox.isSelected()) {
-            complains += "IRRITATION" + SpritConfig.spritComplains;
-        }
-        if (tearingCheckBox.isSelected()) {
-            complains += "TEARING" + SpritConfig.spritComplains;
-        }
-        if (otherChechBox.isSelected()) {
-            String otherComplains = otherComplainsText.getText();
-            if (otherComplains == "" || otherComplains.equals(null)) {
-                otherComplains = "OTHER COMPLAINS";
-            }
-            complains += otherComplains + SpritConfig.spritComplains;
-        }
-        patientInfomation.setComplains(complains);
-        patientInfomation.setHbRxLeft(hbRxLeftText.getText());
-        patientInfomation.setHbRxRight(hbRxRightText.getText());
-        patientInfomation.setHbRxSubLeft(hbRxSubLeftText.getText());
-        patientInfomation.setHbRxSubRight(hbRxSubRightText.getText());
-        patientInfomation.setLenseType(lenseTypeText.getText());
-        patientInfomation.setNtcLeft(ntcLeftText.getText());
-        patientInfomation.setNtcRight(ntcRightText.getText());
-
-        String refractiveError = "";
-        if (myopiaRadio.isSelected()) {
-            refractiveError = "MYOPIA";
-        } else if (presbyopiaRadio.isSelected()) {
-            refractiveError = "PREABYOPIA";
-        } else if (hypermtropiaRadio.isSelected()) {
-            refractiveError = "HYPERMTROPIA";
-        } else if (astimatismRadio.isSelected()) {
-            refractiveError = "ASTIMATISM";
-        } else {
-            refractiveError = "";
-        }
-        patientInfomation.setRefractiveError(refractiveError);
-        patientInfomation.setRemarks(remarksText.getText());
-        patientInfomation.setVaWithGlassLeft(vaWithGlassLeftText.getText());
-        patientInfomation.setVaWithGlassRight(vaWithGlassRight.getText());
-        patientInfomation.setVaWithPhLeft(vaWithPhLeftText.getText());
-        patientInfomation.setVaWithPhRight(vaWithPhRight.getText());
-        patientInfomation.setVaWithoutGlassLeft(vaWithGlassLeftText.getText());
-        patientInfomation.setVaWithoutGlassRight(vaWithGlassRight.getText());
-
-        //table Date add to model
-        patientInfomation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 0) + "");
-        patientInfomation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
-        patientInfomation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
-        patientInfomation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 3) + "");
-        patientInfomation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 4) + "");
-        patientInfomation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 5) + "");
-
-        patientInfomation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 0) + "");
-        patientInfomation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
-        patientInfomation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
-        patientInfomation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 3) + "");
-        patientInfomation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 4) + "");
-        patientInfomation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 5) + "");
-
-        try {
-            boolean res = InvoiceDao.getInstance().addInvoice(invoice, patientInfomation);
-            if (res) {
-                JOptionPane.showMessageDialog(this, "Invoice Saved..");
+            double invoiceAmount = 0.00;
+            String itemAmount = itemAmountLabel.getText();
+            if (itemAmount == "" || itemAmount.equals(null)) {
+                itemAmount = "0.00";
+                invoiceAmount += Double.parseDouble(itemAmount);
             } else {
-                JOptionPane.showMessageDialog(this, "Invoice Fail. Refresh and try again.");
+                invoiceAmount += Double.parseDouble(itemAmount);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+            String lenseAmount = lenseAmountText.getText();
+            if (lenseAmount == "" || lenseAmount.equals(null)) {
+                lenseAmount = "0";
+            }
+            invoiceAmount += Double.parseDouble(lenseAmount);
+
+            invoice.setAmount(invoiceAmount);
+
+            TInvoicePatientInfomation patientInfomation = new TInvoicePatientInfomation();
+            patientInfomation.setIndexNo(IDGenerator.getNewId("t_invoice_patient_infomation", "index_no"));
+            patientInfomation.setAutoRefLeft(autoRefLeftText.getText());
+            patientInfomation.setAutoRefRight(autoRefRightText.getText());
+
+            String complains = "";
+            if (visionNDCheckBox.isSelected()) {
+                complains += "VISION-N/D" + SplitConfig.spritComplains;
+            }
+            if (redCheckBox.isSelected()) {
+                complains += "RED" + SplitConfig.spritComplains;
+            }
+            if (headacheCheckBox.isSelected()) {
+                complains += "HEADACHE" + SplitConfig.spritComplains;
+            }
+            if (itchingCheckBox.isSelected()) {
+                complains += "ITCHING" + SplitConfig.spritComplains;
+            }
+            if (dischargeCheckBox.isSelected()) {
+                complains += "DISCHARGE" + SplitConfig.spritComplains;
+            }
+            if (irritationCheckBox.isSelected()) {
+                complains += "IRRITATION" + SplitConfig.spritComplains;
+            }
+            if (tearingCheckBox.isSelected()) {
+                complains += "TEARING" + SplitConfig.spritComplains;
+            }
+            if (otherChechBox.isSelected()) {
+                String otherComplains = otherComplainsText.getText();
+                if (otherComplains == "" || otherComplains.equals(null)) {
+                    otherComplains = "OTHER COMPLAINS";
+                }
+                complains += otherComplains + SplitConfig.spritComplains;
+            }
+            patientInfomation.setComplains(complains);
+            patientInfomation.setHbRxLeft(hbRxLeftText.getText());
+            patientInfomation.setHbRxRight(hbRxRightText.getText());
+            patientInfomation.setHbRxSubLeft(hbRxSubLeftText.getText());
+            patientInfomation.setHbRxSubRight(hbRxSubRightText.getText());
+            patientInfomation.setLenseType(lenseTypeText.getText());
+            patientInfomation.setNtcLeft(ntcLeftText.getText());
+            patientInfomation.setNtcRight(ntcRightText.getText());
+
+            String refractiveError = "";
+            if (myopiaRadio.isSelected()) {
+                refractiveError = "MYOPIA";
+            } else if (presbyopiaRadio.isSelected()) {
+                refractiveError = "PREABYOPIA";
+            } else if (hypermtropiaRadio.isSelected()) {
+                refractiveError = "HYPERMTROPIA";
+            } else if (astimatismRadio.isSelected()) {
+                refractiveError = "ASTIMATISM";
+            } else {
+                refractiveError = "";
+            }
+            patientInfomation.setRefractiveError(refractiveError);
+            patientInfomation.setRemarks(remarksText.getText());
+            patientInfomation.setVaWithGlassLeft(vaWithGlassLeftText.getText());
+            patientInfomation.setVaWithGlassRight(vaWithGlassRight.getText());
+            patientInfomation.setVaWithPhLeft(vaWithPhLeftText.getText());
+            patientInfomation.setVaWithPhRight(vaWithPhRight.getText());
+            patientInfomation.setVaWithoutGlassLeft(vaWithGlassLeftText.getText());
+            patientInfomation.setVaWithoutGlassRight(vaWithGlassRight.getText());
+
+            //table Date add to model
+            patientInfomation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
+            patientInfomation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
+            patientInfomation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 3) + "");
+            patientInfomation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 4) + "");
+            patientInfomation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 5) + "");
+            patientInfomation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 6) + "");
+
+            patientInfomation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
+            patientInfomation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
+            patientInfomation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 3) + "");
+            patientInfomation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 4) + "");
+            patientInfomation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 5) + "");
+            patientInfomation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 6) + "");
+
+         
+            InvoicePayment invoicePayment = new InvoicePayment(null, false);
+            invoicePayment.setFrame(this);
+            invoicePayment.setInvoiceValue(invoice, patientInfomation, selectedCustomer);
+            invoicePayment.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "select Customer or add new Customer to save invoice");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1002,6 +1093,7 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JRadioButton astimatismRadio;
     private javax.swing.JTextField autoRefLeftText;
     private javax.swing.JTextField autoRefRightText;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField contactNoText;
     private javax.swing.JCheckBox dischargeCheckBox;
     private javax.swing.JTextField hbRxLeftText;
@@ -1015,10 +1107,10 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JCheckBox irritationCheckBox;
     private javax.swing.JCheckBox itchingCheckBox;
     private javax.swing.JLabel itemAmountLabel;
+    private javax.swing.JList itemList;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1043,7 +1135,6 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -1062,6 +1153,7 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JTextField lenseTypeText;
     private javax.swing.JRadioButton myopiaRadio;
     private javax.swing.JTextField nameText;
+    private javax.swing.JButton newButton;
     private javax.swing.JTextField nicText;
     private javax.swing.JTextField ntcLeftText;
     private javax.swing.JTextField ntcRightText;
@@ -1107,18 +1199,164 @@ public class Invoice extends javax.swing.JPanel {
         this.invoiceId = indexNo;
 
         try {
-            TInvoice searchInvoice = InvoiceDao.getInstance().searchInvoiceById(indexNo);
-            MCustomer customer=CustomerDao.getInstance().searchCustomerById(searchInvoice.getMCustomer());
+            TInvoice searchInvoice = InvoiceDao.getInstance().searchInvoiceById(invoiceId);
+            MCustomer customer = CustomerDao.getInstance().searchCustomerById(searchInvoice.getMCustomer());
+            TInvoicePatientInfomation searchPatientHistory = PatientHistoryDao.getInstance().searchPatientHistory(searchInvoice.getTInvoicePatientInfomation());
             //TODO
             if (searchInvoice != null) {
-                invoiceNoText.setText(searchInvoice.getIndexNo()+"");
+                invoiceNoText.setText(searchInvoice.getIndexNo() + "");
                 invoiceDateText.setText(searchInvoice.getInvoiceDate());
-                invoiceDateText.setText(searchInvoice.getInvoiceDate());
+            }
+            if (customer != null) {
+                setCustomer(customer);
+            }
 
+            if (searchPatientHistory != null) {
+                setPatientHistory(searchPatientHistory);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void setPatientHistory(TInvoicePatientInfomation patientHistory) {
+        if (patientHistory != null) {
+            String[] complains = patientHistory.getComplains().split(SplitConfig.spritComplains);
+            for (String complain : complains) {
+                if ("VISION-N/D".equals(complain)) {
+                    visionNDCheckBox.setSelected(true);
+                } else if ("RED".equals(complain)) {
+                    redCheckBox.setSelected(true);
+                } else if ("HEADACHE".equals(complain)) {
+                    headacheCheckBox.setSelected(true);
+                } else if ("ITCHING".equals(complain)) {
+                    itchingCheckBox.setSelected(true);
+                } else if ("DISCHARGE".equals(complain)) {
+                    dischargeCheckBox.setSelected(true);
+                } else if ("IRRITATION".equals(complain)) {
+                    irritationCheckBox.setSelected(true);
+                } else if ("TEARING".equals(complain)) {
+                    tearingCheckBox.setSelected(true);
+                } else if (!"other".equals(complain)) {
+                    otherChechBox.setSelected(true);
+                    otherComplainsText.setText(complain);
+                }
+
+            }
+            hbRxLeftText.setText(patientHistory.getHbRxLeft());
+            hbRxRightText.setText(patientHistory.getHbRxRight());
+            hbRxSubLeftText.setText(patientHistory.getHbRxSubLeft());
+            hbRxSubRightText.setText(patientHistory.getHbRxSubRight());
+            autoRefLeftText.setText(patientHistory.getAutoRefLeft());
+            autoRefRightText.setText(patientHistory.getAutoRefRight());
+            ntcLeftText.setText(patientHistory.getNtcLeft());
+            ntcRightText.setText(patientHistory.getNtcRight());
+            vaWithGlassLeftText.setText(patientHistory.getVaWithGlassLeft());
+            vaWithGlassRight.setText(patientHistory.getVaWithGlassRight());
+            vaWithPhLeftText.setText(patientHistory.getVaWithPhLeft());
+            vaWithPhRight.setText(patientHistory.getVaWithPhRight());
+            vaWithoutGlassLeftText.setText(patientHistory.getVaWithoutGlassLeft());
+            vaWithoutGlassRightText.setText(patientHistory.getVaWithoutGlassRight());
+
+            System.out.println(" ABC" + patientHistory.getDistSphLeft());
+            if (patientHistory.getDistSphLeft().equals(null) || patientHistory.getDistSphLeft() == "" || patientHistory.getDistSphLeft().isEmpty()) {
+                System.out.println(" ABC" + patientHistory.getDistSphLeft());
+                patientHistory.setDistSphLeft(" ");
+            }
+            if (patientHistory.getDistCylLeft().isEmpty()) {
+                patientHistory.setDistCylLeft(" ");
+            }
+            if (patientHistory.getDistAxisLeft().isEmpty()) {
+                patientHistory.setDistAxisLeft(" ");
+            }
+            if (patientHistory.getDistSphRight().isEmpty()) {
+                patientHistory.setDistSphRight(" ");
+            }
+            if (patientHistory.getDistCylRight().isEmpty()) {
+                patientHistory.setDistCylRight(" ");
+            }
+            if (patientHistory.getDistAxisRight().isEmpty()) {
+                patientHistory.setDistAxisRight(" ");
+            }
+            if (patientHistory.getDistSphLeft().isEmpty()) {
+                patientHistory.setDistSphLeft(" ");
+            }
+            if (patientHistory.getDistCylLeft().isEmpty()) {
+                patientHistory.setDistCylLeft(" ");
+            }
+            if (patientHistory.getDistAxisLeft().isEmpty()) {
+                patientHistory.setDistAxisLeft(" ");
+            }
+            if (patientHistory.getDistSphRight().isEmpty()) {
+                patientHistory.setDistSphRight(" ");
+            }
+            if (patientHistory.getDistCylRight().isEmpty()) {
+                patientHistory.setDistCylRight(" ");
+            }
+            if (patientHistory.getDistAxisRight().isEmpty()) {
+                patientHistory.setDistAxisRight(" ");
+            }
+
+            if (patientHistory.getNearSphLeft().isEmpty()) {
+                patientHistory.setNearSphLeft(" ");
+            }
+            if (patientHistory.getNearCylLeft().isEmpty()) {
+                patientHistory.setNearCylLeft(" ");
+            }
+            if (patientHistory.getNearAxisLeft().isEmpty()) {
+                patientHistory.setNearAxisLeft(" ");
+            }
+            if (patientHistory.getNearSphRight().isEmpty()) {
+                patientHistory.setNearSphRight(" ");
+            }
+            if (patientHistory.getNearCylRight().isEmpty()) {
+                patientHistory.setNearCylRight(" ");
+            }
+            if (patientHistory.getNearAxisRight().isEmpty()) {
+                patientHistory.setNearAxisRight(" ");
+            }
+
+            model.setRowCount(0);
+            Object[] firstRowdata = {
+                "DIST",
+                patientHistory.getDistSphLeft(),
+                patientHistory.getDistCylLeft(),
+                patientHistory.getDistAxisLeft(),
+                patientHistory.getDistSphRight(),
+                patientHistory.getDistCylRight(),
+                patientHistory.getDistAxisRight()
+            };
+            model.addRow(firstRowdata);
+            Object[] secondRowdata = {
+                "NEAR",
+                patientHistory.getNearSphLeft(),
+                patientHistory.getNearCylLeft(),
+                patientHistory.getNearAxisLeft(),
+                patientHistory.getNearSphRight(),
+                patientHistory.getNearCylRight(),
+                patientHistory.getNearAxisRight()
+            };
+            model.addRow(secondRowdata);
+
+            if ("MYOPIA".equals(patientHistory.getRefractiveError())) {
+                myopiaRadio.setSelected(true);
+            } else if ("PREABYOPIA".equals(patientHistory.getRefractiveError())) {
+                presbyopiaRadio.setSelected(true);
+            } else if ("HYPERMTROPIA".equals(patientHistory.getRefractiveError())) {
+                hypermtropiaRadio.setSelected(true);
+            } else if ("ASTIMATISM".equals(patientHistory.getRefractiveError())) {
+                astimatismRadio.setSelected(true);
+            } else {
+
+            }
+            lenseTypeText.setText(patientHistory.getLenseType());
+//            lenseAmountText.setText(patientHistory.getAmount);   
+            remarksText.setText(patientHistory.getRemarks());
+        }
+    }
+
+    void setFrame(Home home) {
+        this.home = home;
     }
 
 }

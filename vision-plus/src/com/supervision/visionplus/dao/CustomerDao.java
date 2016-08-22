@@ -33,21 +33,27 @@ public class CustomerDao {
         }
         return INSTANCE;
     }
-    
-    private CustomerDao(){
-        
+
+    private CustomerDao() {
+
     }
 
     public boolean addCustomer(MCustomer customer) throws SQLException {
         String query = "INSERT INTO m_customer VALUES(?,?,?,?,?)";
         Connection con = DBConnection.getInstance().getConnection();
-        PreparedStatement stm = con.prepareStatement(query);
-        stm.setObject(1, customer.getIndexNo());
-        stm.setObject(2, customer.getName());
-        stm.setObject(3, customer.getNic());
-        stm.setObject(4, customer.getAddress());
-        stm.setObject(5, customer.getContactNo());
-        return stm.executeUpdate() > 0;
+        ArrayList<MCustomer> list = searchCustomer(customer);
+        if (list.size()<1) {
+
+            PreparedStatement stm = con.prepareStatement(query);
+            stm.setObject(1, customer.getIndexNo());
+            stm.setObject(2, customer.getName());
+            stm.setObject(3, customer.getNic());
+            stm.setObject(4, customer.getAddress());
+            stm.setObject(5, customer.getContactNo());
+            return stm.executeUpdate() > 0;
+        } else {
+            return false;
+        }
     }
 
     public boolean deleteCustomer(String id) throws SQLException {
@@ -69,13 +75,13 @@ public class CustomerDao {
         return stm.executeUpdate() > 0;
     }
 
-    public  ArrayList<MCustomer> searchCustomer(MCustomer customer) throws SQLException {
-        String query = "SELECT * FROM m_customer WHERE name LIKE '%"+customer.getName()+"%' and nic LIKE '%"+customer.getNic()+"%' and address LIKE '%"+customer.getAddress()+"%' and contact_no LIKE '%"+customer.getContactNo()+"%'";
+    public ArrayList<MCustomer> searchCustomer(MCustomer customer) throws SQLException {
+        String query = "SELECT * FROM m_customer WHERE name LIKE '%" + customer.getName() + "%' and nic LIKE '%" + customer.getNic() + "%' and address LIKE '%" + customer.getAddress() + "%' and contact_no LIKE '%" + customer.getContactNo() + "%'";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MCustomer> customers = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             customers.add(new MCustomer(rst.getInt("index_no"),
                     rst.getString("name"), rst.getString("nic"),
                     rst.getString("address"), rst.getString("contact_no")));
@@ -83,12 +89,13 @@ public class CustomerDao {
         return customers;
 
     }
-    public  MCustomer searchCustomerById(Integer indexNo) throws SQLException {
-        String query = "SELECT * FROM m_customer WHERE indx_no="+indexNo+"";
+
+    public MCustomer searchCustomerById(Integer indexNo) throws SQLException {
+        String query = "SELECT * FROM m_customer WHERE index_no=" + indexNo + "";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
-        if(rst.next()) {
+        if (rst.next()) {
             return new MCustomer(rst.getInt("index_no"),
                     rst.getString("name"), rst.getString("nic"),
                     rst.getString("address"), rst.getString("contact_no"));
@@ -96,6 +103,7 @@ public class CustomerDao {
         return null;
 
     }
+
     public boolean isCustomer(String id) throws SQLException {
         String query = "SELECT * FROM m_customer WHERE index_no=" + id + "";
         Connection con = DBConnection.getInstance().getConnection();

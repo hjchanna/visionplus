@@ -10,7 +10,9 @@ import com.supervision.visionplus.model.MCustomer;
 import com.supervision.visionplus.model.TInvoicePatientInfomation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -67,5 +69,17 @@ public class PatientHistoryDao {
         stm.setObject(31, patientInfomation.getRemarks());
         stm.executeUpdate();
          return patientInfomation.getIndexNo();
+    }
+    
+    public TInvoicePatientInfomation searchPatientHistory(Integer indexNo) throws SQLException {
+        String query = "SELECT * FROM t_invoice_patient_infomation WHERE index_no=" + indexNo + "";
+        Connection con = DBConnection.getInstance().getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rst = stm.executeQuery(query);
+        if (rst.next()) {
+            return new TInvoicePatientInfomation(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getString(11), rst.getString(12), rst.getString(13), rst.getString(14), rst.getString(15), rst.getString(16), rst.getString(17), rst.getString(18), rst.getString(19), rst.getString(20), rst.getString(21), rst.getString(22), rst.getString(23), rst.getString(24), rst.getString(25), rst.getString(26), rst.getString(27), rst.getString(28), rst.getString(29), rst.getString(30), rst.getString(31));
+        }
+        return null;
+
     }
 }

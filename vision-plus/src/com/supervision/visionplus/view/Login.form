@@ -92,6 +92,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="userNameText">
+          <Properties>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="passwordText"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -99,6 +104,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="passwordText">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordTextActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="loginButton">
           <Properties>

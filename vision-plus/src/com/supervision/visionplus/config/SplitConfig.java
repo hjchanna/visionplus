@@ -9,6 +9,6 @@ package com.supervision.visionplus.config;
  *
  * @author KAZA
  */
-public class SpritConfig {
+public class SplitConfig {
     public static final String spritComplains="@@";
 }

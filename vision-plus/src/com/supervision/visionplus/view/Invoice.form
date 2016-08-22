@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -47,7 +51,7 @@
                   <Component id="jPanel4" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="newButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -69,7 +73,7 @@
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="newButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton5" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -136,7 +140,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="invoiceNoText" pref="345" max="32767" attributes="0"/>
+                                      <Component id="invoiceNoText" pref="347" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton10" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -214,7 +218,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="contactNoText" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="0" pref="390" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="392" max="32767" attributes="0"/>
                                   <Component id="nicText" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="nameText" max="32767" attributes="0"/>
@@ -364,7 +368,7 @@
                                   <Component id="itemAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="219" max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="153" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -378,7 +382,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JList" name="jList1">
+                        <Component class="javax.swing.JList" name="itemList">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                               <StringArray count="5">
@@ -427,12 +431,12 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="newButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
@@ -535,12 +539,12 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" pref="187" max="32767" attributes="0"/>
+                                          <Component id="jLabel12" pref="186" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel15" pref="189" max="32767" attributes="0"/>
+                                      <Component id="jLabel15" pref="188" max="32767" attributes="0"/>
                                       <Component id="hbRxRightText" alignment="0" max="32767" attributes="0"/>
                                       <Component id="autoRefRightText" alignment="0" max="32767" attributes="0"/>
                                       <Component id="ntcRightText" alignment="0" max="32767" attributes="0"/>
@@ -618,7 +622,7 @@
                               <Component id="vaWithGlassRight" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -714,7 +718,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="otherComplainsText" pref="454" max="32767" attributes="0"/>
+                                  <Component id="otherComplainsText" pref="452" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="visionNDCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -745,14 +749,16 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="visionNDCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="redCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="headacheCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="itchingCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="dischargeCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="irritationCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="visionNDCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="redCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="headacheCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="itchingCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -825,7 +831,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel7" max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" pref="486" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="484" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -854,7 +860,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="2">
-                            <Column editable="true" title="" type="java.lang.Object">
+                            <Column editable="false" title="" type="java.lang.Object">
                               <Data value="      DIST"/>
                               <Data value="      NEAR"/>
                             </Column>
@@ -941,9 +947,9 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="myopiaRadio" min="-2" pref="87" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="presbyopiaRadio" pref="132" max="32767" attributes="0"/>
+                                      <Component id="presbyopiaRadio" pref="131" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="hypermtropiaRadio" pref="144" max="32767" attributes="0"/>
+                                      <Component id="hypermtropiaRadio" pref="143" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="astimatismRadio" min="-2" pref="103" max="-2" attributes="0"/>
                                   </Group>
@@ -974,7 +980,7 @@
                                   <Component id="remarksText" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="130" max="32767" attributes="0"/>
+                              <EmptySpace pref="15" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -982,6 +988,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JRadioButton" name="myopiaRadio">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Myopia"/>
                       </Properties>
                       <Events>
@@ -990,6 +999,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="presbyopiaRadio">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Presbyopia"/>
                       </Properties>
                       <Events>
@@ -998,6 +1010,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="hypermtropiaRadio">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Hypermtropia"/>
                       </Properties>
                       <Events>
@@ -1006,6 +1021,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="astimatismRadio">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Astimatism"/>
                       </Properties>
                       <Events>

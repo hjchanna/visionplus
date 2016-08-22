@@ -50,7 +50,15 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setText("User Name");
 
+        userNameText.setNextFocusableComponent(passwordText);
+
         jLabel2.setText("Password");
+
+        passwordText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordTextActionPerformed(evt);
+            }
+        });
 
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +137,7 @@ public class Login extends javax.swing.JFrame {
         try {
             MUser user = UserDao.searchUser(userName,password);
             if (user !=null) {
-//                new Home().setVisible(true);
+                new Home().setVisible(true);
                 this.setVisible(false);
                 
             }else{
@@ -141,6 +149,10 @@ public class Login extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextActionPerformed
+        loginButton.doClick();
+    }//GEN-LAST:event_passwordTextActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.config.IDGenerator;
 import com.supervision.visionplus.dao.CustomerDao;
 import com.supervision.visionplus.model.MCustomer;
 import java.sql.SQLException;
@@ -19,8 +20,10 @@ import javax.swing.table.DefaultTableModel;
  * @author KAZA
  */
 public class SearchCustomer extends javax.swing.JDialog {
+
     DefaultTableModel model;
     private Invoice invoice;
+
     /**
      * Creates new form searchCustomersss
      */
@@ -56,6 +59,7 @@ public class SearchCustomer extends javax.swing.JDialog {
         jPanel7 = new javax.swing.JPanel();
         selectButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,7 +144,7 @@ public class SearchCustomer extends javax.swing.JDialog {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -165,12 +169,21 @@ public class SearchCustomer extends javax.swing.JDialog {
             }
         });
 
+        addButton.setText(" Add ");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
+                .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -182,7 +195,8 @@ public class SearchCustomer extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectButton)
-                    .addComponent(searchButton))
+                    .addComponent(searchButton)
+                    .addComponent(addButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,16 +241,8 @@ public class SearchCustomer extends javax.swing.JDialog {
     }//GEN-LAST:event_selectButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String name = nameText.getText();
-        String address = addressText.getText();
-        String nic = nicText.getText();
-        String mobile = mobileText.getText();
 
-        MCustomer customer = new MCustomer();
-        customer.setAddress(address);
-        customer.setContactNo(mobile);
-        customer.setName(name);
-        customer.setNic(nic);
+        MCustomer customer = setCustomerModel();
 
         try {
             ArrayList<MCustomer> customers = CustomerDao.getInstance().searchCustomer(customer);
@@ -245,6 +251,21 @@ public class SearchCustomer extends javax.swing.JDialog {
             Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        MCustomer customer = setCustomerModel();
+        try {
+            boolean res = CustomerDao.getInstance().addCustomer(customer);
+            if (res) {
+                this.dispose();
+                invoice.setCustomer(customer);
+            }else{
+                JOptionPane.showMessageDialog(this, "New Customer saved Fail or already exists ");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +313,7 @@ public class SearchCustomer extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JTextField addressText;
     private javax.swing.JTable customerTable;
     private javax.swing.JLabel jLabel5;
@@ -312,7 +334,7 @@ private void getAllCustomers() {
         try {
             ArrayList<MCustomer> customers = CustomerDao.getInstance().getAllCustomer();
             addDataToTable(customers);
-       
+
         } catch (SQLException ex) {
             Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -327,37 +349,54 @@ private void getAllCustomers() {
     }
 
     private void doSelectCustomer() {
-        if (customerTable.getRowCount()==1) {
+        if (customerTable.getRowCount() == 1) {
             findSelectedCustomer(0);
-        }
-        else if (customerTable.getSelectedRowCount() == 1) {
+        } else if (customerTable.getSelectedRowCount() == 1) {
             findSelectedCustomer(customerTable.getSelectedRow());
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(this, "Select a Customer..");
         }
     }
 
     private void findSelectedCustomer(int value) {
-            int indexNo = Integer.parseInt(model.getValueAt(value, 0).toString());
-            String nic = model.getValueAt(value, 1).toString();
-            String name = model.getValueAt(value, 2).toString();
-            String address = model.getValueAt(value, 3).toString();
-            String mobile = model.getValueAt(value, 4).toString();
+        int indexNo = Integer.parseInt(model.getValueAt(value, 0).toString());
+        String nic = model.getValueAt(value, 1).toString();
+        String name = model.getValueAt(value, 2).toString();
+        String address = model.getValueAt(value, 3).toString();
+        String mobile = model.getValueAt(value, 4).toString();
 
-            MCustomer customer = new MCustomer();
-            customer.setAddress(address);
-            customer.setContactNo(mobile);
-            customer.setIndexNo(indexNo);
-            customer.setName(name);
-            customer.setNic(nic);
+        MCustomer customer = new MCustomer();
+        customer.setAddress(address);
+        customer.setContactNo(mobile);
+        customer.setIndexNo(indexNo);
+        customer.setName(name);
+        customer.setNic(nic);
 
-            this.dispose();
-            invoice.setCustomer(customer);
+        this.dispose();
+        invoice.setCustomer(customer);
     }
 
     void setFrame(Invoice invoice) {
-        this.invoice=invoice;
+        this.invoice = invoice;
+    }
+
+    private MCustomer setCustomerModel() {
+        Integer indexNo = IDGenerator.getNewId("m_customer", "index_no");
+        String name = nameText.getText();
+        String address = addressText.getText();
+        String nic = nicText.getText();
+        String mobile = mobileText.getText();
+
+        MCustomer customer = new MCustomer();
+        customer.setAddress(address);
+        customer.setContactNo(mobile);
+        customer.setName(name);
+        customer.setNic(nic);
+        customer.setIndexNo(indexNo);
+
+        return customer;
+
     }
 
 }

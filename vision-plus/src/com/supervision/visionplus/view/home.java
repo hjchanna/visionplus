@@ -5,6 +5,9 @@
  */
 package com.supervision.visionplus.view;
 
+import com.supervision.visionplus.model.MCustomer;
+import com.supervision.visionplus.model.TInvoice;
+
 /**
  * Date : Aug 5, 2016 Time : 12:47:40 AM
  *
@@ -176,6 +179,7 @@ public class home extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         displayPanel.removeAll();
         Invoice invoice = new Invoice();
+        invoice.setFrame(this);
         displayPanel.add(invoice);
         revalidate();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -231,14 +235,14 @@ public class home extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         displayPanel.removeAll();
-        MoneyCollection moneyCollection=new MoneyCollection();
+        MoneyCollection moneyCollection = new MoneyCollection();
         displayPanel.add(moneyCollection);
         revalidate();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         displayPanel.removeAll();
-        PaymentVouchers paymentVouchers=new PaymentVouchers();
+        PaymentVouchers paymentVouchers = new PaymentVouchers();
         displayPanel.add(paymentVouchers);
         revalidate();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
@@ -305,5 +309,13 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
+
+    void viewPaymentForm(TInvoice invoice, MCustomer customer) {
+        displayPanel.removeAll();
+        CustomerPayment customerPayment = new CustomerPayment();
+        customerPayment.setInvoice(invoice,customer);
+        displayPanel.add(customerPayment);
+        revalidate();
+    }
 
 }
