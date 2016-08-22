@@ -71,6 +71,7 @@ public class ManageItem extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         brand_combo = new javax.swing.JComboBox();
         category_combo = new javax.swing.JComboBox();
+        deleteButton = new javax.swing.JButton();
 
         itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +81,11 @@ public class ManageItem extends javax.swing.JPanel {
                 "Code", "Brand", "Category", "Description", "Sale Price", "Cost Price", "Re-Order Qty"
             }
         ));
+        itemTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(itemTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -135,6 +141,18 @@ public class ManageItem extends javax.swing.JPanel {
         });
 
         category_combo.setEditable(true);
+        category_combo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                category_comboItemStateChanged(evt);
+            }
+        });
+
+        deleteButton.setText("delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -143,7 +161,11 @@ public class ManageItem extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addButton)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addButton))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -200,9 +222,11 @@ public class ManageItem extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(reOrderQty_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addButton)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(deleteButton))
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -256,26 +280,41 @@ public class ManageItem extends javax.swing.JPanel {
         double costPrice = Double.parseDouble(costPrice_text.getText());
         double salePrice = Double.parseDouble(salePrice_text.getText());
         int reOrderQty = Integer.parseInt(reOrderQty_text.getText());
-        int brandId = 1;
-        int categoryId = 1;
+        int brandId = 0;
+        int categoryId = 0;
 
+        MItem item = new MItem(newId, brandId, categoryId, itemCode, description, salePrice, costPrice, reOrderQty);
+        
         try {
-
-//            MBrand brand = BrandDao.getInstance().searchBrand((String) brand_combo.getSelectedItem());
-//            if (brand != null) {
-//                brandId = brand.getIndexNo();
-//            }
-//            MCategory category = CategoryDao.getInstance().searchCategory((String) category_combo.getSelectedItem());
-//            if (category != null) {
-//                categoryId = category.getIndexNo();
-//            }
-            MItem item = new MItem(newId, null, null, itemCode, description, salePrice, costPrice, reOrderQty);
-
-            boolean addItems = ItemDao.getInstance().addItems(item);
-            if (addItems) {
-                JOptionPane.showMessageDialog(this, "success....");
-                getAllItems();
+            boolean isItem = ItemDao.getInstance().isItem(itemCode);
+            if (isItem) {
+                boolean updateItems = ItemDao.getInstance().updateItems(item);
+                if (updateItems) {
+                    getAllItems();
+                    removeAllTextField();
+                    JOptionPane.showMessageDialog(this, "success....");
+                }
+            } else {
+//                if (!itemCode_text.getText().trim().equals("") && !description_text.getText().trim().equals("") && !salePrice_text.getText().trim().equals("") && costPrice_text.getText().trim().equals("")) {
+//
+//                    MBrand brand = BrandDao.getInstance().searchBrand((String) brand_combo.getSelectedItem());
+//                    if (brand != null) {
+//                        brandId = brand.getIndexNo();
+//                    }
+//                    MCategory category = CategoryDao.getInstance().searchCategory((String) category_combo.getSelectedItem());
+//                    if (category != null) {
+//                        categoryId = category.getIndexNo();
+//                    }
+//
+//                    boolean addItems = ItemDao.getInstance().addItems(item);
+//                    if (addItems) {
+//                        getAllItems();
+//                        JOptionPane.showMessageDialog(this, "success....");
+//                        removeAllTextField();
+//                    }
+//                }
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ManageItem.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -290,12 +329,48 @@ public class ManageItem extends javax.swing.JPanel {
 
     }//GEN-LAST:event_brand_comboItemStateChanged
 
+    private void category_comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_category_comboItemStateChanged
+
+    }//GEN-LAST:event_category_comboItemStateChanged
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try {
+            boolean item = ItemDao.getInstance().isItem(itemCode_text.getText());
+            if (item) {
+                boolean deleteItems = ItemDao.getInstance().deleteItems(itemCode_text.getText());
+                if (deleteItems) {
+                    removeAllTextField();
+                    getAllItems();
+                    JOptionPane.showMessageDialog(this, "Delete...");
+                    getLastId();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail...");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Item");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void itemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemTableMouseClicked
+        itemCode_text.setText(model.getValueAt(itemTable.getSelectedRow(), 0).toString());
+//        name_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 1));
+//        nic_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 2));
+        description_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 3));
+        salePrice_text.setText(model.getValueAt(itemTable.getSelectedRow(), 4).toString());
+        costPrice_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 5).toString());
+        reOrderQty_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 6).toString());
+    }//GEN-LAST:event_itemTableMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JComboBox brand_combo;
     private javax.swing.JComboBox category_combo;
     private javax.swing.JTextField costPrice_text;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTextField description_text;
     private javax.swing.JTextField itemCode_text;
     private javax.swing.JTable itemTable;
@@ -346,7 +421,7 @@ public class ManageItem extends javax.swing.JPanel {
     void getAllItems() {
         try {
             ArrayList<MItem> allItems = ItemDao.getInstance().getAllItems();
-             model.setRowCount(0);
+            model.setRowCount(0);
             for (MItem allItem : allItems) {
                 Object[] rd = {allItem.getCode(), allItem.getBrand(), allItem.getCategory(), allItem.getName(), allItem.getSalePrice(), allItem.getCostPrice(), allItem.getReorderQty()};
                 model.addRow(rd);
@@ -354,5 +429,13 @@ public class ManageItem extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(ManageItem.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void removeAllTextField() {
+        itemCode_text.setText("");
+        description_text.setText("");
+        salePrice_text.setText("");
+        costPrice_text.setText("");
+        reOrderQty_text.setText("");
     }
 }

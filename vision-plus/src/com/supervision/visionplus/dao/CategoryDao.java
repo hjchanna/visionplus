@@ -49,13 +49,13 @@ public class CategoryDao {
     }
 
     public MCategory searchCategory(String name) throws SQLException {
-        String query = "SELECT * FROM m_category WHERE name=" + name + "";
+        String query = "SELECT * FROM m_category WHERE name=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
-        ResultSet rst = stm.executeQuery(query);
-        if (rst.next()) {
-            return new MCategory(rst.getInt(1), rst.getString(2)
-            );
+        stm.setObject(1, name);
+        ResultSet rst = stm.executeQuery();
+        while (rst.next()) {
+            return new MCategory(rst.getInt(1), rst.getString(2));
         }
         return null;
     }

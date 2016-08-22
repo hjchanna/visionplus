@@ -61,25 +61,26 @@ public class ItemDao {
 
     }
 
-    public boolean deleteItems(String id) throws SQLException {
-        String query = "DELETE FROM m_item WHERE index_no=" + id + "";
+    public boolean deleteItems(String code) throws SQLException {
+        String query = "DELETE FROM m_item WHERE code=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
+        stm.setObject(1, code);
         return stm.executeUpdate() > 0;
     }
 
     public boolean updateItems(MItem item) throws SQLException {
-        String query = "UPDATE m_item SET code=?,name=?,sale_price=?,cost_price=?,reorder_qty=?,brand=?,category=? WHERE index_no=?";
+        String query = "UPDATE m_item SET index_no=?,brand=?,category=?,name=?,sale_price=?,cost_price=?,reorder_qty=? WHERE code=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
+        stm.setObject(8, item.getCode());
         stm.setObject(1, item.getIndexNo());
-        stm.setObject(2, item.getCode());
-        stm.setObject(3, item.getName());
-        stm.setObject(4, item.getSalePrice());
-        stm.setObject(5, item.getCostPrice());
-        stm.setObject(6, item.getReorderQty());
-        stm.setObject(7, item.getBrand());
-        stm.setObject(8, item.getCategory());
+        stm.setObject(2, item.getBrand());
+        stm.setObject(3, item.getCategory());
+        stm.setObject(4, item.getName());
+        stm.setObject(5, item.getSalePrice());
+        stm.setObject(6, item.getCostPrice());
+        stm.setObject(7, item.getReorderQty());
         return stm.executeUpdate() > 0;
     }
 
@@ -89,7 +90,7 @@ public class ItemDao {
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
         ArrayList<MItem> items = new ArrayList<>();
-        while(rst.next()) {
+        while (rst.next()) {
             items.add(new MItem(rst.getInt(1), rst.getInt(2),
                     rst.getInt(3), rst.getString(4),
                     rst.getString(5), rst.getDouble(6),
@@ -116,10 +117,11 @@ public class ItemDao {
     }
 
     public boolean isItem(String code) throws SQLException {
-        String query = "SELECT * FROM m_item WHERE index_no=" + code + "";
+        String query = "SELECT * FROM m_item WHERE code=?";
         Connection con = DBConnection.getInstance().getConnection();
-        Statement stm = con.createStatement();
-        ResultSet rst = stm.executeQuery(query);
+        PreparedStatement stm = con.prepareStatement(query);
+        stm.setObject(1, code);
+        ResultSet rst = stm.executeQuery();
         if (rst.next()) {
             return true;
         }

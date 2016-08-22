@@ -56,13 +56,13 @@ public class BrandDao {
     }
 
     public MBrand searchBrand(String name) throws SQLException {
-        String query = "SELECT * FROM m_brand WHERE name=" + name + "";
+        String query = "SELECT * FROM m_brand WHERE name=?";
         Connection con = DBConnection.getInstance().getConnection();
-        Statement stm = con.createStatement();
-        ResultSet rst = stm.executeQuery(query);
-        if (rst.next()) {
-            return new MBrand(rst.getInt(1), rst.getString(2)
-            );
+        PreparedStatement stm = con.prepareStatement(query);
+        stm.setObject(1, name);
+        ResultSet rst = stm.executeQuery();
+        while (rst.next()) {
+            return new MBrand(rst.getInt(1), rst.getString(2));
         }
         return null;
     }
@@ -81,10 +81,11 @@ public class BrandDao {
     }
 
     public boolean isBrand(String name) throws SQLException {
-        String query = "SELECT * FROM m_brand WHERE name=" + name;
+        String query = "SELECT * FROM m_brand WHERE name=?";
         Connection con = DBConnection.getInstance().getConnection();
         PreparedStatement stm = con.prepareStatement(query);
-        ResultSet rst = stm.executeQuery(query);
+        stm.setObject(1, name);
+        ResultSet rst = stm.executeQuery();
         if (rst.next()) {
             return true;
         }
