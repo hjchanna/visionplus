@@ -82,8 +82,8 @@ public class ItemDao {
         return stm.executeUpdate() > 0;
     }
 
-    public ArrayList<MItem> searchItems(String id) throws SQLException {
-        String query = "SELECT * FROM m_item WHERE index_no=" + id + "";
+    public ArrayList<MItem> searchItems(MItem item) throws SQLException {
+        String query = "SELECT * FROM m_item WHERE code LIKE '%" + item.getCode()+ "%' and name LIKE '%"+item.getName()+"%'";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);

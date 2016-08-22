@@ -133,18 +133,19 @@ public class ManageBrand extends javax.swing.JDialog {
         MBrand brands = new MBrand(lastId, name);
 
         try {
-//            boolean brand = BrandDao.getInstance().isBrand(name);
-//            if (brand) {
-//                JOptionPane.showMessageDialog(this, "this brand is already exists...");
-//            } else {
+            boolean brand = BrandDao.getInstance().isBrand(name);
+            if (brand) {
+                JOptionPane.showMessageDialog(this, "this brand is already exists...");
+            } else {
                 boolean addBrand = BrandDao.getInstance().addBrand(brands);
                 if (addBrand) {
                     Object[] rd = {name};
                     model.addRow(rd);
                     JOptionPane.showMessageDialog(this, "Success...");
                     brandName_text.removeAll();
+                    
                 }
-//            }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ManageBrand.class.getName()).log(Level.SEVERE, null, ex);
         }

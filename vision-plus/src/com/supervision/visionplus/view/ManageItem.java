@@ -72,6 +72,7 @@ public class ManageItem extends javax.swing.JPanel {
         brand_combo = new javax.swing.JComboBox();
         category_combo = new javax.swing.JComboBox();
         deleteButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
 
         itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,10 +148,17 @@ public class ManageItem extends javax.swing.JPanel {
             }
         });
 
-        deleteButton.setText("delete");
+        deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
             }
         });
 
@@ -161,11 +169,6 @@ public class ManageItem extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(deleteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -185,7 +188,14 @@ public class ManageItem extends javax.swing.JPanel {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(reOrderQty_text, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(category_combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(category_combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addButton)))
                 .addGap(7, 7, 7)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -225,6 +235,7 @@ public class ManageItem extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
+                    .addComponent(searchButton)
                     .addComponent(deleteButton))
                 .addGap(48, 48, 48))
         );
@@ -284,7 +295,7 @@ public class ManageItem extends javax.swing.JPanel {
         int categoryId = 0;
 
         MItem item = new MItem(newId, brandId, categoryId, itemCode, description, salePrice, costPrice, reOrderQty);
-        
+
         try {
             boolean isItem = ItemDao.getInstance().isItem(itemCode);
             if (isItem) {
@@ -323,6 +334,7 @@ public class ManageItem extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new ManageBrand(null, true).setVisible(true);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void brand_comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_brand_comboItemStateChanged
@@ -356,13 +368,30 @@ public class ManageItem extends javax.swing.JPanel {
 
     private void itemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemTableMouseClicked
         itemCode_text.setText(model.getValueAt(itemTable.getSelectedRow(), 0).toString());
-//        name_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 1));
-//        nic_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 2));
+//        .setText((String) model.getValueAt(itemTable.getSelectedRow(), 1));
+//        .setText((String) model.getValueAt(itemTable.getSelectedRow(), 2));
         description_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 3));
         salePrice_text.setText(model.getValueAt(itemTable.getSelectedRow(), 4).toString());
         costPrice_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 5).toString());
         reOrderQty_text.setText((String) model.getValueAt(itemTable.getSelectedRow(), 6).toString());
     }//GEN-LAST:event_itemTableMouseClicked
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        String code = itemCode_text.getText();
+        String name = description_text.getText();
+
+        MItem item = new MItem(null, null, null, code, name, null, null, null);
+        try {
+            ArrayList<MItem> searchItems = ItemDao.getInstance().searchItems(item);
+            model.setRowCount(0);
+            for (MItem searchItem : searchItems) {
+                Object[] rd = {searchItem.getCode(), searchItem.getBrand(), searchItem.getCategory(), searchItem.getName(), searchItem.getSalePrice(), searchItem.getCostPrice(), searchItem.getReorderQty()};
+                model.addRow(rd);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -389,6 +418,7 @@ public class ManageItem extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField reOrderQty_text;
     private javax.swing.JTextField salePrice_text;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
     Integer getLastId() {
