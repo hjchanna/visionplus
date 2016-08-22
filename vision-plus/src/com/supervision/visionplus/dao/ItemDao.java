@@ -8,6 +8,7 @@ package com.supervision.visionplus.dao;
 import com.supervision.visionplus.dbconnection.DBConnection;
 import com.supervision.visionplus.model.MItem;
 import com.supervision.visionplus.model.TStockLedger;
+import com.supervision.visionplus.model.mixModel.SearchItemMix;
 //import com.supervision.visionplus.service.ItemService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,7 +84,7 @@ public class ItemDao {
     }
 
     public ArrayList<MItem> searchItems(MItem item) throws SQLException {
-        String query = "SELECT * FROM m_item WHERE code LIKE '%" + item.getCode()+ "%' and name LIKE '%"+item.getName()+"%'";
+        String query = "SELECT * FROM m_item WHERE code LIKE '%" + item.getCode() + "%' and name LIKE '%" + item.getName() + "%'";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
@@ -98,18 +99,26 @@ public class ItemDao {
         return items;
     }
 
-    public ArrayList<MItem> getAllItems() throws SQLException {
-        String query = "SELECT * FROM m_item";
+    public ArrayList<SearchItemMix> searchitem(SearchItemMix item) throws SQLException {
+        String query = "SELECT i.code,b.name,c.name,i.name,i.sale_price,i.cost_price,i.reOrder_qty FROM m_item i, m_brand b, m_category c WHERE b.index_no=i.brand and c.index_no=i.category  and i.code LIKE '%"+item.getCode()+"%' and i.name LIKE '%"+item.getDescription()+"%' and c.name LIKE '%"+item.getCategory()+"%' and b.name LIKE '%"+item.getBrand()+"%'";
         Connection con = DBConnection.getInstance().getConnection();
         Statement stm = con.createStatement();
         ResultSet rst = stm.executeQuery(query);
-        ArrayList<MItem> items = new ArrayList<>();
+        ArrayList<SearchItemMix> items = new ArrayList<>();
         while (rst.next()) {
-            items.add(new MItem(rst.getInt(1), rst.getInt(2),
-                    rst.getInt(3), rst.getString(4),
-                    rst.getString(5), rst.getDouble(6),
-                    rst.getDouble(6), rst.getInt(7)
-            ));
+            items.add(new SearchItemMix(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4),rst.getString(5),rst.getString(6),rst.getString(7)));
+        }
+        return items;
+    }
+
+    public ArrayList<SearchItemMix> getAllItems() throws SQLException {
+        String query = "SELECT i.code,b.name,c.name,i.name,i.sale_price,i.cost_price,i.reOrder_qty FROM m_item i, m_brand b, m_category c WHERE b.index_no=i.brand and c.index_no=i.category";
+        Connection con = DBConnection.getInstance().getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rst = stm.executeQuery(query);
+        ArrayList<SearchItemMix> items = new ArrayList<>();
+        while (rst.next()) {
+            items.add(new SearchItemMix(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4),rst.getString(5),rst.getString(6),rst.getString(7)));
         }
         return items;
     }

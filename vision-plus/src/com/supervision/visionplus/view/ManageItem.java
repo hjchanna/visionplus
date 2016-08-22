@@ -12,6 +12,7 @@ import com.supervision.visionplus.dao.ItemDao;
 import com.supervision.visionplus.model.MBrand;
 import com.supervision.visionplus.model.MCategory;
 import com.supervision.visionplus.model.MItem;
+import com.supervision.visionplus.model.mixModel.SearchItemMix;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -450,12 +451,14 @@ public class ManageItem extends javax.swing.JPanel {
 
     void getAllItems() {
         try {
-            ArrayList<MItem> allItems = ItemDao.getInstance().getAllItems();
+            ArrayList<SearchItemMix> allItems = ItemDao.getInstance().getAllItems();
             model.setRowCount(0);
-            for (MItem allItem : allItems) {
-                Object[] rd = {allItem.getCode(), allItem.getBrand(), allItem.getCategory(), allItem.getName(), allItem.getSalePrice(), allItem.getCostPrice(), allItem.getReorderQty()};
+            for (SearchItemMix allItem : allItems) {
+                Object[] rd = {allItem.getCode(), allItem.getBrand(), allItem.getCategory(), allItem.getDescription(), allItem.getSalePrice(), allItem.getCostprice(), allItem.getReOrderQty()};
                 model.addRow(rd);
             }
+       
+       
         } catch (SQLException ex) {
             Logger.getLogger(ManageItem.class.getName()).log(Level.SEVERE, null, ex);
         }

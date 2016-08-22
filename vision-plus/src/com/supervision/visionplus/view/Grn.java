@@ -351,7 +351,6 @@ public class Grn extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         SearchItem searchItem = new SearchItem(null, true);
-        searchItem.setFrame(this);
         searchItem.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
