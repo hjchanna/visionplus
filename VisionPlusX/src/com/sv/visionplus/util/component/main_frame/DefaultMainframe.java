@@ -7,7 +7,7 @@
  *  Copyrights Channa Mohan, All rights reserved.
  *  
  */
-package com.mac.main_frame;
+package com.sv.visionplus.util.component.main_frame;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;

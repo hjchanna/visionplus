@@ -5,11 +5,9 @@
  */
 package visionplusx;
 
-import com.mac.main_frame.DefaultMainframe;
-import com.sv.visionplus.resource.VPResources;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
-import java.net.URL;
+import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
 
 /**
  *
