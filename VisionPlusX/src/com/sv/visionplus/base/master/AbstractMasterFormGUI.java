@@ -161,6 +161,7 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
                 btnDiscard.setVisible(true);
 
                 this.objectCreator.setNewMode();
+                this.objectCreator.resetFields();
                 break;
             case EDIT_MODE:
                 btnNew.setVisible(false);
@@ -217,6 +218,9 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
                 doDiscard();
             }
         });
+        
+        //set ideal mode
+        setMode(IDEAL_MODE);
     }
 
     @SuppressWarnings("unchecked")

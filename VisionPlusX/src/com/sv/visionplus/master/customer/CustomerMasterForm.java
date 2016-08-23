@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.sv.visionplus.master.customer;
+
+import com.sv.visionplus.base.master.AbstractMasterFormDAO;
+import com.sv.visionplus.base.master.AbstractMasterFormGUI;
+import com.sv.visionplus.base.master.AbstractObjectCreator;
+import com.sv.visionplus.master.customer.model.MCustomer;
+import com.sv.visionplus.util.component.table.CTableColumn;
+import com.sv.visionplus.util.component.table.CTableModel;
+
+/**
+ *
+ * @author Mohan
+ */
+public class CustomerMasterForm extends AbstractMasterFormGUI<MCustomer> {
+
+    @Override
+    protected CTableModel<MCustomer> getTableModel() {
+        return new CTableModel<>(
+                new CTableColumn("Name", "name"),
+                new CTableColumn("NIC", "nic"),
+                new CTableColumn("Address", "address"),
+                new CTableColumn("Contact No.", "contactNo")
+        );
+    }
+
+    @Override
+    protected AbstractMasterFormDAO<MCustomer> getMasterFormDAO() {
+        return new CustomerFormDAO();
+    }
+
+    @Override
+    protected AbstractObjectCreator<MCustomer> getObjectCreator() {
+        return new PCCustomer();
+    }
+
+//    public static void main(String[] args) {
+//        JFrame.setDefaultLookAndFeelDecorated(true);
+//        JDialog.setDefaultLookAndFeelDecorated(true);
+//        SubstanceLookAndFeel.setSkin(BusinessSkin.class.getCanonicalName());
+//
+//        JFrame frame = new JFrame();
+//
+//        CustomerMasterForm cmf = new CustomerMasterForm();
+//        frame.setContentPane(cmf);
+//        frame.pack();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setVisible(true);
+//    }
+}

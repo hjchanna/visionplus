@@ -19,6 +19,8 @@ public abstract class AbstractObjectCreator<T> extends JPanel {
     public abstract void setNewMode();
 
     public abstract void setEditMode();
+    
+    public abstract void resetFields();
 
     public abstract void initObject() throws VPException;
 
