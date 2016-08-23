@@ -5,7 +5,9 @@
  */
 package visionplusx;
 
+import com.sv.visionplus.master.bank_branch.BankBranchFormGUI;
 import com.sv.visionplus.master.customer.CustomerFormGUI;
+import com.sv.visionplus.master.user.UserFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
 import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
@@ -54,12 +56,13 @@ public class Home extends DefaultMainframe {
         addBand("Transactors", getImageUrl(MASTER_CUSTOMER));
         addButton("Customer", getImageUrl(MASTER_CUSTOMER), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerFormGUI.class));
         addButton("Supplier", getImageUrl(MASTER_SUPPLIER), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("User", getImageUrl(MASTER_SUPPLIER), DefaultMainframe.ElementPriority.TOP, getActionListener(UserFormGUI.class));
 
         addBand("Item", getImageUrl(MASTER_ITEM));
         addButton("Item", getImageUrl(MASTER_ITEM), DefaultMainframe.ElementPriority.TOP, null);
 
         addBand("Bank", getImageUrl(MASTER_BRANCH));
-        addButton("Bank Branch", getImageUrl(MASTER_BRANCH), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Bank Branch", getImageUrl(MASTER_BRANCH), DefaultMainframe.ElementPriority.TOP, getActionListener(BankBranchFormGUI.class));
 
         addTask("Transaction");
 

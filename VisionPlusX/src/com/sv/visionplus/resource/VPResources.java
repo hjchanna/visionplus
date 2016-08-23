@@ -33,6 +33,8 @@ public class VPResources {
     public static final String BACKUP_EXPORT = "icons/backup/export.png";
     public static final String BACKUP_IMPORT = "icons/backup/import.png";
     
+    public static final String HOME_IMAGE = "icons/home/home.png";
+    
     public static URL getImageUrl(String path) {
         return VPResources.class.getResource(path);
     }
