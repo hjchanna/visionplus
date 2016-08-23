@@ -13,16 +13,16 @@ import java.text.ParseException;
  */
 //XXX:KASUN
 public class PaymentDialog extends javax.swing.JDialog {
-    //TODO: singleton instance of payment dialog
+
+    //singleton instance of payment dialog
     private static PaymentDialog INASTANCE;
-    
-    public static final PaymentDialog getInstance(){
-        if (INASTANCE==null) {
-            INASTANCE=new PaymentDialog();
+
+    public static final PaymentDialog getInstance() {
+        if (INASTANCE == null) {
+            INASTANCE = new PaymentDialog();
         }
         return INASTANCE;
     }
-    
 
     private PaymentDialog() {
         super();
@@ -37,13 +37,13 @@ public class PaymentDialog extends javax.swing.JDialog {
 
         //show dialog
         this.setVisible(true);
-        
+
         //parse payment object
         txtInviiveValue.setText(FormatterUtil.getInstance().formatDouble(totalAmount));
-        
+
         //return payment object
-        TPayment payment=new TPayment();
-        
+        TPayment payment = new TPayment();
+
         Double cardAmount = FormatterUtil.getInstance().parseDouble(txtCardAmount.getText());
         Double cashAmount = FormatterUtil.getInstance().parseDouble(txtCashAmount.getText());
         Double chequeAmount = FormatterUtil.getInstance().parseDouble(txtChequeAmount.getText());
@@ -51,17 +51,17 @@ public class PaymentDialog extends javax.swing.JDialog {
         payment.setCardAmount(cardAmount);
         payment.setCashAmount(cashAmount);
         payment.setChequeAmount(chequeAmount);
-        
-        payment.setTotalAmount(cardAmount+cashAmount+chequeAmount);
-        
+
+        payment.setTotalAmount(cardAmount + cashAmount + chequeAmount);
+
         return payment;
-        
+
     }
 
     private void validatePayment() {
         this.payment = new TPayment();
         //TODO:set other fields, payment information
-        
+
     }
 
     private void discardPayment() {
@@ -82,7 +82,7 @@ public class PaymentDialog extends javax.swing.JDialog {
             }
         };
         //TODO:set focus listener to input components
-        
+
         //TODO:button actions
     }
 
@@ -378,7 +378,7 @@ public class PaymentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCashAmountActionPerformed
 
     private void txtCashAmountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCashAmountKeyReleased
-       
+
     }//GEN-LAST:event_txtCashAmountKeyReleased
 
     private void txtCardNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardNoActionPerformed
@@ -386,7 +386,7 @@ public class PaymentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCardNoActionPerformed
 
     private void rdoCardPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCardPaymentActionPerformed
-       
+
     }//GEN-LAST:event_rdoCardPaymentActionPerformed
 
     private void cmboCardBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmboCardBankActionPerformed
@@ -394,7 +394,7 @@ public class PaymentDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cmboCardBankActionPerformed
 
     private void rdoChequePaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoChequePaymentActionPerformed
-       
+
     }//GEN-LAST:event_rdoChequePaymentActionPerformed
 
     private void cmboChequeBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmboChequeBankActionPerformed

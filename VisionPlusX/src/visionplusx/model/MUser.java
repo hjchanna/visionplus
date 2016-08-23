@@ -1,17 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visionplusx.model;
+
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
  * @author Mohan
  */
 //XXX:NIDUARA
+@VPTable("m_user")
 public class MUser {
-
+    @VPId
     private Integer indexNo;
     private String name;
     private String userName;
@@ -67,6 +66,11 @@ public class MUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "MUser{" + "indexNo=" + indexNo + ", name=" + name + ", userName=" + userName + ", password=" + password + ", type=" + type + '}';
     }
 
 }

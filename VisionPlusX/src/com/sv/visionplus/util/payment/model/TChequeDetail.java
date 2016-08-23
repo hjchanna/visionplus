@@ -10,6 +10,7 @@ package com.sv.visionplus.util.payment.model;
  * @author KAZA
  */
 public class TChequeDetail {
+
     private Integer indexNo;
     private Integer payment;
     private Integer bankBranch;
@@ -66,6 +67,5 @@ public class TChequeDetail {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
-    
+
 }

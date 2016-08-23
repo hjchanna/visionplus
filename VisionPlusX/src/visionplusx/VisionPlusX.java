@@ -1,14 +1,21 @@
 package visionplusx;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import visionplusx.model.MUser;
 
 //XXX:NIDUARA
-
 public class VisionPlusX implements Runnable {
 
     public static void main(String[] args) {
         // TODO: system init point
-            
+        //look and feel
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+
+        //show main frame
+        VisionPlusX vpx = new VisionPlusX();
+        vpx.run();
     }
 
     @Override
@@ -19,9 +26,10 @@ public class VisionPlusX implements Runnable {
         if (user == null) {
             System.exit(0);//login failed
         }
-        
-        //create main frame
-        new Home().setVisible(true);
-    }
 
+        //create main frame
+        Home home = new Home();
+        home.resetMainFrame();
+        home.setVisible(true);
+    }
 }

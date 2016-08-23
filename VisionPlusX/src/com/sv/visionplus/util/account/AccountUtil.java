@@ -6,5 +6,15 @@ package com.sv.visionplus.util.account;
  */
 //XXX:Nidura
 public class AccountUtil {
-    //TODO: singleton init AccountUtil
+
+    //singleton init AccountUtil
+    private static AccountUtil INSTANCE;
+
+    public static AccountUtil getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new AccountUtil();
+        }
+
+        return INSTANCE;
+    }
 }

@@ -1,4 +1,4 @@
-package com.sv.visionplus.util.connection;
+package com.sv.visionplus.util.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,29 +11,29 @@ import java.util.logging.Logger;
  * @author Mohan
  */
 //XXX:NIDURA
-public class ConnectionUtil {
+public class DatabaseUtil {
 
-    private static ConnectionUtil INSTANCE;
+    private static DatabaseUtil INSTANCE;
     private Connection connection;
 
-    private ConnectionUtil() throws SQLException {
+    private DatabaseUtil() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabaseUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "mysql");
     }
 
-    public static ConnectionUtil getInstance() throws SQLException {
+    public static DatabaseUtil getInstance() throws SQLException {
         if (INSTANCE == null) {
-            INSTANCE = new ConnectionUtil();
+            INSTANCE = new DatabaseUtil();
         }
         return INSTANCE;
     }
 
     //conncetion pooling
     public Connection openConnection() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "mysql");
         return connection;
     }
 

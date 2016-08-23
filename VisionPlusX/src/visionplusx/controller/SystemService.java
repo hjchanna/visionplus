@@ -5,10 +5,48 @@
  */
 package visionplusx.controller;
 
+import com.sv.visionplus.util.database.DatabaseUtil;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import visionplusx.model.MUser;
+
 /**
  *
  * @author Mohan
  */
 public class SystemService {
-    
+
+    private SystemDAO systemDAO;
+
+    private static SystemService INSTANCE;
+
+    public static SystemService getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SystemService();
+        }
+
+        return INSTANCE;
+    }
+
+    private SystemService() {
+        this.systemDAO = SystemDAO.getInstance();
+    }
+
+    //functions
+    public MUser login(String username, String password) {
+        try {
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+
+            MUser user = systemDAO.login(connection, username, password);
+            return user;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
 }

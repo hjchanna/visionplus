@@ -5,14 +5,14 @@ package com.sv.visionplus.util.payment.model;
  * @author Mohan
  */
 //XXX:KASUN
-
 public class TPayment {
-   private Integer indexNo;
-   private Integer transaction;
-   private double totalAmount;
-   private double cashAmount;
-   private double cardAmount;
-   private double chequeAmount;
+
+    private Integer indexNo;
+    private Integer transaction;
+    private double totalAmount;
+    private double cashAmount;
+    private double cardAmount;
+    private double chequeAmount;
 
     public TPayment() {
     }
@@ -73,6 +73,5 @@ public class TPayment {
     public void setChequeAmount(double chequeAmount) {
         this.chequeAmount = chequeAmount;
     }
-   
-   
+
 }
