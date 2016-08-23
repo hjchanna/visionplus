@@ -7,8 +7,12 @@ public class Home extends javax.swing.JFrame {
 
     private static Home instance;
 
-    public static void getInstance() {
+    public static Home getInstance() {
         //TODO:singleton instance
+        if (instance==null) {
+            instance=new Home();
+        }
+        return instance;
     }
 
     public Home() {
@@ -19,6 +23,9 @@ public class Home extends javax.swing.JFrame {
 
     private void bindForm(JMenuItem menuItem, Class formClass) {
         //TODO:add action listener to the menu item to create new instance of form using reflection,
+//        pnlLoad.removeAll();
+//        pnlLoad.add(formClass);
+//        revalidate();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,11 +37,23 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlLoad = new javax.swing.JPanel();
         menubar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout pnlLoadLayout = new javax.swing.GroupLayout(pnlLoad);
+        pnlLoad.setLayout(pnlLoadLayout);
+        pnlLoadLayout.setHorizontalGroup(
+            pnlLoadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        pnlLoadLayout.setVerticalGroup(
+            pnlLoadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 279, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("File");
 
@@ -49,11 +68,11 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(pnlLoad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(pnlLoad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -63,5 +82,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menubar;
+    private javax.swing.JPanel pnlLoad;
     // End of variables declaration//GEN-END:variables
 }
