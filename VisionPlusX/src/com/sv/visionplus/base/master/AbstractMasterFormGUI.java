@@ -83,7 +83,7 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
 
             if (q == JOptionPane.YES_OPTION) {
                 try {
-                    this.masterFormService.update(object);
+                    this.masterFormService.delete(object);
                     //save success
                     JOptionPane.showMessageDialog(this, "Successfully Deleted..!!!", "Delete", JOptionPane.INFORMATION_MESSAGE);
 
