@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import visionplusx.Home;
 
 /**
  *
@@ -75,22 +76,22 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
         try {
             object = this.objectCreator.getValue();
         } catch (VPException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Home.getInstance(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         if (object != null) {
-            int q = JOptionPane.showConfirmDialog(this, "Do you sure want to delete ?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int q = JOptionPane.showConfirmDialog(Home.getInstance(), "Do you sure want to delete ?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (q == JOptionPane.YES_OPTION) {
                 try {
                     this.masterFormService.delete(object);
                     //save success
-                    JOptionPane.showMessageDialog(this, "Successfully Deleted..!!!", "Delete", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(Home.getInstance(), "Successfully Deleted..!!!", "Delete", JOptionPane.INFORMATION_MESSAGE);
 
                     //set ideal mode
                     setMode(IDEAL_MODE);
                 } catch (VPException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Delete", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(Home.getInstance(), ex.getMessage(), "Delete", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -101,11 +102,11 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
         try {
             object = this.objectCreator.getValue();
         } catch (VPException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Home.getInstance(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         if (object != null) {
-            int q = JOptionPane.showConfirmDialog(this, "Do you sure want to save chages ?", "Save", JOptionPane.YES_NO_OPTION);
+            int q = JOptionPane.showConfirmDialog(Home.getInstance(), "Do you sure want to save chages ?", "Save", JOptionPane.YES_NO_OPTION);
 
             if (q == JOptionPane.YES_OPTION) {
                 try {
@@ -120,19 +121,19 @@ public abstract class AbstractMasterFormGUI<T> extends javax.swing.JPanel {
                             throw new AssertionError();
                     }
                     //save success
-                    JOptionPane.showMessageDialog(this, "Successfully Saved..!!!", "Save", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(Home.getInstance(), "Successfully Saved..!!!", "Save", JOptionPane.INFORMATION_MESSAGE);
 
                     //set ideal mode
                     setMode(IDEAL_MODE);
                 } catch (VPException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Save", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(Home.getInstance(), ex.getMessage(), "Save", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
     }
 
     private void doDiscard() {
-        int q = JOptionPane.showConfirmDialog(this, "Do you sure want to discard changes ?", "Discard", JOptionPane.YES_NO_OPTION);
+        int q = JOptionPane.showConfirmDialog(Home.getInstance(), "Do you sure want to discard changes ?", "Discard", JOptionPane.YES_NO_OPTION);
 
         if (q == JOptionPane.YES_OPTION) {
             setMode(IDEAL_MODE);

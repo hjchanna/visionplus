@@ -33,6 +33,7 @@ public class Login extends javax.swing.JDialog {
     }
 
     public MUser attemptLogin() {
+        setLocationRelativeTo(null);
         setVisible(true);
 
         //internal process 

@@ -28,7 +28,7 @@ public class VisionPlusX implements Runnable {
         }
 
         //create main frame
-        Home home = new Home();
+        Home home = Home.getInstance();
         home.resetMainFrame();
         home.setVisible(true);
     }

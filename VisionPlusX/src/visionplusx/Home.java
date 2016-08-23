@@ -10,6 +10,7 @@ import com.sv.visionplus.master.customer.CustomerFormGUI;
 import com.sv.visionplus.master.user.UserFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
+import com.sv.visionplus.util.backup.BackupRestore;
 import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,19 @@ import java.util.logging.Logger;
  * @author Mohan
  */
 public class Home extends DefaultMainframe {
+
+    private static Home INSTANCE;
+
+    public static Home getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Home();
+        }
+
+        return INSTANCE;
+    }
+
+    private Home() {
+    }
 
     @Override
     protected JPanel getContentPanel() {
@@ -91,7 +105,7 @@ public class Home extends DefaultMainframe {
         addTask("Backup");
 
         addBand("Backup", getImageUrl(BACKUP_EXPORT));
-        addButton("Export", getImageUrl(BACKUP_EXPORT), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Export", getImageUrl(BACKUP_EXPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
         addButton("Import", getImageUrl(BACKUP_IMPORT), DefaultMainframe.ElementPriority.TOP, null);
 
     }
