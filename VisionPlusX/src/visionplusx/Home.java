@@ -5,7 +5,7 @@
  */
 package visionplusx;
 
-import com.sv.visionplus.master.customer.CustomerMasterForm;
+import com.sv.visionplus.master.customer.CustomerFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
 import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
@@ -52,7 +52,7 @@ public class Home extends DefaultMainframe {
         addTask("Master");
 
         addBand("Transactors", getImageUrl(MASTER_CUSTOMER));
-        addButton("Customer", getImageUrl(MASTER_CUSTOMER), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerMasterForm.class));
+        addButton("Customer", getImageUrl(MASTER_CUSTOMER), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerFormGUI.class));
         addButton("Supplier", getImageUrl(MASTER_SUPPLIER), DefaultMainframe.ElementPriority.TOP, null);
 
         addBand("Item", getImageUrl(MASTER_ITEM));

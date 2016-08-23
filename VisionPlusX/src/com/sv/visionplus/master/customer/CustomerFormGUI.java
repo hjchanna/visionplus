@@ -16,7 +16,7 @@ import com.sv.visionplus.util.component.table.CTableModel;
  *
  * @author Mohan
  */
-public class CustomerMasterForm extends AbstractMasterFormGUI<MCustomer> {
+public class CustomerFormGUI extends AbstractMasterFormGUI<MCustomer> {
 
     @Override
     protected CTableModel<MCustomer> getTableModel() {
@@ -37,18 +37,4 @@ public class CustomerMasterForm extends AbstractMasterFormGUI<MCustomer> {
     protected AbstractObjectCreator<MCustomer> getObjectCreator() {
         return new PCCustomer();
     }
-
-//    public static void main(String[] args) {
-//        JFrame.setDefaultLookAndFeelDecorated(true);
-//        JDialog.setDefaultLookAndFeelDecorated(true);
-//        SubstanceLookAndFeel.setSkin(BusinessSkin.class.getCanonicalName());
-//
-//        JFrame frame = new JFrame();
-//
-//        CustomerMasterForm cmf = new CustomerMasterForm();
-//        frame.setContentPane(cmf);
-//        frame.pack();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//    }
 }
