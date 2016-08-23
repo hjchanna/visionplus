@@ -8,6 +8,7 @@ public class VisionPlusX implements Runnable {
 
     public static void main(String[] args) {
         // TODO: system init point
+            
     }
 
     @Override
@@ -20,6 +21,7 @@ public class VisionPlusX implements Runnable {
         }
         
         //create main frame
+        new Home().setVisible(true);
     }
 
 }
