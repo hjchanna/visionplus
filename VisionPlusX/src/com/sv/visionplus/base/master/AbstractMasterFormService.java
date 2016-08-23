@@ -5,10 +5,36 @@
  */
 package com.sv.visionplus.base.master;
 
+import com.sv.visionplus.system.exception.VPException;
+import java.util.List;
+
 /**
  *
  * @author Mohan
  */
-public class AbstractMasterFormService {
-    
+public abstract class AbstractMasterFormService<T> {
+
+    private final AbstractMasterFormDAO<T> masterFormDAO;
+
+    protected abstract AbstractMasterFormDAO<T> getMasterFormDAO();
+
+    public AbstractMasterFormService() {
+        this.masterFormDAO = getMasterFormDAO();
+    }
+
+    public void save(T object) throws VPException {
+
+    }
+
+    public void update(T object) throws VPException {
+
+    }
+
+    public void delete(T object) throws VPException {
+
+    }
+
+    public List<T> getSearchResult(String text) {
+        return null;
+    }
 }

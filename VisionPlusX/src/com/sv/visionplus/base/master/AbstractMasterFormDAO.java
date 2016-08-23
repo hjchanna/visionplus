@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.base.master;
 
 /**
  *
  * @author Mohan
  */
-public class AbstractMasterFormDAO {
-    
+public class AbstractMasterFormDAO<T> {
+
 }
