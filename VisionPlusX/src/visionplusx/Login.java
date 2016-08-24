@@ -7,6 +7,7 @@ package visionplusx;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 import visionplusx.controller.SystemService;
 import visionplusx.model.MUser;
@@ -59,6 +60,10 @@ public class Login extends javax.swing.JDialog {
 
         dispose();
     }
+    public List<MUser> listUsers() {
+        return this.systemService.listUser();
+    }
+    
 
     @SuppressWarnings("unchecked")
     private void initOthers() {
@@ -80,6 +85,8 @@ public class Login extends javax.swing.JDialog {
                 doDiscard();
             }
         });
+        
+        cComboBox1.setExpressEditable(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -93,6 +100,12 @@ public class Login extends javax.swing.JDialog {
         txtPassword = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         btnDiscard = new javax.swing.JButton();
+        cComboBox1 = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return listUsers();
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -128,16 +141,19 @@ public class Login extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPassword)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(btnLogin)
                         .addGap(10, 10, 10)
                         .addComponent(btnDiscard)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPassword)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +170,9 @@ public class Login extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogin)
-                    .addComponent(btnDiscard)))
+                    .addComponent(btnDiscard))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -163,6 +181,7 @@ public class Login extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDiscard;
     private javax.swing.JButton btnLogin;
+    private com.sv.visionplus.util.component.combobox.CComboBox cComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

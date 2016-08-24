@@ -70,7 +70,7 @@ public class MUser {
 
     @Override
     public String toString() {
-        return "MUser{" + "indexNo=" + indexNo + ", name=" + name + ", userName=" + userName + ", password=" + password + ", type=" + type + '}';
+        return indexNo+"-"+name;
     }
 
 }

@@ -8,6 +8,8 @@ package visionplusx.controller;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import visionplusx.model.MUser;
@@ -47,6 +49,16 @@ public class SystemService {
         }
 
         return null;
+    }
+
+    public List<MUser> listUser() {
+        try {
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+
+            return systemDAO.listUsers(connection);
+        } catch (SQLException e) {
+            return Collections.emptyList();
+        }
     }
 
 }

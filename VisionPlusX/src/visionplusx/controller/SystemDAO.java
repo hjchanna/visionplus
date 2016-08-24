@@ -8,6 +8,7 @@ package visionplusx.controller;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import visionplusx.model.MUser;
 
 /**
@@ -30,5 +31,12 @@ public class SystemDAO {
         QueryUtil<MUser> loginQueryUtil = QueryUtil.getInstance(MUser.class);
         return loginQueryUtil.executeUniqueSelect(connection, "user_name=? AND password=?", username, password);
     }
+    
+    public List<MUser> listUsers(Connection connection) throws SQLException {
+        
+        QueryUtil<MUser> queryUtil = QueryUtil.getInstance(MUser.class);
+        return queryUtil.executeSelect(connection);
+    }
+    
 
 }
