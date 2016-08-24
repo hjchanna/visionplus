@@ -33,17 +33,18 @@ public class ItemFormDAO extends AbstractMasterFormDAO<MItem> {
 
     @Override
     public void update(Connection connection, MItem item) throws SQLException {
-        queryUtil.executeUpdate(connection, item, "code=?",item.getCode());
+        queryUtil.executeUpdate(connection, item, "code=?", item.getCode());
     }
 
     @Override
-    public void delete(Connection connection, MItem object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Connection connection, MItem item) throws SQLException {
+        queryUtil.executeDelete(connection, "code=?", item.getCode());
     }
 
     @Override
     public List<MItem> getSearchResult(Connection connection, String text) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        text = "%" + text + "%";
+        return queryUtil.executeSelect(connection, "code LIKE ? OR name LIKE ? OR brand LIKE ? OR category LIKE ?", text, text, text, text);
     }
 
 }
