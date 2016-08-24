@@ -3,15 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sv.visionplus.master.item;
 
+import com.sv.visionplus.base.master.AbstractMasterFormDAO;
+import com.sv.visionplus.master.item.model.MItem;
+import com.sv.visionplus.util.database.QueryUtil;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
- * Date : Aug 24, 2016
- * Time : 12:19:51 AM
+ * Date : Aug 24, 2016 Time : 12:19:51 AM
+ *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class ItemFormDAO {
+public class ItemFormDAO extends AbstractMasterFormDAO<MItem> {
+
+    private QueryUtil<MItem> queryUtil;
+
+    public ItemFormDAO() {
+        this.queryUtil = QueryUtil.getInstance(MItem.class);
+    }
+
+    @Override
+    public void save(Connection connection, MItem item) throws SQLException {
+        queryUtil.executeInsert(connection, item);
+    }
+
+    @Override
+    public void update(Connection connection, MItem item) throws SQLException {
+        queryUtil.executeUpdate(connection, item, "code=?",item.getCode());
+    }
+
+    @Override
+    public void delete(Connection connection, MItem object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<MItem> getSearchResult(Connection connection, String text) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
