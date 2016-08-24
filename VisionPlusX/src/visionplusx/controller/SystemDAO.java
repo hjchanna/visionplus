@@ -5,6 +5,7 @@
  */
 package visionplusx.controller;
 
+import com.sv.visionplus.master.item.model.MBrand;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,6 +38,9 @@ public class SystemDAO {
         QueryUtil<MUser> queryUtil = QueryUtil.getInstance(MUser.class);
         return queryUtil.executeSelect(connection);
     }
-    
+    public List<MBrand> listBrand(Connection connection) throws SQLException {
+        QueryUtil<MBrand> queryUtil = QueryUtil.getInstance(MBrand.class);
+        return queryUtil.executeSelect(connection);
+    }
 
 }

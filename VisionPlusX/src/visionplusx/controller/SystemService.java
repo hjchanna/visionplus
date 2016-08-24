@@ -5,6 +5,7 @@
  */
 package visionplusx.controller;
 
+import com.sv.visionplus.master.item.model.MBrand;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -54,8 +55,15 @@ public class SystemService {
     public List<MUser> listUser() {
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
-
             return systemDAO.listUsers(connection);
+        } catch (SQLException e) {
+            return Collections.emptyList();
+        }
+    }
+    public List<MBrand> listBrand() {
+        try {
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+            return systemDAO.listBrand(connection);
         } catch (SQLException e) {
             return Collections.emptyList();
         }

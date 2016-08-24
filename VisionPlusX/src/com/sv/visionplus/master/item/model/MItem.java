@@ -13,7 +13,7 @@ package com.sv.visionplus.master.item.model;
  */
 public class MItem {
 
-    private Integer index_no;
+    private Integer indexNo;
     private Integer brand;
     private Integer category;
     private String code;
@@ -22,12 +22,12 @@ public class MItem {
     private Double costPrice;
     private Integer reorderQty;
 
-    public Integer getIndex_no() {
-        return index_no;
+    public Integer getIndexNo() {
+        return indexNo;
     }
 
-    public void setIndex_no(Integer index_no) {
-        this.index_no = index_no;
+    public void setIndexNo(Integer indexNo) {
+        this.indexNo = indexNo;
     }
 
     public Integer getBrand() {
@@ -86,4 +86,5 @@ public class MItem {
         this.reorderQty = reorderQty;
     }
 
+    
 }

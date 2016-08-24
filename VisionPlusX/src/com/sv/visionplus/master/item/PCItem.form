@@ -30,14 +30,14 @@
               </Group>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtCategory" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtIndexNo" alignment="0" pref="174" max="32767" attributes="0"/>
-                  <Component id="txtCode" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtBrand" alignment="0" max="32767" attributes="0"/>
+                  <Component id="categoryCombo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtName" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtSalePrice" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtCostPrice" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtReOrderQty" alignment="0" max="32767" attributes="0"/>
+                  <Component id="brandCombo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIndexNo" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtCode" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -57,14 +57,14 @@
                   <Component id="txtCode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="brandCombo" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <Component id="categoryCombo" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -86,7 +86,7 @@
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtReOrderQty" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -116,10 +116,6 @@
         <Property name="text" type="java.lang.String" value="Category :"/>
       </Properties>
     </Component>
-    <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtBrand">
-    </Component>
-    <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtCategory">
-    </Component>
     <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtName">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -147,6 +143,10 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Re-Order Qty:"/>
       </Properties>
+    </Component>
+    <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="brandCombo">
+    </Component>
+    <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="categoryCombo">
     </Component>
   </SubComponents>
 </Form>
