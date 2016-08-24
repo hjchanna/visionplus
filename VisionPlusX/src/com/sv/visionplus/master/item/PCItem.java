@@ -32,12 +32,12 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         initComponents();
     }
 
-//    public List<MBrand> listBrand() {
-//        return this.systemService.listBrand();
-//    }
-//    public List<MCategory> listCategory() {
-//        return this.itemDao.listCategory();
-//    }
+    public List<MBrand> listBrand() {
+        return this.systemService.listBrand();
+    }
+    public List<MCategory> listCategory() {
+        return null;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -57,8 +57,21 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         jLabel7 = new javax.swing.JLabel();
         txtReOrderQty = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel8 = new javax.swing.JLabel();
-        brandCombo = new com.sv.visionplus.util.component.combobox.CComboBox();
-        categoryCombo = new com.sv.visionplus.util.component.combobox.CComboBox();
+        brandCombo = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return listBrand();
+            }
+
+        };
+        categoryCombo = new com.sv.visionplus.util.component.combobox.CComboBox(){
+
+            @Override
+            public List getComboData(){
+                return listCategory();
+            }
+
+        };
 
         jLabel1.setText("Index No.:");
 

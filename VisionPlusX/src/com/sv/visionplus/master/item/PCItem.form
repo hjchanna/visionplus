@@ -145,8 +145,14 @@
       </Properties>
     </Component>
     <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="brandCombo">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;    @Override&#xa;    public List getComboData(){&#xa;        return listBrand();&#xa;    }&#xa;&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="categoryCombo">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;&#xa;    @Override&#xa;    public List getComboData(){&#xa;        return listCategory();&#xa;    }&#xa;&#xa;}"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
