@@ -43,7 +43,6 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
 
     @Override
     public void setIdealMode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

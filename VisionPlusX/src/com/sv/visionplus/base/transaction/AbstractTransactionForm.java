@@ -171,6 +171,9 @@ public abstract class AbstractTransactionForm<T> extends javax.swing.JPanel {
         this.objectCreator = getObjectCreator();
         this.pnlContent.add(this.objectCreator);
         this.pnlContent.revalidate();
+
+        //ideal mode
+        setMode(IDEAL_MODE);
     }
 
     @SuppressWarnings("unchecked")
