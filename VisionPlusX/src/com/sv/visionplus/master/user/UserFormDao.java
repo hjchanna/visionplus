@@ -17,9 +17,9 @@ import visionplusx.model.MUser;
  *
  * @author KAZA
  */
-public class UserFormDao extends AbstractMasterFormDAO<MUser>{
+public class UserFormDao extends AbstractMasterFormDAO<MUser> {
 
-     private QueryUtil<MUser> queryUtil;
+    private QueryUtil<MUser> queryUtil;
 
     public UserFormDao() {
         this.queryUtil = QueryUtil.getInstance(MUser.class);
@@ -42,7 +42,8 @@ public class UserFormDao extends AbstractMasterFormDAO<MUser>{
 
     @Override
     public List<MUser> getSearchResult(Connection connection, String text) throws SQLException {
-           return queryUtil.executeSelect(connection, "user_name =? AND password =?", text,text);
+        text = "%" + text + "%";
+        return queryUtil.executeSelect(connection, "name LIKE ? OR user_name LIKE ? OR password LIKE ? OR type LIKE ?", text, text, text, text);
     }
-    
+
 }

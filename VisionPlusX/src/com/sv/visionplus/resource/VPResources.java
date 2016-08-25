@@ -15,7 +15,7 @@ public class VPResources {
 
     public static final String MASTER_CUSTOMER = "icons/master/customer.png";
     public static final String MASTER_SUPPLIER = "icons/master/supplier.png";
-    public static final String MASTER_USER = "icons/master/user.png";
+    public static final String MASTER_USER = "icons/master/users.png";
     public static final String MASTER_ITEM = "icons/master/item.png";
     public static final String MASTER_BRANCH = "icons/master/branch.png";
 

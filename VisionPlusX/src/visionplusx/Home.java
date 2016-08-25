@@ -72,7 +72,7 @@ public class Home extends DefaultMainframe {
         addBand("Transactors", getImageUrl(MASTER_CUSTOMER));
         addButton("Customer", getImageUrl(MASTER_CUSTOMER), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerFormGUI.class));
         addButton("Supplier", getImageUrl(MASTER_SUPPLIER), DefaultMainframe.ElementPriority.TOP, getActionListener(SupplierFormGUI.class));
-        addButton("User", getImageUrl(MASTER_SUPPLIER), DefaultMainframe.ElementPriority.TOP, getActionListener(UserFormGUI.class));
+        addButton("User", getImageUrl(MASTER_USER), DefaultMainframe.ElementPriority.TOP, getActionListener(UserFormGUI.class));
 
         addBand("Item", getImageUrl(MASTER_ITEM));
         addButton("Item", getImageUrl(MASTER_ITEM), DefaultMainframe.ElementPriority.TOP,getActionListener(ItemFormGUI.class));

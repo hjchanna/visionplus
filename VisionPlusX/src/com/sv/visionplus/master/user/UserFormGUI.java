@@ -22,7 +22,7 @@ public class UserFormGUI extends AbstractMasterFormGUI<MUser>{
     protected CTableModel<MUser> getTableModel() {
          return new CTableModel<>(
                 new CTableColumn("Name", "name"),
-                new CTableColumn("User Name", "user_name"),
+                new CTableColumn("User Name", "userName"),
                 new CTableColumn("Password", "password"),
                 new CTableColumn("Type", "type")
         );
