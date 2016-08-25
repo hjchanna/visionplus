@@ -51,27 +51,14 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         jLabel4 = new javax.swing.JLabel();
         txtName = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel5 = new javax.swing.JLabel();
-        txtSalePrice = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel6 = new javax.swing.JLabel();
-        txtCostPrice = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel7 = new javax.swing.JLabel();
-        txtReOrderQty = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel8 = new javax.swing.JLabel();
-        brandCombo = new com.sv.visionplus.util.component.combobox.CComboBox(){
-            @Override
-            public List getComboData(){
-                return listBrand();
-            }
-
-        };
-        categoryCombo = new com.sv.visionplus.util.component.combobox.CComboBox(){
-
-            @Override
-            public List getComboData(){
-                return listCategory();
-            }
-
-        };
+        cDoubleField1 = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtCostPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtReOrderQty = new com.sv.visionplus.util.component.textfield.CIntegerField();
+        brandCombo = new javax.swing.JComboBox();
+        categoryCombo = new javax.swing.JComboBox();
 
         jLabel1.setText("Index No.:");
 
@@ -96,24 +83,24 @@ public class PCItem extends AbstractObjectCreator<MItem> {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(categoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSalePrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCostPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtReOrderQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(brandCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(brandCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoryCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtIndexNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cDoubleField1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCostPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,21 +115,21 @@ public class PCItem extends AbstractObjectCreator<MItem> {
                     .addComponent(jLabel2)
                     .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(brandCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(categoryCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cDoubleField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -151,18 +138,18 @@ public class PCItem extends AbstractObjectCreator<MItem> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtReOrderQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
     public void setIdealMode() {
         txtIndexNo.setCValueEditable(false);
-        brandCombo.setCValueEditable(false);
-        categoryCombo.setCValueEditable(false);
+        brandCombo.setEditable(false);
+        categoryCombo.setEditable(false);
         txtCode.setCValueEditable(false);
         txtName.setCValueEditable(false);
-        txtSalePrice.setCValueEditable(false);
+        cDoubleField1.setCValueEditable(false);
         txtCostPrice.setCValueEditable(false);
         txtReOrderQty.setCValueEditable(false);
     }
@@ -172,11 +159,11 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         this.item = new MItem();
 
         txtIndexNo.setCValueEditable(false);
-        brandCombo.setCValueEditable(true);
-        categoryCombo.setCValueEditable(true);
+        brandCombo.setEditable(true);
+        categoryCombo.setEditable(true);
         txtCode.setCValueEditable(true);
         txtName.setCValueEditable(true);
-        txtSalePrice.setCValueEditable(true);
+        cDoubleField1.setCValueEditable(true);
         txtCostPrice.setCValueEditable(true);
         txtReOrderQty.setCValueEditable(true);
     }
@@ -184,11 +171,11 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void setEditMode() {
         txtIndexNo.setCValueEditable(false);
-        brandCombo.setCValueEditable(true);
-        categoryCombo.setCValueEditable(true);
+        brandCombo.setEditable(true);
+        categoryCombo.setEditable(true);
         txtCode.setCValueEditable(true);
         txtName.setCValueEditable(true);
-        txtSalePrice.setCValueEditable(true);
+        cDoubleField1.setCValueEditable(true);
         txtCostPrice.setCValueEditable(true);
         txtReOrderQty.setCValueEditable(true);
     }
@@ -196,11 +183,11 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void resetFields() {
         txtIndexNo.resetCValue();
-        brandCombo.resetCValue();
-        categoryCombo.resetCValue();
+        brandCombo.setSelectedIndex(0);
+        categoryCombo.setSelectedIndex(0);
         txtCode.resetCValue();
         txtName.resetCValue();
-        txtSalePrice.resetCValue();
+        cDoubleField1.resetCValue();
         txtCostPrice.resetCValue();
         txtReOrderQty.resetCValue();
     }
@@ -209,11 +196,11 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     public void initObject() throws VPException {
         this.item.setIndexNo(txtIndexNo.getCValue());
         try {
-            this.item.setBrand(FormatterUtil.getInstance().parseInteger(brandCombo.getCValue().toString()));
-            this.item.setCategory(FormatterUtil.getInstance().parseInteger(categoryCombo.getCValue().toString()));
-            this.item.setSalePrice(FormatterUtil.getInstance().parseDouble(txtSalePrice.getCValue()));
-            this.item.setCostPrice(FormatterUtil.getInstance().parseDouble(txtCostPrice.getCValue()));
-            this.item.setReorderQty(FormatterUtil.getInstance().parseInteger(txtReOrderQty.getCValue()));
+            this.item.setBrand(FormatterUtil.getInstance().parseInteger(brandCombo.getSelectedItem().toString()));
+            this.item.setCategory(FormatterUtil.getInstance().parseInteger(categoryCombo.getSelectedItem().toString()));
+            this.item.setSalePrice(cDoubleField1.getCValue());
+            this.item.setCostPrice(txtCostPrice.getCValue());
+            this.item.setReorderQty(txtReOrderQty.getCValue());
         } catch (ParseException ex) {
             Logger.getLogger(PCItem.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -225,12 +212,12 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void initInterface() throws VPException {
         txtIndexNo.setCValue(this.item.getIndexNo());
-        brandCombo.setCValue(this.item.getBrand());
-        categoryCombo.setCValue(this.item.getCategory());
+        brandCombo.setSelectedItem(this.item.getBrand());
+        categoryCombo.addItem(this.item.getCategory());
         txtName.setCValue(this.item.getName());
-        txtSalePrice.setCValue(this.item.getSalePrice().toString());
-        txtCostPrice.setCValue(this.item.getCostPrice().toString());
-        txtReOrderQty.setCValue(this.item.getReorderQty().toString());
+        cDoubleField1.setCValue(this.item.getSalePrice());
+        txtCostPrice.setCValue(this.item.getCostPrice());
+        txtReOrderQty.setCValue(this.item.getReorderQty());
     }
 
     @Override
@@ -245,8 +232,9 @@ public class PCItem extends AbstractObjectCreator<MItem> {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.sv.visionplus.util.component.combobox.CComboBox brandCombo;
-    private com.sv.visionplus.util.component.combobox.CComboBox categoryCombo;
+    private javax.swing.JComboBox brandCombo;
+    private com.sv.visionplus.util.component.textfield.CDoubleField cDoubleField1;
+    private javax.swing.JComboBox categoryCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -256,11 +244,10 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private com.sv.visionplus.util.component.textfield.CStringField txtCode;
-    private com.sv.visionplus.util.component.textfield.CStringField txtCostPrice;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtCostPrice;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtIndexNo;
     private com.sv.visionplus.util.component.textfield.CStringField txtName;
-    private com.sv.visionplus.util.component.textfield.CStringField txtReOrderQty;
-    private com.sv.visionplus.util.component.textfield.CStringField txtSalePrice;
+    private com.sv.visionplus.util.component.textfield.CIntegerField txtReOrderQty;
     // End of variables declaration//GEN-END:variables
     private MItem item;
     private ItemFormDAO itemDao;

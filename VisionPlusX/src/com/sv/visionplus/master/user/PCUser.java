@@ -37,7 +37,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         jLabel4 = new javax.swing.JLabel();
         txtPassword = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel5 = new javax.swing.JLabel();
-        txtType = new com.sv.visionplus.util.component.textfield.CStringField();
+        typeCombo = new javax.swing.JComboBox();
 
         jLabel1.setText("Index No.:");
 
@@ -48,6 +48,8 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         jLabel4.setText("Password :");
 
         jLabel5.setText("Type :");
+
+        typeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "User", "Admin" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,7 +69,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                    .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                    .addComponent(typeCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -92,7 +94,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(typeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -103,7 +105,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         txtName.setCValueEditable(false);
         txtUserName.setCValueEditable(false);
         txtPassword.setCValueEditable(false);
-        txtType.setCValueEditable(false);
+        typeCombo.setEditable(false);
     }
 
     @Override
@@ -114,7 +116,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         txtName.setCValueEditable(true);
         txtUserName.setCValueEditable(true);
         txtPassword.setCValueEditable(true);
-        txtType.setCValueEditable(true);
+        typeCombo.setEditable(true);
     }
 
     @Override
@@ -123,7 +125,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         txtName.setCValueEditable(true);
         txtUserName.setCValueEditable(true);
         txtPassword.setCValueEditable(true);
-        txtType.setCValueEditable(true);
+        typeCombo.setEditable(true);
     }
 
     @Override
@@ -132,7 +134,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         txtName.resetCValue();
         txtUserName.resetCValue();
         txtPassword.resetCValue();
-        txtType.resetCValue();
+        typeCombo.setSelectedIndex(0);
     }
 
     @Override
@@ -141,7 +143,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         this.user.setName(txtName.getCValue());
         this.user.setUserName(txtUserName.getCValue());
         this.user.setPassword(txtPassword.getCValue());
-        this.user.setType(txtType.getCValue());
+        this.user.setType(typeCombo.getSelectedItem().toString());
     }
 
     @Override
@@ -150,7 +152,7 @@ public class PCUser extends AbstractObjectCreator<MUser> {
         txtName.setCValue(this.user.getName());
         txtUserName.setCValue(this.user.getUserName());
         txtPassword.setCValue(this.user.getPassword());
-        txtType.setCValue(this.user.getType());
+        typeCombo.setSelectedItem(this.user.getType());
     }
 
     @Override
@@ -173,8 +175,8 @@ public class PCUser extends AbstractObjectCreator<MUser> {
     private com.sv.visionplus.util.component.textfield.CIntegerField txtIndexNo;
     private com.sv.visionplus.util.component.textfield.CStringField txtName;
     private com.sv.visionplus.util.component.textfield.CStringField txtPassword;
-    private com.sv.visionplus.util.component.textfield.CStringField txtType;
     private com.sv.visionplus.util.component.textfield.CStringField txtUserName;
+    private javax.swing.JComboBox typeCombo;
     // End of variables declaration//GEN-END:variables
     private MUser user;
 
