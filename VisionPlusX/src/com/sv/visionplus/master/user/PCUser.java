@@ -6,7 +6,7 @@
 package com.sv.visionplus.master.user;
 
 import com.sv.visionplus.master.customer.*;
-import com.sv.visionplus.base.master.AbstractObjectCreator;
+import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.master.customer.model.MCustomer;
 import com.sv.visionplus.system.exception.VPException;
 import visionplusx.model.MUser;

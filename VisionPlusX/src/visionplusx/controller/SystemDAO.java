@@ -34,7 +34,6 @@ public class SystemDAO {
     }
     
     public List<MUser> listUsers(Connection connection) throws SQLException {
-        
         QueryUtil<MUser> queryUtil = QueryUtil.getInstance(MUser.class);
         return queryUtil.executeSelect(connection);
     }

@@ -1,6 +1,6 @@
 package com.sv.visionplus.master.supplier;
 
-import com.sv.visionplus.base.master.AbstractObjectCreator;
+import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.master.supplier.model.MSupplier;
 import com.sv.visionplus.system.exception.VPException;
 

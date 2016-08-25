@@ -7,7 +7,7 @@ package com.sv.visionplus.master.bank_branch;
 
 import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.base.master.AbstractMasterFormGUI;
-import com.sv.visionplus.base.master.AbstractObjectCreator;
+import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.master.bank_branch.model.MBankBranch;
 import com.sv.visionplus.util.component.table.CTableColumn;
 import com.sv.visionplus.util.component.table.CTableModel;

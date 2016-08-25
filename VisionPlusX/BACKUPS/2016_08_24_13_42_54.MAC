@@ -36,6 +36,7 @@ CREATE TABLE `bank_branch` (
 
 LOCK TABLES `bank_branch` WRITE;
 /*!40000 ALTER TABLE `bank_branch` DISABLE KEYS */;
+INSERT INTO `bank_branch` VALUES ('252hh','hf','hg');
 /*!40000 ALTER TABLE `bank_branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +126,7 @@ CREATE TABLE `m_customer` (
   `address` varchar(100) DEFAULT NULL,
   `contact_no` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`index_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +135,7 @@ CREATE TABLE `m_customer` (
 
 LOCK TABLES `m_customer` WRITE;
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
-INSERT INTO `m_customer` VALUES (1,'Channa Jayamuni','0313193V','My Address','0783638874'),(2,'Nidura','556132','Address','122');
+INSERT INTO `m_customer` VALUES (1,'Channa Jayamuni','0313193V','Address','0783638874'),(2,'Nidura','556132','Address','122');
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -692,4 +693,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-24  0:02:40
+-- Dump completed on 2016-08-24 13:42:54

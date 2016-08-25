@@ -1,5 +1,6 @@
 package com.sv.visionplus.base.master;
 
+import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.util.component.table.CTableModel;
 import java.awt.event.ActionEvent;

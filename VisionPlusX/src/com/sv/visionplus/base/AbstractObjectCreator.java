@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.base.master;
+package com.sv.visionplus.base;
 
 import com.sv.visionplus.system.exception.VPException;
 import javax.swing.JPanel;

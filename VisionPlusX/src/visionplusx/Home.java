@@ -12,6 +12,7 @@ import com.sv.visionplus.master.supplier.SupplierFormGUI;
 import com.sv.visionplus.master.user.UserFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
+import com.sv.visionplus.transaction.invoice.InvoiceForm;
 import com.sv.visionplus.util.backup.BackupRestore;
 import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
 import java.awt.event.ActionEvent;
@@ -75,7 +76,7 @@ public class Home extends DefaultMainframe {
         addButton("User", getImageUrl(MASTER_USER), DefaultMainframe.ElementPriority.TOP, getActionListener(UserFormGUI.class));
 
         addBand("Item", getImageUrl(MASTER_ITEM));
-        addButton("Item", getImageUrl(MASTER_ITEM), DefaultMainframe.ElementPriority.TOP,getActionListener(ItemFormGUI.class));
+        addButton("Item", getImageUrl(MASTER_ITEM), DefaultMainframe.ElementPriority.TOP, getActionListener(ItemFormGUI.class));
 
         addBand("Bank", getImageUrl(MASTER_BRANCH));
         addButton("Bank Branch", getImageUrl(MASTER_BRANCH), DefaultMainframe.ElementPriority.TOP, getActionListener(BankBranchFormGUI.class));
@@ -83,7 +84,7 @@ public class Home extends DefaultMainframe {
         addTask("Transaction");
 
         addBand("Transaction", getImageUrl(TRANSACTION_INVOICE));
-        addButton("Invoice", getImageUrl(TRANSACTION_INVOICE), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Invoice", getImageUrl(TRANSACTION_INVOICE), DefaultMainframe.ElementPriority.TOP, getActionListener(InvoiceForm.class));
         addButton("GRN", getImageUrl(TRANSACTION_GRN), DefaultMainframe.ElementPriority.TOP, null);
 
         addBand("Payment", getImageUrl(TRANSACTION_PAYMENT));
