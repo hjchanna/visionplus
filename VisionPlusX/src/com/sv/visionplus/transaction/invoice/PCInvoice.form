@@ -314,7 +314,7 @@
                                       <EmptySpace pref="151" max="32767" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtAmount" min="-2" pref="82" max="-2" attributes="0"/>
+                                      <Component id="itemAmountLabel" min="-2" pref="82" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -328,7 +328,7 @@
                                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtAmount" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="itemAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="114" max="-2" attributes="0"/>
@@ -370,7 +370,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="txtAmount">
+                    <Component class="javax.swing.JLabel" name="itemAmountLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="1200"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -430,7 +430,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtVaWithPhLeft" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtVaWithGlassLeft" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cStringField1" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtAutoRefLeft" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtNtcLeft" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtHbRxLeft" alignment="0" max="32767" attributes="0"/>
@@ -507,7 +507,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="txtVaWithGlassLeft" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cStringField1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtVaWithGlassRight" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -674,7 +674,7 @@
                 </Component>
                 <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtVaWithPhRight">
                 </Component>
-                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtVaWithGlassLeft">
+                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField1">
                 </Component>
                 <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtVaWithGlassRight">
                 </Component>

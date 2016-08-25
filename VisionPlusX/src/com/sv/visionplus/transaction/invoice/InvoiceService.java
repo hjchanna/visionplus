@@ -15,6 +15,7 @@ import com.sv.visionplus.transaction.invoice.model.TInvoice;
  */
 public class InvoiceService extends AbstractTransactionFormService<TInvoice> {
 
+
     @Override
     protected TInvoice select(Integer indexNo) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

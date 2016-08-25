@@ -7,8 +7,11 @@ package com.sv.visionplus.transaction.invoice;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
+import com.sv.visionplus.master.customer.model.MCustomer;
+import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
 import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -61,7 +64,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
-        txtAmount = new javax.swing.JLabel();
+        itemAmountLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -88,7 +91,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         txtVaWithoutGlassRight = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithPhLeft = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithPhRight = new com.sv.visionplus.util.component.textfield.CStringField();
-        txtVaWithGlassLeft = new com.sv.visionplus.util.component.textfield.CStringField();
+        cStringField1 = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithGlassRight = new com.sv.visionplus.util.component.textfield.CStringField();
         txtHbRxLeft = new com.sv.visionplus.util.component.textfield.CStringField();
         txtHbRxSubLeft = new com.sv.visionplus.util.component.textfield.CStringField();
@@ -249,9 +252,9 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
             }
         });
 
-        txtAmount.setText("1200");
-        txtAmount.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txtAmount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        itemAmountLabel.setText("1200");
+        itemAmountLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        itemAmountLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -268,7 +271,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(itemAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -278,7 +281,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                     .addComponent(jButton2)
                     .addComponent(jLabel11)
                     .addComponent(jButton11)
-                    .addComponent(txtAmount))
+                    .addComponent(itemAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 9, Short.MAX_VALUE))
@@ -420,7 +423,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtVaWithPhLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtVaWithGlassLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cStringField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtAutoRefLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNtcLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtHbRxLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -481,7 +484,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtVaWithGlassLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cStringField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -681,14 +684,14 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         txtVaWithoutGlassRight.setCValueEditable(false);
         txtVaWithPhLeft.setCValueEditable(false);
         txtVaWithPhRight.setCValueEditable(false);
-        txtVaWithGlassLeft.setCValueEditable(false);
+        cStringField1.setCValueEditable(false);
         txtVaWithGlassRight.setCValueEditable(false);
     }
 
     @Override
     public void setNewMode() {
-        this.invoice=new TInvoice();
-        
+        this.invoice = new TInvoice();
+
         txtIndexNo.setCValueEditable(false);
         txtDate.setCValueEditable(false);
         txtName.setCValueEditable(true);
@@ -710,7 +713,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         txtVaWithoutGlassRight.setCValueEditable(true);
         txtVaWithPhLeft.setCValueEditable(true);
         txtVaWithPhRight.setCValueEditable(true);
-        txtVaWithGlassLeft.setCValueEditable(true);
+        cStringField1.setCValueEditable(true);
         txtVaWithGlassRight.setCValueEditable(true);
     }
 
@@ -737,14 +740,14 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         txtVaWithoutGlassRight.setCValueEditable(true);
         txtVaWithPhLeft.setCValueEditable(true);
         txtVaWithPhRight.setCValueEditable(true);
-        txtVaWithGlassLeft.setCValueEditable(true);
+        cStringField1.setCValueEditable(true);
         txtVaWithGlassRight.setCValueEditable(true);
     }
 
     @Override
     public void resetFields() {
         txtIndexNo.resetCValue();
-         txtDate.resetCValue();
+        txtDate.resetCValue();
         txtName.resetCValue();
         txtNic.resetCValue();
         txtaAddress.setText("");
@@ -764,7 +767,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         txtVaWithoutGlassRight.resetCValue();
         txtVaWithPhLeft.resetCValue();
         txtVaWithPhRight.resetCValue();
-        txtVaWithGlassLeft.resetCValue();
+        cStringField1.resetCValue();
         txtVaWithGlassRight.resetCValue();
     }
 
@@ -772,13 +775,15 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     public void initObject() throws VPException {
         this.invoice.setIndexNo(txtIndexNo.getCValue());
         this.invoice.setDate(txtDate.getCValue());
+        this.invoice.setStatus(InvoiceStatus.PENDING);
         try {
-            this.invoice.setAmount(FormatterUtil.getInstance().parseDouble(txtAmount.getText()));
+            this.invoice.setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(PCInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        this.invoice.setCustomer(this.customer.getIndexNo());
+        this.invoice.setPatientInfo(?);
+        this.invoice.setTransaction(?);
     }
 
     @Override
@@ -787,23 +792,25 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     }
 
     @Override
-    protected void setValueAbstract(TInvoice object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void setValueAbstract(TInvoice invoice) {
+        this.invoice=invoice;
     }
 
     @Override
     protected TInvoice getValueAbstract() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.invoice;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton astimatismRadio;
+    private com.sv.visionplus.util.component.textfield.CStringField cStringField1;
     private javax.swing.JCheckBox dischargeCheckBox;
     private javax.swing.JCheckBox headacheCheckBox;
     private javax.swing.JRadioButton hypermtropiaRadio;
     private javax.swing.JCheckBox irritationCheckBox;
     private javax.swing.JCheckBox itchingCheckBox;
+    private javax.swing.JLabel itemAmountLabel;
     private javax.swing.JList itemList;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -845,7 +852,6 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     private javax.swing.JButton searchCustomerButton;
     private javax.swing.JCheckBox tearingCheckBox;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtAge;
-    private javax.swing.JLabel txtAmount;
     private com.sv.visionplus.util.component.textfield.CStringField txtAutoRefLeft;
     private com.sv.visionplus.util.component.textfield.CStringField txtAutoRefRight;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtContactNo;
@@ -861,7 +867,6 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     private com.sv.visionplus.util.component.textfield.CStringField txtNtcRight;
     private com.sv.visionplus.util.component.textfield.CStringField txtOther;
     private com.sv.visionplus.util.component.textfield.CStringField txtRemarks;
-    private com.sv.visionplus.util.component.textfield.CStringField txtVaWithGlassLeft;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithGlassRight;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithPhLeft;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithPhRight;
@@ -872,4 +877,6 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     // End of variables declaration//GEN-END:variables
     private AbstractTransactionForm<TInvoice> transactionForm;
     private TInvoice invoice;
+    private MCustomer customer;
+    private TPatientInformation patientInformation;
 }

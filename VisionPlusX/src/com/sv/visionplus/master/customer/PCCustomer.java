@@ -152,8 +152,8 @@ public class PCCustomer extends AbstractObjectCreator<MCustomer> {
     }
 
     @Override
-    protected void setValueAbstract(MCustomer object) {
-        this.customer = object;
+    protected void setValueAbstract(MCustomer customer) {
+        this.customer = customer;
     }
 
     @Override
