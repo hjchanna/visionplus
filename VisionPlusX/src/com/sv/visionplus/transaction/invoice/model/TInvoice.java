@@ -19,7 +19,7 @@ public class TInvoice {
     private Integer patientInfo;
     private Date date;
     private Double amount;
-    private String stetus;
+    private String status;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -69,14 +69,12 @@ public class TInvoice {
         this.amount = amount;
     }
 
-    public String getStetus() {
-        return stetus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStetus(String stetus) {
-        this.stetus = stetus;
-    }
-
-    
+    public void setStatus(String status) {
+        this.status = status;
+    }  
 
 }
