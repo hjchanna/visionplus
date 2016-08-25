@@ -188,6 +188,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
 
     @Override
     public void initInterface() throws VPException {
+        
     }
 
     @Override

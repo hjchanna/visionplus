@@ -13,6 +13,7 @@ import com.sv.visionplus.master.user.UserFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
 import com.sv.visionplus.transaction.checking.CheckingForm;
+import com.sv.visionplus.transaction.customer_payment.CustomerPaymentForm;
 import com.sv.visionplus.transaction.grn.GrnForm;
 import com.sv.visionplus.transaction.invoice.InvoiceForm;
 import com.sv.visionplus.util.backup.BackupRestore;
@@ -90,7 +91,7 @@ public class Home extends DefaultMainframe {
         addButton("GRN", getImageUrl(TRANSACTION_GRN), DefaultMainframe.ElementPriority.TOP, getActionListener(GrnForm.class));
 
         addBand("Payment", getImageUrl(TRANSACTION_PAYMENT));
-        addButton("Customer Payment", getImageUrl(TRANSACTION_PAYMENT), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Customer Payment", getImageUrl(TRANSACTION_PAYMENT), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerPaymentForm.class));
 
         addBand("Checking", getImageUrl(TRANSACTION_PAYMENT));
         addButton("Checking", getImageUrl(TRANSACTION_CHECK), DefaultMainframe.ElementPriority.TOP, getActionListener(CheckingForm.class));
