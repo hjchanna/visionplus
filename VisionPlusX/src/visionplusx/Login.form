@@ -30,7 +30,6 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtPassword" min="-2" pref="199" max="-2" attributes="0"/>
-                          <Component id="cComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="txtUsername" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
@@ -43,7 +42,7 @@
                       <Component id="btnDiscard" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,7 +53,7 @@
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtUsername" min="-2" max="-2" attributes="0"/>
@@ -68,8 +67,6 @@
                   <Component id="btnDiscard" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="cComboBox1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -122,11 +119,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Discard"/>
       </Properties>
-    </Component>
-    <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="cComboBox1">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;    @Override&#xa;    public List getComboData(){&#xa;        return listUsers();&#xa;    }&#xa;}"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
