@@ -5,12 +5,14 @@
  */
 package com.sv.visionplus.transaction.customer_payment.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("customer_payment")
 public class CustomerPayment {
     private Integer indexNo;
     private Date date;

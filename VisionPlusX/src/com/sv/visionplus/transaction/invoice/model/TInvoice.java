@@ -5,12 +5,14 @@
  */
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
 /**
  *
  * @author Mohan
  */
+@VPTable("t_invoice")
 public class TInvoice {
 
     private Integer indexNo;

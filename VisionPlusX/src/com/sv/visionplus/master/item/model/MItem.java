@@ -5,12 +5,15 @@
  */
 package com.sv.visionplus.master.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * Date : Aug 24, 2016 Time : 12:12:44 AM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
+@VPTable("m_item")
 public class MItem {
 
     private Integer indexNo;
@@ -86,5 +89,4 @@ public class MItem {
         this.reorderQty = reorderQty;
     }
 
-    
 }

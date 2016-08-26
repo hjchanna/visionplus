@@ -5,10 +5,13 @@
  */
 package com.sv.visionplus.transaction.customer_payment.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  *
  * @author KAZA
  */
+@VPTable("t_payment")
 public class TPayment {
     private Integer indexNo;
     private Integer transaction;

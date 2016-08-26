@@ -5,12 +5,15 @@
  */
 package com.sv.visionplus.master.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * Date : Aug 24, 2016 Time : 2:52:22 PM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
+@VPTable("m_category")
 public class MCategory {
 
     private Integer indexNo;

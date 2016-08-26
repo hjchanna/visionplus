@@ -35,6 +35,7 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     public List<MBrand> listBrand() {
         return this.systemService.listBrand();
     }
+
     public List<MCategory> listCategory() {
         return null;
     }
@@ -187,8 +188,6 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void resetFields() {
         txtIndexNo.resetCValue();
-//        brandCombo.setSelectedIndex(0);
-//        categoryCombo.setSelectedIndex(0);
         txtCode.resetCValue();
         txtName.resetCValue();
         cDoubleField1.resetCValue();
@@ -199,15 +198,15 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void initObject() throws VPException {
         this.item.setIndexNo(txtIndexNo.getCValue());
-  
+
 //            this.item.setBrand(FormatterUtil.getInstance().parseInteger(brandCombo.getSelectedItem().toString()));
 //            this.item.setCategory(FormatterUtil.getInstance().parseInteger(categoryCombo.getSelectedItem().toString()));
-            this.item.setCategory(1);
-            this.item.setBrand(1);
-     
-            this.item.setSalePrice(cDoubleField1.getCValue());
-            this.item.setCostPrice(txtCostPrice.getCValue());
-            this.item.setReorderQty(txtReOrderQty.getCValue());
+        this.item.setCategory(1);
+        this.item.setBrand(1);
+
+        this.item.setSalePrice(cDoubleField1.getCValue());
+        this.item.setCostPrice(txtCostPrice.getCValue());
+        this.item.setReorderQty(txtReOrderQty.getCValue());
         this.item.setCode(txtCode.getCValue());
         this.item.setName(txtName.getCValue());
 
@@ -216,6 +215,7 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void initInterface() throws VPException {
         txtIndexNo.setCValue(this.item.getIndexNo());
+        txtCode.setCValue(this.item.getCode());
         brandCombo.setSelectedItem(this.item.getBrand());
         categoryCombo.addItem(this.item.getCategory());
         txtName.setCValue(this.item.getName());
@@ -225,8 +225,8 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     }
 
     @Override
-    protected void setValueAbstract(MItem object) {
-        this.item = object;
+    protected void setValueAbstract(MItem item) {
+        this.item = item;
     }
 
     @Override

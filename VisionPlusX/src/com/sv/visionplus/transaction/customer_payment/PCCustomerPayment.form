@@ -64,7 +64,7 @@
                       <Component id="jPanel8" max="32767" attributes="0"/>
                       <Component id="paymentTypePanel" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="85" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -158,7 +158,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Receipt No :"/>
+                <Property name="text" type="java.lang.String" value="Invoice No .:"/>
               </Properties>
             </Component>
             <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="cIntegerField1">
@@ -271,13 +271,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jRadioButton3" pref="140" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cDoubleField4" alignment="0" pref="140" max="32767" attributes="0"/>
-                              <Component id="cDoubleField1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cDoubleField2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cDoubleField3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cDoubleField5" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="cDoubleField4" alignment="0" pref="140" max="32767" attributes="0"/>
+                          <Component id="cDoubleField1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cDoubleField2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cDoubleField3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cDoubleField5" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton6" min="-2" max="-2" attributes="0"/>
@@ -328,7 +326,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pay Amount :"/>
+                <Property name="text" type="java.lang.String" value="Cash Amount :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">

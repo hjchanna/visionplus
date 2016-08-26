@@ -5,12 +5,14 @@
  */
 package com.sv.visionplus.transaction.grn.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("t_grn")
 public class TGrn {
     private Integer IndexNo;
     private Integer transaction;

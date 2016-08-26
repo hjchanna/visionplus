@@ -35,18 +35,18 @@ public class ItemFormDAO extends AbstractMasterFormDAO<MItem> {
 
     @Override
     public void update(Connection connection, MItem item) throws SQLException {
-        queryUtil.executeUpdate(connection, item, "code=?", item.getCode());
+        queryUtil.executeUpdate(connection, item, "index_no=?", item.getIndexNo());
     }
 
     @Override
     public void delete(Connection connection, MItem item) throws SQLException {
-        queryUtil.executeDelete(connection, "code=?", item.getCode());
+        queryUtil.executeDelete(connection, "index_no=?", item.getIndexNo());
     }
 
     @Override
     public List<MItem> getSearchResult(Connection connection, String text) throws SQLException {
         text = "%" + text + "%";
-        return queryUtil.executeSelect(connection, "code LIKE ? OR name LIKE ? OR brand LIKE ? OR category LIKE ?", text, text, text, text);
+        return queryUtil.executeSelect(connection, "code LIKE ? OR name LIKE ? OR brand LIKE ? OR category LIKE ?", text, text,text,text);
     }
 
     public List<MBrand> listBrand(Connection connection) throws SQLException {

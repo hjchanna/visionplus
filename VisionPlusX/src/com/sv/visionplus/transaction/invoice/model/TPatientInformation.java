@@ -6,12 +6,15 @@
 
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * Date : Aug 25, 2016
  * Time : 5:17:32 PM
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
+@VPTable("t_invoice_patient_infomation")
 public class TPatientInformation {
     private Integer indexNo;
     private String complains;

@@ -5,12 +5,15 @@
  */
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * Date : Aug 26, 2016 Time : 10:36:05 AM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
+@VPTable("t_invoice_item1")
 public class TInvoiceItem {
 
     private Integer indexNo;

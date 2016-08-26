@@ -5,12 +5,15 @@
  */
 package com.sv.visionplus.master.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * Date : Aug 24, 2016 Time : 2:47:44 PM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
+@VPTable("m_brand")
 public class MBrand {
 
     private Integer indexNo;
