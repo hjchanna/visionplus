@@ -76,6 +76,10 @@ public class PCItem extends AbstractObjectCreator<MItem> {
 
         jLabel8.setText("Re-Order Qty:");
 
+        brandCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
+
+        categoryCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,8 +187,8 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void resetFields() {
         txtIndexNo.resetCValue();
-        brandCombo.setSelectedIndex(0);
-        categoryCombo.setSelectedIndex(0);
+//        brandCombo.setSelectedIndex(0);
+//        categoryCombo.setSelectedIndex(0);
         txtCode.resetCValue();
         txtName.resetCValue();
         cDoubleField1.resetCValue();
@@ -195,15 +199,15 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     @Override
     public void initObject() throws VPException {
         this.item.setIndexNo(txtIndexNo.getCValue());
-        try {
-            this.item.setBrand(FormatterUtil.getInstance().parseInteger(brandCombo.getSelectedItem().toString()));
-            this.item.setCategory(FormatterUtil.getInstance().parseInteger(categoryCombo.getSelectedItem().toString()));
+  
+//            this.item.setBrand(FormatterUtil.getInstance().parseInteger(brandCombo.getSelectedItem().toString()));
+//            this.item.setCategory(FormatterUtil.getInstance().parseInteger(categoryCombo.getSelectedItem().toString()));
+            this.item.setCategory(1);
+            this.item.setBrand(1);
+     
             this.item.setSalePrice(cDoubleField1.getCValue());
             this.item.setCostPrice(txtCostPrice.getCValue());
             this.item.setReorderQty(txtReOrderQty.getCValue());
-        } catch (ParseException ex) {
-            Logger.getLogger(PCItem.class.getName()).log(Level.SEVERE, null, ex);
-        }
         this.item.setCode(txtCode.getCValue());
         this.item.setName(txtName.getCValue());
 

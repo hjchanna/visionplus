@@ -6,33 +6,60 @@
 package com.sv.visionplus.transaction.invoice;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
+import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.master.customer.model.MCustomer;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.invoice.dialog.AbstractMasterFormGUI;
+import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
 import com.sv.visionplus.util.formatter.FormatterUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Mohan
  */
-public class PCInvoice extends AbstractObjectCreator<TInvoice> {
+public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
 
     /**
      * Creates new form PCInvoice
      */
     public PCInvoice(AbstractTransactionForm transactionForm) {
         initComponents();
+        initOthers();
 
         this.transactionForm = transactionForm;
     }
 
+//    action
+    private void doView() {
+//        AbstractMasterFormGUI form = new AbstractMasterFormGUI(){};
+//        form.setVisible(true);
+
+    }
+
     @SuppressWarnings("unchecked")
+    private void initOthers() {
+        //button action
+        this.btnAddCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doView();
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -52,7 +79,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaAddress = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-        searchCustomerButton = new javax.swing.JButton();
+        btnAddCustomer = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtName = new com.sv.visionplus.util.component.textfield.CStringField();
         txtNic = new com.sv.visionplus.util.component.textfield.CStringField();
@@ -170,10 +197,10 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
 
         jLabel6.setText("Contact No. :");
 
-        searchCustomerButton.setText("+");
-        searchCustomerButton.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCustomer.setText("+");
+        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchCustomerButtonActionPerformed(evt);
+                btnAddCustomerActionPerformed(evt);
             }
         });
 
@@ -203,7 +230,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                     .addComponent(txtContactNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchCustomerButton)
+                .addComponent(btnAddCustomer)
                 .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
@@ -211,7 +238,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(searchCustomerButton)
+                    .addComponent(btnAddCustomer)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -252,7 +279,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
             }
         });
 
-        itemAmountLabel.setText("1200");
+        itemAmountLabel.setText("00.00");
         itemAmountLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         itemAmountLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -437,18 +464,16 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                             .addComponent(txtAutoRefRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNtcRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtHbRxRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                            .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -485,8 +510,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                     .addComponent(jLabel10)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cStringField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         patientEyeDetailTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -545,20 +569,19 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(myopiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRemarks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addComponent(myopiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(presbyopiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(presbyopiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hypermtropiaRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(astimatismRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(hypermtropiaRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(astimatismRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addComponent(txtRemarks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,16 +607,16 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -621,7 +644,7 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(jSplitPane3)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -633,9 +656,9 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void searchCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchCustomerButtonActionPerformed
+    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
 
-    }//GEN-LAST:event_searchCustomerButtonActionPerformed
+    }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 
@@ -772,18 +795,19 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     }
 
     @Override
-    public void initObject() throws VPException {
-        this.invoice.setIndexNo(txtIndexNo.getCValue());
-        this.invoice.setDate(txtDate.getCValue());
-        this.invoice.setStatus(InvoiceStatus.PENDING);
+    public void initObject() throws VPException { 
+
+        this.invoiceMix.getInvoice().setIndexNo(txtIndexNo.getCValue());
+        this.invoiceMix.getInvoice().setDate(txtDate.getCValue());
+        this.invoiceMix.getInvoice().setStatus(InvoiceStatus.PENDING);
         try {
-            this.invoice.setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
+            this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(PCInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.invoice.setCustomer(this.customer.getIndexNo());
-        this.invoice.setPatientInfo(?);
-        this.invoice.setTransaction(?);
+        this.invoiceMix.getInvoice().setCustomer(null);
+        this.invoiceMix.getInvoice().setPatientInfo(null);
+        this.invoiceMix.getInvoice().setTransaction(null);
     }
 
     @Override
@@ -792,18 +816,19 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     }
 
     @Override
-    protected void setValueAbstract(TInvoice invoice) {
-        this.invoice=invoice;
+    protected void setValueAbstract(InvoiceMix invoiceMix) {
+        this.invoiceMix = invoiceMix;
     }
 
     @Override
-    protected TInvoice getValueAbstract() {
-        return this.invoice;
+    protected InvoiceMix getValueAbstract() {
+        return this.invoiceMix;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton astimatismRadio;
+    private javax.swing.JButton btnAddCustomer;
     private com.sv.visionplus.util.component.textfield.CStringField cStringField1;
     private javax.swing.JCheckBox dischargeCheckBox;
     private javax.swing.JCheckBox headacheCheckBox;
@@ -849,7 +874,6 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     private javax.swing.JTable patientEyeDetailTable;
     private javax.swing.JRadioButton presbyopiaRadio;
     private javax.swing.JCheckBox redCheckBox;
-    private javax.swing.JButton searchCustomerButton;
     private javax.swing.JCheckBox tearingCheckBox;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtAge;
     private com.sv.visionplus.util.component.textfield.CStringField txtAutoRefLeft;
@@ -875,8 +899,10 @@ public class PCInvoice extends AbstractObjectCreator<TInvoice> {
     private javax.swing.JTextArea txtaAddress;
     private javax.swing.JCheckBox visionNDCheckBox;
     // End of variables declaration//GEN-END:variables
-    private AbstractTransactionForm<TInvoice> transactionForm;
-    private TInvoice invoice;
+    private AbstractTransactionForm<InvoiceMix> transactionForm;
+    private InvoiceMix invoiceMix;
     private MCustomer customer;
-    private TPatientInformation patientInformation;
+    private TInvoice invoice;
+    private AbstractMasterFormGUI<Object> abstractform;
+
 }

@@ -7,32 +7,33 @@ package com.sv.visionplus.transaction.invoice;
 
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
 
 /**
  *
  * @author Mohan
  */
-public class InvoiceService extends AbstractTransactionFormService<TInvoice> {
+public class InvoiceService extends AbstractTransactionFormService<InvoiceMix> {
 
 
     @Override
-    protected TInvoice select(Integer indexNo) throws VPException {
+    protected InvoiceMix select(Integer indexNo) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void save(TInvoice object) throws VPException {
+    protected void save(InvoiceMix object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void update(TInvoice object) throws VPException {
+    protected void update(InvoiceMix object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void delete(TInvoice object) throws VPException {
+    protected void delete(InvoiceMix object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
