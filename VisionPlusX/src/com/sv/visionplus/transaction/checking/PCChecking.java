@@ -27,7 +27,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         initComponents();
         model = (DefaultTableModel) tblItem.getModel();
         this.transactionForm = transactionForm;
-        setTableData();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -164,6 +164,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         cmboSelectStatus.setEditable(true);
         model.setRowCount(0);
         setComboValue();
+        setTableData();
 
     }
 
@@ -234,7 +235,9 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
     private void setTableData() {
         CheckingService service=new  CheckingService();
         try {
+            System.out.println("ABCD");
             TInvoice t = service.select(1);
+            System.out.println(t.getIndexNo());
             model.setRowCount(0);
             Object[] data={
                 t.getIndexNo(),
