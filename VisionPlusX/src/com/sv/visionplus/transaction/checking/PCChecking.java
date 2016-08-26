@@ -5,14 +5,14 @@
  */
 package com.sv.visionplus.transaction.checking;
 
-import com.sv.visionplus.transaction.invoice.*;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -27,6 +27,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         initComponents();
         model = (DefaultTableModel) tblItem.getModel();
         this.transactionForm = transactionForm;
+        setTableData();
     }
 
     @SuppressWarnings("unchecked")
@@ -228,5 +229,25 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         cmboSelectStatus.addItem(InvoiceStatus.ISSUED_TO_FACTORY);
         cmboSelectStatus.addItem(InvoiceStatus.RESERVED_FROM_FACTORY);
         cmboSelectStatus.addItem(InvoiceStatus.ISSUED_TO_CUSTOMER);
+    }
+
+    private void setTableData() {
+        CheckingService service=new  CheckingService();
+        try {
+            TInvoice t = service.select(1);
+            model.setRowCount(0);
+            Object[] data={
+                t.getIndexNo(),
+                t.getCustomer(),
+                t.getStatus(),
+                t.getTransaction()
+            };
+            model.addRow(data);
+            
+            
+            
+        } catch (VPException ex) {
+            Logger.getLogger(PCChecking.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

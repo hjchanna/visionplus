@@ -5,6 +5,8 @@
  */
 package visionplusx;
 
+import com.sv.visionplus.account.money_collection.MoneyCollectionForm;
+import com.sv.visionplus.account.payment_voucher.PaymentVoucherForm;
 import com.sv.visionplus.master.bank_branch.BankBranchFormGUI;
 import com.sv.visionplus.master.customer.CustomerFormGUI;
 import com.sv.visionplus.master.item.ItemFormGUI;
@@ -12,6 +14,8 @@ import com.sv.visionplus.master.supplier.SupplierFormGUI;
 import com.sv.visionplus.master.user.UserFormGUI;
 import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
+import com.sv.visionplus.stock.stock_adjustment.StockAdjustmentForm;
+import com.sv.visionplus.stock.stock_transfer.StockTransferForm;
 import com.sv.visionplus.transaction.checking.CheckingForm;
 import com.sv.visionplus.transaction.customer_payment.CustomerPaymentForm;
 import com.sv.visionplus.transaction.grn.GrnForm;
@@ -99,20 +103,20 @@ public class Home extends DefaultMainframe {
         addTask("Account");
 
         addBand("Account", getImageUrl(ACCOUNT_MONEY));
-        addButton("Money Collection", getImageUrl(ACCOUNT_MONEY), DefaultMainframe.ElementPriority.TOP, null);
-        addButton("Payment Vouchers", getImageUrl(ACCOUNT_VOUCHER), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Money Collection", getImageUrl(ACCOUNT_MONEY), DefaultMainframe.ElementPriority.TOP, getActionListener(MoneyCollectionForm.class));
+        addButton("Payment Vouchers", getImageUrl(ACCOUNT_VOUCHER), DefaultMainframe.ElementPriority.TOP, getActionListener(PaymentVoucherForm.class));
 
         addTask("Stock");
 
         addBand("Stock", getImageUrl(STOCK_TRANSFER));
-        addButton("stock Adjustmant", getImageUrl(STOCK_ADJUST), DefaultMainframe.ElementPriority.TOP, null);
-        addButton("stock transfer", getImageUrl(STOCK_TRANSFER), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("stock Adjustmant", getImageUrl(STOCK_ADJUST), DefaultMainframe.ElementPriority.TOP, getActionListener(StockAdjustmentForm.class));
+        addButton("stock transfer", getImageUrl(STOCK_TRANSFER), DefaultMainframe.ElementPriority.TOP, getActionListener(StockTransferForm.class));
 
         addTask("Backup");
 
         addBand("Backup", getImageUrl(BACKUP_EXPORT));
         addButton("Export", getImageUrl(BACKUP_EXPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
-        addButton("Import", getImageUrl(BACKUP_IMPORT), DefaultMainframe.ElementPriority.TOP, null);
+        addButton("Import", getImageUrl(BACKUP_IMPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
 
     }
 
