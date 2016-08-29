@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
@@ -15,13 +16,15 @@ import java.util.Date;
 @VPTable("t_invoice")
 public class TInvoice {
 
+    @VPId
     private Integer indexNo;
     private Integer transaction;
     private Integer customer;
-    private Integer patientInfo;
-    private Date date;
+    private Integer Factory;
+    private Date invoiceDate;
     private Double amount;
     private String status;
+    private Boolean isDelete;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -47,20 +50,20 @@ public class TInvoice {
         this.customer = customer;
     }
 
-    public Integer getPatientInfo() {
-        return patientInfo;
+    public Integer getFactory() {
+        return Factory;
     }
 
-    public void setPatientInfo(Integer patientInfo) {
-        this.patientInfo = patientInfo;
+    public void setFactory(Integer Factory) {
+        this.Factory = Factory;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getInvoiceDate() {
+        return invoiceDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 
     public Double getAmount() {
@@ -77,6 +80,15 @@ public class TInvoice {
 
     public void setStatus(String status) {
         this.status = status;
-    }  
+    }
 
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+    
+    
 }

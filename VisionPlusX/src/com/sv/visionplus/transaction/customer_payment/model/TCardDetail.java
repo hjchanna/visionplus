@@ -1,31 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.transaction.customer_payment.model;
+
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
  * @author KAZA
  */
+
+@VPTable("t_card_details")
 public class TCardDetail {
+    
+    @VPId
     private Integer indexNo;
     private Integer payment;
     private Integer bankBranch;
     private String cardNo;
     private double amount;
-
-    public TCardDetail() {
-    }
-
-    public TCardDetail(Integer indexNo, Integer payment, Integer bankBranch, String cardNo, double amount) {
-        this.indexNo = indexNo;
-        this.payment = payment;
-        this.bankBranch = bankBranch;
-        this.cardNo = cardNo;
-        this.amount = amount;
-    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -66,6 +57,7 @@ public class TCardDetail {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
     
     
 }

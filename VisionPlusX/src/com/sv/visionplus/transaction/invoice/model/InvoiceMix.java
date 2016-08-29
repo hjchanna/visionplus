@@ -20,6 +20,7 @@ public class InvoiceMix {
     private TPatientInformation patientInformation;
     private MCustomer customer;
     private TInvoiceItem invoiceItem;
+    private Status status;
 
     public TInvoice getInvoice() {
         return invoice;
@@ -60,7 +61,14 @@ public class InvoiceMix {
     public void setInvoiceItem(TInvoiceItem invoiceItem) {
         this.invoiceItem = invoiceItem;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     
-    
-   
 }

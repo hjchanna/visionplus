@@ -14,6 +14,7 @@ import com.sv.visionplus.util.database.annotation.VPTable;
  */
 @VPTable("bank_branch")
 public class MBankBranch {
+
     @VPId
     private String code;
     private String bank;
@@ -51,5 +52,5 @@ public class MBankBranch {
     public void setBranch(String branch) {
         this.branch = branch;
     }
-    
-    }
+
+}

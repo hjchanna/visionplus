@@ -1,21 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.sv.visionplus.stock.stock_adjustment.model;
 
+import com.sv.visionplus.master.item.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
+ * Date : Aug 24, 2016 Time : 2:52:22 PM
  *
- * @author KAZA
+ * @copyright : INCOSYZ
+ * @author Nidura Prageeth
  */
+@VPTable("m_category")
 public class MCategory {
 
+    @VPId
     private Integer indexNo;
     private String name;
-
-    public MCategory() {
-    }
-
-    public MCategory(Integer indexNo, String name) {
-        this.indexNo = indexNo;
-        this.name = name;
-    }
 
     public Integer getIndexNo() {
         return indexNo;

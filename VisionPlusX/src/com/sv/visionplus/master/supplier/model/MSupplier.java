@@ -23,6 +23,8 @@ public class MSupplier {
     private String name;
     private String contactNo;
     private String email;
+    private String address;
+    private String contactName;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -55,7 +57,23 @@ public class MSupplier {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+   
 
 }

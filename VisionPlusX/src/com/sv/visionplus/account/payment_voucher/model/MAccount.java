@@ -1,29 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.account.payment_voucher.model;
 
 import com.sv.visionplus.account.money_collection.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("m_account")
 public class MAccount {
+
+    @VPId
     private Integer indexNo;
     private String Description;
     private String type;
-
-    public MAccount() {
-    }
-
-    public MAccount(Integer indexNo, String Description, String type) {
-        this.indexNo = indexNo;
-        this.Description = Description;
-        this.type = type;
-    }
+    private Integer mainCategroy;
+    private Integer subCategory;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -48,6 +41,20 @@ public class MAccount {
     public void setType(String type) {
         this.type = type;
     }
-    
-    
+
+    public Integer getMainCategroy() {
+        return mainCategroy;
+    }
+
+    public void setMainCategroy(Integer mainCategroy) {
+        this.mainCategroy = mainCategroy;
+    }
+
+    public Integer getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(Integer subCategory) {
+        this.subCategory = subCategory;
+    }
 }

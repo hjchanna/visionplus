@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.transaction.customer_payment.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
@@ -13,24 +14,14 @@ import com.sv.visionplus.util.database.annotation.VPTable;
  */
 @VPTable("t_payment")
 public class TPayment {
+
+    @VPId
     private Integer indexNo;
     private Integer transaction;
     private double totalAmont;
     private double cashAmont;
     private double cardAmont;
     private double chequeAmont;
-
-    public TPayment() {
-    }
-
-    public TPayment(Integer indexNo, Integer transaction, double totalAmont, double cashAmont, double cardAmont, double chequeAmont) {
-        this.indexNo = indexNo;
-        this.transaction = transaction;
-        this.totalAmont = totalAmont;
-        this.cashAmont = cashAmont;
-        this.cardAmont = cardAmont;
-        this.chequeAmont = chequeAmont;
-    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -79,6 +70,5 @@ public class TPayment {
     public void setChequeAmont(double chequeAmont) {
         this.chequeAmont = chequeAmont;
     }
-    
-    
+
 }

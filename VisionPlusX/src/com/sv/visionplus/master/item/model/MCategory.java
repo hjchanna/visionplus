@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.master.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
@@ -16,6 +17,7 @@ import com.sv.visionplus.util.database.annotation.VPTable;
 @VPTable("m_category")
 public class MCategory {
 
+    @VPId
     private Integer indexNo;
     private String name;
 

@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.sv.visionplus.stock.stock_adjustment.model;
+package com.sv.visionplus.account.payment_voucher.model;
 
-import com.sv.visionplus.master.item.model.*;
+import com.sv.visionplus.account.money_collection.model.*;
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
- * Date : Aug 24, 2016 Time : 2:47:44 PM
+ * Date : Aug 29, 2016 Time : 3:31:34 PM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-@VPTable("m_brand")
-public class MBrand {
+@VPTable("sub_category")
+public class SubCategory {
 
     @VPId
     private Integer indexNo;
@@ -38,6 +33,4 @@ public class MBrand {
         this.name = name;
     }
 
-    
-    
 }

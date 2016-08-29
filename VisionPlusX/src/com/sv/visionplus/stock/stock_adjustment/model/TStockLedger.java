@@ -1,30 +1,23 @@
 package com.sv.visionplus.stock.stock_adjustment.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("t_stock_ledger")
 public class TStockLedger {
+
+    @VPId
     private Integer indexNo;
     private Integer store;
     private Integer item;
     private Date date;
-    private double inQty;
-    private double outQty;
-
-    public TStockLedger() {
-    }
-
-    public TStockLedger(Integer indexNo, Integer store, Integer item, Date date, double inQty, double outQty) {
-        this.indexNo = indexNo;
-        this.store = store;
-        this.item = item;
-        this.date = date;
-        this.inQty = inQty;
-        this.outQty = outQty;
-    }
+    private double qty;
+    private String form;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -58,21 +51,20 @@ public class TStockLedger {
         this.date = date;
     }
 
-    public double getInQty() {
-        return inQty;
+    public double getQty() {
+        return qty;
     }
 
-    public void setInQty(double inQty) {
-        this.inQty = inQty;
+    public void setQty(double qty) {
+        this.qty = qty;
     }
 
-    public double getOutQty() {
-        return outQty;
+    public String getForm() {
+        return form;
     }
 
-    public void setOutQty(double outQty) {
-        this.outQty = outQty;
+    public void setForm(String form) {
+        this.form = form;
     }
-    
-    
+
 }

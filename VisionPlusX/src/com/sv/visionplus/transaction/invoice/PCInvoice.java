@@ -798,7 +798,6 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     public void initObject() throws VPException { 
 
         this.invoiceMix.getInvoice().setIndexNo(txtIndexNo.getCValue());
-        this.invoiceMix.getInvoice().setDate(txtDate.getCValue());
         this.invoiceMix.getInvoice().setStatus(InvoiceStatus.RESERVED_FROM_CUSTOMER);
         try {
             this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
@@ -806,7 +805,6 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             Logger.getLogger(PCInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.invoiceMix.getInvoice().setCustomer(null);
-        this.invoiceMix.getInvoice().setPatientInfo(null);
         this.invoiceMix.getInvoice().setTransaction(null);
     }
 

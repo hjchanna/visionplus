@@ -5,32 +5,36 @@
  */
 package com.sv.visionplus.stock.stock_adjustment.model;
 
+import com.sv.visionplus.master.item.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
+ * Date : Aug 24, 2016 Time : 12:12:44 AM
  *
- * @author KAZA
+ * @copyright : INCOSYZ
+ * @author Nidura Prageeth
  */
+@VPTable("m_item")
 public class MItem {
+
+    @VPId
     private Integer indexNo;
     private Integer brand;
     private Integer category;
     private String code;
     private String name;
-    private double salesPrice;
-    private double costPrice;
-    private Integer reOrderLevel;
+    private Double salePrice;
+    private Double costPrice;
+    private Integer reorderQty;
+    private Boolean isstockItem;
 
-    public MItem() {
+    public Boolean getIsstockItem() {
+        return isstockItem;
     }
 
-    public MItem(Integer indexNo, Integer brand, Integer category, String code, String name, double salesPrice, double costPrice, Integer reOrderLevel) {
-        this.indexNo = indexNo;
-        this.brand = brand;
-        this.category = category;
-        this.code = code;
-        this.name = name;
-        this.salesPrice = salesPrice;
-        this.costPrice = costPrice;
-        this.reOrderLevel = reOrderLevel;
+    public void setIsstockItem(Boolean isstockItem) {
+        this.isstockItem = isstockItem;
     }
 
     public Integer getIndexNo() {
@@ -73,30 +77,28 @@ public class MItem {
         this.name = name;
     }
 
-    public double getSalesPrice() {
-        return salesPrice;
+    public Double getSalePrice() {
+        return salePrice;
     }
 
-    public void setSalesPrice(double salesPrice) {
-        this.salesPrice = salesPrice;
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
     }
 
-    public double getCostPrice() {
+    public Double getCostPrice() {
         return costPrice;
     }
 
-    public void setCostPrice(double costPrice) {
+    public void setCostPrice(Double costPrice) {
         this.costPrice = costPrice;
     }
 
-    public Integer getReOrderLevel() {
-        return reOrderLevel;
+    public Integer getReorderQty() {
+        return reorderQty;
     }
 
-    public void setReOrderLevel(Integer reOrderLevel) {
-        this.reOrderLevel = reOrderLevel;
+    public void setReorderQty(Integer reorderQty) {
+        this.reorderQty = reorderQty;
     }
-    
-     
-    
+
 }

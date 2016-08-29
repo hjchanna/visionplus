@@ -1,31 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.transaction.customer_payment.model;
+
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("t_cheque_details")
 public class TChequeDetail {
+    
+    @VPId
     private Integer indexNo;
     private Integer payment;
     private Integer bankBranch;
     private Integer chequeNo;
     private double amount;
-
-    public TChequeDetail() {
-    }
-
-    public TChequeDetail(Integer indexNo, Integer payment, Integer bankBranch, Integer chequeNo, double amount) {
-        this.indexNo = indexNo;
-        this.payment = payment;
-        this.bankBranch = bankBranch;
-        this.chequeNo = chequeNo;
-        this.amount = amount;
-    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -66,5 +56,6 @@ public class TChequeDetail {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
+
+   
 }

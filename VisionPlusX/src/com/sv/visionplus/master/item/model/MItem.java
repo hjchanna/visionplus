@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.master.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
@@ -16,6 +17,7 @@ import com.sv.visionplus.util.database.annotation.VPTable;
 @VPTable("m_item")
 public class MItem {
 
+    @VPId
     private Integer indexNo;
     private Integer brand;
     private Integer category;
@@ -24,6 +26,15 @@ public class MItem {
     private Double salePrice;
     private Double costPrice;
     private Integer reorderQty;
+    private Boolean isstockItem;
+
+    public Boolean getIsstockItem() {
+        return isstockItem;
+    }
+
+    public void setIsstockItem(Boolean isstockItem) {
+        this.isstockItem = isstockItem;
+    }
 
     public Integer getIndexNo() {
         return indexNo;

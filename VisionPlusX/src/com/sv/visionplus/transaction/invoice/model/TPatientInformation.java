@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
@@ -16,7 +11,10 @@ import com.sv.visionplus.util.database.annotation.VPTable;
  */
 @VPTable("t_invoice_patient_infomation")
 public class TPatientInformation {
+    
+    @VPId
     private Integer indexNo;
+    private Integer invoice;
     private String complains;
     private String hbRxLeft;
     private String hbRxRight;
@@ -47,6 +45,14 @@ public class TPatientInformation {
     private String lenseType;
     private String refractiveError;
     private String remarks;
+
+    public Integer getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Integer invoice) {
+        this.invoice = invoice;
+    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -295,6 +301,6 @@ public class TPatientInformation {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-    
-    
+
+   
 }

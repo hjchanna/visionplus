@@ -1,17 +1,24 @@
 package com.sv.visionplus.stock.stock_transfer.model;
 
+import com.sv.visionplus.stock.stock_adjustment.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  *
  * @author KAZA
  */
-public class MStore {
+@VPTable("store")
+public class Store {
+    
+    @VPId
     private Integer IndexNo;
     private String name;
 
-    public MStore() {
+    public Store() {
     }
 
-    public MStore(Integer IndexNo, String name) {
+    public Store(Integer IndexNo, String name) {
         this.IndexNo = IndexNo;
         this.name = name;
     }

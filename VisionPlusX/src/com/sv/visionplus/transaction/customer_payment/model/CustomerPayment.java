@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.transaction.customer_payment.model;
 
 import com.sv.visionplus.util.database.annotation.VPTable;
@@ -14,27 +9,18 @@ import java.util.Date;
  */
 @VPTable("customer_payment")
 public class CustomerPayment {
-    private Integer indexNo;
+
     private Date date;
     private Integer payment;
     private Integer invoice;
+    private Boolean isAdvance;
 
-    public CustomerPayment() {
+    public Boolean getIsAdvance() {
+        return isAdvance;
     }
 
-    public CustomerPayment(Integer indexNo, Date date, Integer payment, Integer invoice) {
-        this.indexNo = indexNo;
-        this.date = date;
-        this.payment = payment;
-        this.invoice = invoice;
-    }
-
-    public Integer getIndexNo() {
-        return indexNo;
-    }
-
-    public void setIndexNo(Integer indexNo) {
-        this.indexNo = indexNo;
+    public void setIsAdvance(Boolean isAdvance) {
+        this.isAdvance = isAdvance;
     }
 
     public Date getDate() {
@@ -60,7 +46,5 @@ public class CustomerPayment {
     public void setInvoice(Integer invoice) {
         this.invoice = invoice;
     }
-    
-    
-    
+
 }

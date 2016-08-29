@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.transaction.customer_payment.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
@@ -14,18 +10,11 @@ import java.util.Date;
  */
 @VPTable("t_transaction")
 public class Transaction {
+
+    @VPId
     private Integer indexNo;
     private Date date;
     private String type;
-
-    public Transaction() {
-    }
-
-    public Transaction(Integer indexNo, Date date, String type) {
-        this.indexNo = indexNo;
-        this.date = date;
-        this.type = type;
-    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -50,6 +39,5 @@ public class Transaction {
     public void setType(String type) {
         this.type = type;
     }
-    
-    
+
 }

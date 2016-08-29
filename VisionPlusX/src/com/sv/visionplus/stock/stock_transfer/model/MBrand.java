@@ -1,20 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.sv.visionplus.stock.stock_transfer.model;
 
+import com.sv.visionplus.stock.stock_adjustment.model.*;
+import com.sv.visionplus.master.item.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
+ * Date : Aug 24, 2016 Time : 2:47:44 PM
  *
- * @author KAZA
+ * @copyright : INCOSYZ
+ * @author Nidura Prageeth
  */
+@VPTable("m_brand")
 public class MBrand {
+
+    @VPId
     private Integer indexNo;
     private String name;
-
-    public MBrand() {
-    }
-
-    public MBrand(Integer indexNo, String name) {
-        this.indexNo = indexNo;
-        this.name = name;
-    }
 
     public Integer getIndexNo() {
         return indexNo;
@@ -31,6 +38,7 @@ public class MBrand {
     public void setName(String name) {
         this.name = name;
     }
+
     
     
 }

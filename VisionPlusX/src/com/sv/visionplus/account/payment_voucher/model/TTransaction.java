@@ -1,13 +1,18 @@
 package com.sv.visionplus.account.payment_voucher.model;
 
 import com.sv.visionplus.account.money_collection.model.*;
+import com.sv.visionplus.util.database.annotation.VPId;
+import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
 /**
  *
  * @author KAZA
  */
+@VPTable("t_transaction")
 public class TTransaction {
+    
+    @VPId
     private Integer indexNo;
     private Date date;
     private String type;
