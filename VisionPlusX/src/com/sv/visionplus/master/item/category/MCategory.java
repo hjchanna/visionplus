@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.master.item.model;
+package com.sv.visionplus.master.item.category;
 
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
- * Date : Aug 24, 2016 Time : 2:47:44 PM
+ * Date : Aug 24, 2016 Time : 2:52:22 PM
  *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-@VPTable("m_brand")
-public class MBrand {
+@VPTable("m_category")
+public class MCategory {
 
     @VPId
     private Integer indexNo;
@@ -36,7 +36,7 @@ public class MBrand {
     public void setName(String name) {
         this.name = name;
     }
+    
+    
 
-    
-    
 }

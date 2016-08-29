@@ -5,7 +5,7 @@
  */
 package visionplusx.controller;
 
-import com.sv.visionplus.master.item.model.MBrand;
+import com.sv.visionplus.master.item.brand.model.MBrand;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.SQLException;

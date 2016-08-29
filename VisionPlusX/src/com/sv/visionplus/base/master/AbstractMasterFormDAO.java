@@ -17,4 +17,5 @@ public abstract class AbstractMasterFormDAO<T> {
     public abstract void delete(Connection connection, T object) throws SQLException;
 
     public abstract List<T> getSearchResult(Connection connection, String text) throws SQLException;
+   
 }

@@ -11,7 +11,6 @@ import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.master.customer.model.MCustomer;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.dialog.AbstractMasterFormGUI;
 import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
@@ -901,6 +900,5 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private InvoiceMix invoiceMix;
     private MCustomer customer;
     private TInvoice invoice;
-    private AbstractMasterFormGUI<Object> abstractform;
 
 }

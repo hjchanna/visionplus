@@ -6,8 +6,8 @@
 package com.sv.visionplus.master.item;
 
 import com.sv.visionplus.base.master.AbstractMasterFormDAO;
-import com.sv.visionplus.master.item.model.MBrand;
-import com.sv.visionplus.master.item.model.MCategory;
+import com.sv.visionplus.master.item.brand.model.MBrand;
+import com.sv.visionplus.master.item.category.MCategory;
 import com.sv.visionplus.master.item.model.MItem;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
@@ -49,14 +49,5 @@ public class ItemFormDAO extends AbstractMasterFormDAO<MItem> {
         return queryUtil.executeSelect(connection, "code LIKE ? OR name LIKE ? OR brand LIKE ? OR category LIKE ?", text, text,text,text);
     }
 
-    public List<MBrand> listBrand(Connection connection) throws SQLException {
-        QueryUtil<MBrand> queryUtil = QueryUtil.getInstance(MBrand.class);
-        return queryUtil.executeSelect(connection);
-    }
-
-    public List<MCategory> listCategory(Connection connection) throws SQLException {
-        QueryUtil<MCategory> queryUtil = QueryUtil.getInstance(MCategory.class);
-        return queryUtil.executeSelect(connection);
-    }
 
 }
