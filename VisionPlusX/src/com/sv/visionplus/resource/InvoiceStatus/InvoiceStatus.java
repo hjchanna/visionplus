@@ -11,8 +11,8 @@ package com.sv.visionplus.resource.InvoiceStatus;
  */
 public class InvoiceStatus {
 
-    public static final String PENDING = "Pending";
-    public static final String ISSUED_TO_FACTORY = "Issue to Factory";
-    public static final String RESERVED_FROM_FACTORY = "Reserved from Factory";
-    public static final String ISSUED_TO_CUSTOMER = "Issue to Customer";
+    public static final String RESERVED_FROM_CUSTOMER = "Reserved From Customer";
+    public static final String ISSUED_TO_FACTORY = "Issue To Factory";
+    public static final String RESERVED_FROM_FACTORY = "Reserved From Factory";
+    public static final String ISSUED_TO_CUSTOMER = "Issue To Customer";
 }

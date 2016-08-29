@@ -799,7 +799,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
 
         this.invoiceMix.getInvoice().setIndexNo(txtIndexNo.getCValue());
         this.invoiceMix.getInvoice().setDate(txtDate.getCValue());
-        this.invoiceMix.getInvoice().setStatus(InvoiceStatus.PENDING);
+        this.invoiceMix.getInvoice().setStatus(InvoiceStatus.RESERVED_FROM_CUSTOMER);
         try {
             this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
         } catch (ParseException ex) {
