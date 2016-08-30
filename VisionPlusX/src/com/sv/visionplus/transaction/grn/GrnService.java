@@ -17,22 +17,19 @@ public class GrnService extends AbstractTransactionFormService<TGrn>{
 
     @Override
     protected TGrn select(Integer indexNo) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     protected void save(TGrn object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected void update(TGrn object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected void delete(TGrn object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

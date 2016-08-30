@@ -5,7 +5,7 @@
  */
 package com.sv.visionplus.transaction.checking;
 
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.checking.model.TInvoice;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,6 +34,7 @@ public class CheckingDAO {
     public int update(Connection connection, TInvoice object) throws SQLException {
         return queryUtil.executeUpdate(connection, object, "index_no=?", object.getIndexNo());
     }
+    
     public TInvoice select(Connection connection, Integer indexNo) throws SQLException {
         return queryUtil.executeSelect(connection).get(0);
     }

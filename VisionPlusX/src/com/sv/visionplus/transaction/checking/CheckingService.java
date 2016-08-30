@@ -7,7 +7,8 @@ package com.sv.visionplus.transaction.checking;
 
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.checking.model.InvoiceMix;
+import com.sv.visionplus.transaction.checking.model.TInvoice;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,19 +19,18 @@ import java.util.logging.Logger;
  *
  * @author KAZA
  */
-public class CheckingService extends AbstractTransactionFormService<TInvoice>{
+public class CheckingService extends AbstractTransactionFormService<TInvoice> {
 
     @Override
     protected TInvoice select(Integer indexNo) throws VPException {
-            TInvoice select = null;
+        TInvoice invoice = null;
         try {
-            Connection connection=DatabaseUtil.getInstance().openConnection();
-            select = CheckingDAO.getInstance().select(connection, indexNo);
-        
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+            invoice = CheckingDAO.getInstance().select(connection, indexNo);
         } catch (SQLException ex) {
             Logger.getLogger(CheckingService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return select;
+        return invoice;
     }
 
     @Override
@@ -52,5 +52,5 @@ public class CheckingService extends AbstractTransactionFormService<TInvoice>{
     protected void delete(TInvoice object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
