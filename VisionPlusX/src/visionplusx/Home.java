@@ -9,6 +9,7 @@ import com.sv.visionplus.account.money_collection.MoneyCollectionForm;
 import com.sv.visionplus.account.payment_voucher.PaymentVoucherForm;
 import com.sv.visionplus.master.bank_branch.BankBranchFormGUI;
 import com.sv.visionplus.master.customer.CustomerFormGUI;
+import com.sv.visionplus.master.factory.FactoryFormGUI;
 import com.sv.visionplus.master.item.ItemFormGUI;
 import com.sv.visionplus.master.supplier.SupplierFormGUI;
 import com.sv.visionplus.master.user.UserFormGUI;
@@ -87,6 +88,9 @@ public class Home extends DefaultMainframe {
 
         addBand("Bank", getImageUrl(MASTER_BRANCH));
         addButton("Bank Branch", getImageUrl(MASTER_BRANCH), DefaultMainframe.ElementPriority.TOP, getActionListener(BankBranchFormGUI.class));
+        
+        addBand("Factory", getImageUrl(MASTER_BRANCH));
+        addButton("Factory", getImageUrl(MASTER_BRANCH), DefaultMainframe.ElementPriority.TOP, getActionListener(FactoryFormGUI.class));
 
         addTask("Transaction");
 

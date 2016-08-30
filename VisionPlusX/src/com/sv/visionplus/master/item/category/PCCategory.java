@@ -53,6 +53,11 @@ public class PCCategory extends javax.swing.JDialog {
         });
 
         jButton3.setText("Select");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,15 +111,30 @@ public class PCCategory extends javax.swing.JDialog {
         MCategory category = new MCategory();
         category.setName(txtBrand.getText());
 
-        int save = CategoryService.getInstance().save(category);
-        if (save > 0) {
-            getAllCategory();
-            JOptionPane.showMessageDialog(this, "Successfully Saved..!!!");
-            category.setIndexNo(1);
+        if (!txtBrand.getText().trim().equals("")) {
+            int save = CategoryService.getInstance().save(category);
+            if (save > 0) {
+                getAllCategory();
+                JOptionPane.showMessageDialog(this, "Successfully Saved..!!!");
+                category.setIndexNo(1);
+                pcItem.setCategory(category);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (tableCategory.getSelectedRowCount() == 1) {
+            String[] split = tableModel.getValueAt(tableCategory.getSelectedRow(), 0).toString().split(" ");
+            String categoryIndexNo = split[0];
+            String categoryName = split[1];
+            MCategory category = new MCategory();
+            category.setName(categoryName);
+            category.setIndexNo(Integer.parseInt(categoryIndexNo));
             pcItem.setCategory(category);
             this.dispose();
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

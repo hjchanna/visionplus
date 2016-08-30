@@ -14,15 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import visionplusx.Home;
 
 /**
- * Date : Aug 29, 2016 Time : 5:03:53 PM
- *
- * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
 public class PCBrand extends javax.swing.JDialog {
-
-    public PCBrand() {
-    }
 
     public PCBrand(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -67,6 +61,11 @@ public class PCBrand extends javax.swing.JDialog {
         });
 
         jButton3.setText("Select");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,18 +117,30 @@ public class PCBrand extends javax.swing.JDialog {
         MBrand brand = new MBrand();
         brand.setName(txtBrand.getText());
 
-        int lastId = BrandService.getInstance().save(brand);
-        if (lastId > 0) {
-            getAllBrands();
-            JOptionPane.showMessageDialog(this, "Successfully Saved..!!!");
-            brand.setIndexNo(lastId);
+        if (!txtBrand.getText().trim().equals("")) {
+            int lastId = BrandService.getInstance().save(brand);
+            if (lastId > 0) {
+                getAllBrands();
+                JOptionPane.showMessageDialog(this, "Successfully Saved..!!!");
+                brand.setIndexNo(lastId);
+                pcItem.setBrand(brand);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (tableBrand.getSelectedRowCount() == 1) {
+            String[] split = tableModel.getValueAt(tableBrand.getSelectedRow(), 0).toString().split(" ");
+            String brandIndexNo = split[0];
+            String brandName = split[1];
+            MBrand brand = new MBrand();
+            brand.setName(brandName);
+            brand.setIndexNo(Integer.parseInt(brandIndexNo));
             pcItem.setBrand(brand);
             this.dispose();
-        }else{
-            System.out.println("fail");
         }
-
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

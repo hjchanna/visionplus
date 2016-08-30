@@ -42,8 +42,8 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         jLabel4 = new javax.swing.JLabel();
         cDateField1 = new com.sv.visionplus.util.component.textfield.CDateField();
         cmboFactory = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txtInvoiceNo = new com.sv.visionplus.util.component.textfield.CIntegerField();
@@ -82,9 +82,9 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
 
         jLabel4.setText("Date :");
 
-        jLabel1.setText("Factory :");
-
         jCheckBox1.setText("Return");
+
+        jLabel1.setText("Factory :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,13 +96,12 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cmboChangeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox1)
-                        .addGap(14, 14, 14)
-                        .addComponent(cmboFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(173, 173, 173)
-                        .addComponent(jLabel1)))
+                        .addComponent(jCheckBox1))
+                    .addComponent(jLabel2))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(cmboFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)

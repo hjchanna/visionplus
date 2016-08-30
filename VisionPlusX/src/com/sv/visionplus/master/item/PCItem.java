@@ -208,7 +208,7 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     }//GEN-LAST:event_comboBrandItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PCCategory pCCategory=new PCCategory(null, true);
+        PCCategory pCCategory = new PCCategory(null, true);
         pCCategory.setFrame(this);
         pCCategory.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
