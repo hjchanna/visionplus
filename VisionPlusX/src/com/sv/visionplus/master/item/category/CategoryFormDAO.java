@@ -1,5 +1,6 @@
 package com.sv.visionplus.master.item.category;
 
+import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,11 +30,22 @@ public class CategoryFormDAO {
     }
 
     public int save(Connection connection, MCategory category) throws SQLException {
-        int executeInsert = queryUtil.executeInsert(connection, category);
-        return executeInsert;
+        MCategory categorys = queryUtil.executeUniqueSelect(connection, "name=?", category.getName());
+        if (categorys != null) {
+            return -1;
+        }
+
+        queryUtil.executeInsert(connection, category);
+        categorys = queryUtil.executeUniqueSelect(connection, "name=?", category.getName());
+        return categorys.getIndexNo();
     }
 
     public List<MCategory> getAllCategory(Connection connection) throws SQLException {
         return queryUtil.executeSelect(connection);
+    }
+
+    public List<MCategory> getSearchResult(Connection connection, String text) throws SQLException {
+        text = "%" + text + "%";
+        return queryUtil.executeSelect(connection, "name LIKE ?", text);
     }
 }

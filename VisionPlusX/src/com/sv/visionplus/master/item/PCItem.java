@@ -13,7 +13,8 @@ import com.sv.visionplus.master.item.brand.BrandService;
 import com.sv.visionplus.master.item.brand.PCBrand;
 import com.sv.visionplus.master.item.brand.model.MBrand;
 import com.sv.visionplus.master.item.category.CategoryService;
-import com.sv.visionplus.master.item.category.MCategory;
+import com.sv.visionplus.master.item.category.PCCategory;
+import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.master.item.model.MItem;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.util.formatter.FormatterUtil;
@@ -37,7 +38,6 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         getAllBrands();
         getAllCategory();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -81,6 +81,12 @@ public class PCItem extends AbstractObjectCreator<MItem> {
 
         jLabel8.setText("Re-Order Qty:");
 
+        comboBrand.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBrandItemStateChanged(evt);
+            }
+        });
+
         buttonGroup1.add(radioStock);
         radioStock.setSelected(true);
         radioStock.setText("Stock Item");
@@ -101,6 +107,11 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         });
 
         jButton2.setText("+");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,25 +129,24 @@ public class PCItem extends AbstractObjectCreator<MItem> {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioStock)
-                        .addGap(45, 45, 45)
-                        .addComponent(radioNonStock))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtReOrderQty, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCostPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                        .addComponent(cDoubleField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboCategory, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBrand, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtIndexNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(radioStock, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioNonStock, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                    .addComponent(txtCostPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cDoubleField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboCategory, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBrand, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtIndexNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtReOrderQty, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +189,7 @@ public class PCItem extends AbstractObjectCreator<MItem> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioStock)
                     .addComponent(radioNonStock))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,8 +198,20 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     }//GEN-LAST:event_radioStockActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       new PCBrand(null, true).setVisible(true);
+        PCBrand pcBrand = new PCBrand(null, true);
+        pcBrand.setFrame(this);
+        pcBrand.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboBrandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBrandItemStateChanged
+
+    }//GEN-LAST:event_comboBrandItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PCCategory pCCategory=new PCCategory(null, true);
+        pCCategory.setFrame(this);
+        pCCategory.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     @Override
     public void setIdealMode() {
@@ -247,13 +269,21 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         this.item.setReorderQty(txtReOrderQty.getCValue());
         this.item.setCode(txtCode.getCValue());
         this.item.setName(txtName.getCValue());
-        
-        this.item.setCategory(1);
-        this.item.setBrand(1);
-        
-        if(radioStock.isSelected()){
+
+        //get Brand IndexNo
+        String[] split = comboBrand.getSelectedItem().toString().split(" ");
+        String brandIndexNo = split[0];
+        this.item.setBrand(Integer.parseInt(brandIndexNo));
+
+        //get Category IndexNo
+        String[] split1 = comboCategory.getSelectedItem().toString().split(" ");
+        String categoryIndexNo = split1[0];
+        this.item.setCategory(Integer.parseInt(categoryIndexNo));
+
+        // radio selected
+        if (radioStock.isSelected()) {
             this.item.setIsstockItem(true);
-        }else{
+        } else {
             this.item.setIsstockItem(false);
         }
     }
@@ -268,10 +298,10 @@ public class PCItem extends AbstractObjectCreator<MItem> {
         cDoubleField1.setCValue(this.item.getSalePrice());
         txtCostPrice.setCValue(this.item.getCostPrice());
         txtReOrderQty.setCValue(this.item.getReorderQty());
-        
-        if(this.item.getIsstockItem()==true){
+
+        if (this.item.getIsstockItem() == true) {
             radioStock.setSelected(true);
-        }else{
+        } else {
             radioNonStock.setSelected(true);
         }
     }
@@ -312,20 +342,29 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     // End of variables declaration//GEN-END:variables
     private MItem item;
     private MBrand brand;
-   
-    
-    void getAllBrands(){
+
+    void getAllBrands() {
         List<MBrand> allBrands = BrandService.getInstance().getAllBrands();
         for (MBrand allBrand : allBrands) {
-            comboBrand.addItem(allBrand.getName());
+            comboBrand.addItem(allBrand.getIndexNo() + " " + allBrand.getName());
         }
     }
-    void getAllCategory(){
+
+    void getAllCategory() {
         List<MCategory> allCategory = CategoryService.getInstance().getAllCategory();
         for (MCategory allCategory1 : allCategory) {
-            comboCategory.addItem(allCategory1.getName());
+            comboCategory.addItem(allCategory1.getIndexNo() + " " + allCategory1.getName());
         }
-    
+    }
+
+    public void setBrand(MBrand brand) {
+        comboBrand.addItem(brand.getIndexNo() + " " + brand.getName());
+        comboBrand.setSelectedItem(brand.getIndexNo() + " " + brand.getName());
+    }
+
+    public void setCategory(MCategory category) {
+        comboCategory.addItem(category.getIndexNo() + " " + category.getName());
+        comboCategory.setSelectedItem(category.getIndexNo() + " " + category.getName());
     }
 
 }

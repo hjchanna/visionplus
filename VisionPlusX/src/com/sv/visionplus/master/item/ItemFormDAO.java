@@ -7,7 +7,7 @@ package com.sv.visionplus.master.item;
 
 import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.master.item.brand.model.MBrand;
-import com.sv.visionplus.master.item.category.MCategory;
+import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.master.item.model.MItem;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;

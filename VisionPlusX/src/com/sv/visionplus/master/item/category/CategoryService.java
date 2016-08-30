@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.sv.visionplus.master.item.category;
 
+import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
@@ -16,14 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Date : Aug 29, 2016
- * Time : 7:15:54 PM
+ * Date : Aug 29, 2016 Time : 7:15:54 PM
+ *
  * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
 public class CategoryService {
 
-     public static CategoryService INSTANCE;
+    public static CategoryService INSTANCE;
 
     public static CategoryService getInstance() {
         if (INSTANCE == null) {
@@ -36,7 +36,7 @@ public class CategoryService {
 
     }
 
-    public int save(MCategory category){
+    public int save(MCategory category) {
         int save = 0;
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
@@ -48,14 +48,25 @@ public class CategoryService {
     }
 
     public List<MCategory> getAllCategory() {
-        List<MCategory> allCategory=new ArrayList<>();
+        List<MCategory> allCategory = new ArrayList<>();
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
-             allCategory = CategoryFormDAO.getInstance().getAllCategory(connection);
+            allCategory = CategoryFormDAO.getInstance().getAllCategory(connection);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allCategory;
+    }
+
+    public List<MCategory> getSearchResult(String text) {
+        List<MCategory> categorys = new ArrayList<>();
+        try {
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+            categorys = CategoryFormDAO.getInstance().getSearchResult(connection, text);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return categorys;
     }
 
 }

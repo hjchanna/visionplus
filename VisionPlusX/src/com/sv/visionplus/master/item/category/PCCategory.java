@@ -1,36 +1,22 @@
-package com.sv.visionplus.master.item.brand;
+package com.sv.visionplus.master.item.category;
 
 import com.sv.visionplus.master.item.PCItem;
-import com.sv.visionplus.master.item.brand.model.MBrand;
-import com.sv.visionplus.master.item.category.PCCategory;
-import com.sv.visionplus.system.exception.VPException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import com.sv.visionplus.master.item.category.model.MCategory;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import visionplusx.Home;
 
 /**
- * Date : Aug 29, 2016 Time : 5:03:53 PM
- *
- * @copyright : INCOSYZ
  * @author Nidura Prageeth
  */
-public class PCBrand extends javax.swing.JDialog {
+public class PCCategory extends javax.swing.JDialog {
 
-    public PCBrand() {
-    }
-
-    public PCBrand(java.awt.Frame parent, boolean modal) {
+    public PCCategory(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        tableModel = (DefaultTableModel) tableBrand.getModel();
-        getAllBrands();
-
+        tableModel = (DefaultTableModel) tableCategory.getModel();
+        getAllCategory();
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +25,7 @@ public class PCBrand extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableBrand = new javax.swing.JTable();
+        tableCategory = new javax.swing.JTable();
         txtBrand = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel1 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
@@ -47,7 +33,7 @@ public class PCBrand extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tableBrand.setModel(new javax.swing.table.DefaultTableModel(
+        tableCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -55,9 +41,9 @@ public class PCBrand extends javax.swing.JDialog {
                 "List"
             }
         ));
-        jScrollPane1.setViewportView(tableBrand);
+        jScrollPane1.setViewportView(tableCategory);
 
-        jLabel1.setText("Brand :");
+        jLabel1.setText("Category :");
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +69,7 @@ public class PCBrand extends javax.swing.JDialog {
                         .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,16 +81,18 @@ public class PCBrand extends javax.swing.JDialog {
                     .addComponent(btnAdd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,20 +103,17 @@ public class PCBrand extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        MBrand brand = new MBrand();
-        brand.setName(txtBrand.getText());
+        MCategory category = new MCategory();
+        category.setName(txtBrand.getText());
 
-        int lastId = BrandService.getInstance().save(brand);
-        if (lastId > 0) {
-            getAllBrands();
+        int save = CategoryService.getInstance().save(category);
+        if (save > 0) {
+            getAllCategory();
             JOptionPane.showMessageDialog(this, "Successfully Saved..!!!");
-            brand.setIndexNo(lastId);
-            pcItem.setBrand(brand);
+            category.setIndexNo(1);
+            pcItem.setCategory(category);
             this.dispose();
-        }else{
-            System.out.println("fail");
         }
-
     }//GEN-LAST:event_btnAddActionPerformed
 
 
@@ -138,22 +123,22 @@ public class PCBrand extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableBrand;
+    private javax.swing.JTable tableCategory;
     private com.sv.visionplus.util.component.textfield.CStringField txtBrand;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
     private PCItem pcItem;
 
-    void getAllBrands() {
-        List<MBrand> allBrands = BrandService.getInstance().getAllBrands();
+    void getAllCategory() {
+        List<MCategory> allCategory = CategoryService.getInstance().getAllCategory();
         tableModel.setRowCount(0);
-        for (MBrand allBrand : allBrands) {
-            Object[] rd = {allBrand.getIndexNo() + " " + allBrand.getName()};
+        for (MCategory allCategory1 : allCategory) {
+            Object[] rd = {allCategory1.getIndexNo() + " " + allCategory1.getName()};
             tableModel.addRow(rd);
         }
     }
 
-    public void setFrame(PCItem pcItem) {
-        this.pcItem = pcItem;
+    public void setFrame(PCItem item) {
+        this.pcItem = item;
     }
 }

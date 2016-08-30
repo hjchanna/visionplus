@@ -33,7 +33,7 @@ public class BrandService {
 
     }
 
-    public int save(MBrand brand){
+    public int save(MBrand brand) {
         int save = 0;
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
@@ -45,14 +45,25 @@ public class BrandService {
     }
 
     public List<MBrand> getAllBrands() {
-        List<MBrand> allBrands=new ArrayList<>();
+        List<MBrand> allBrands = new ArrayList<>();
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
-             allBrands = BrandFormDAO.getInstance().getAllBrands(connection);
+            allBrands = BrandFormDAO.getInstance().getAllBrands(connection);
         } catch (SQLException ex) {
             Logger.getLogger(BrandService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allBrands;
+    }
+
+    public List<MBrand> getSearchResult(String text) {
+        List<MBrand> brands = new ArrayList<>();
+        try {
+            Connection connection = DatabaseUtil.getInstance().openConnection();
+            brands = BrandFormDAO.getInstance().getSearchResult(connection, text);
+        } catch (SQLException ex) {
+            Logger.getLogger(BrandService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return brands;
     }
 
 }

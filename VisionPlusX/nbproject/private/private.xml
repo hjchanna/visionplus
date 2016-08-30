@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/customer/CustomerFormDAO.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/model/TPatientInformation.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/InvoiceService.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/util/component/textfield/CTextField.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/customer/PCCustomer.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/InvoiceDAO.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/user/PCUser.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/PCInvoice.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/model/TInvoice.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/base/transaction/AbstractTransactionForm.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/brand/BrandFormDAO.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/brand/BrandService.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/util/database/QueryUtil.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/base/master/AbstractMasterFormGUI.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/brand/PCBrand.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/category/CategoryService.java</file>
             <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/PCItem.java</file>
-            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/transaction/invoice/InvoiceForm.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/base/master/AbstractMasterFormDAO.java</file>
+            <file>file:/D:/SuperVision/visionplus/VisionPlusX/src/com/sv/visionplus/master/item/category/CategoryFormDAO.java</file>
         </group>
     </open-files>
 </project-private>
