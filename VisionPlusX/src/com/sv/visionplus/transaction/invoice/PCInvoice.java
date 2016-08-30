@@ -8,9 +8,10 @@ package com.sv.visionplus.transaction.invoice;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
-import com.sv.visionplus.master.customer.model.MCustomer;
+import com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog.model.MCustomer;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog.CustomerDialog;
 import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
@@ -656,7 +657,9 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
-
+        CustomerDialog dialog=new CustomerDialog(null, true);
+        dialog.setFrame(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -900,5 +903,14 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private InvoiceMix invoiceMix;
     private MCustomer customer;
     private TInvoice invoice;
+
+    public void setCustomer(MCustomer customer) {
+        this.customer=customer;
+        txtName.setCValue(customer.getName());
+        txtaAddress.setText(customer.getAddress());
+        txtContactNo.setText(customer.getContactNo());
+        txtNic.setText(customer.getNic());
+        txtAge.setCValue(Integer.parseInt(customer.getNic().substring(0, 2)));
+    }
 
 }

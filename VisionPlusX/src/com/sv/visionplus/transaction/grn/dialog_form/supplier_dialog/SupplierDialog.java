@@ -5,19 +5,14 @@
  */
 package com.sv.visionplus.transaction.grn.dialog_form.supplier_dialog;
 
-import com.sv.visionplus.master.supplier.SupplierFormDAO;
-import com.sv.visionplus.master.supplier.model.MSupplier;
-import com.sv.visionplus.transaction.checking.CheckingService;
-import com.sv.visionplus.transaction.grn.GrnForm;
-import com.sv.visionplus.transaction.grn.GrnService;
+import com.sv.visionplus.transaction.grn.model.MSupplier;
 import com.sv.visionplus.transaction.grn.PCGrn;
-import com.sv.visionplus.transaction.grn.model.MSupplier.*;
-import com.sv.visionplus.util.database.DatabaseUtil;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SupplierDialog extends javax.swing.JDialog {
 
-    private PCGrn grn;
-    private SupplierFormDAO supplierFormDAO;
     private DefaultTableModel model;
+    private MSupplier supplier;
+    private PCGrn grn;
 
     /**
      * Creates new form spuulierDialig
@@ -38,8 +33,8 @@ public class SupplierDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setSize(1000, 400);
+        model = (DefaultTableModel) tblSupplier.getModel();
         allSupplier();
-        model=(DefaultTableModel) tblSupplier.getModel();
     }
 
     /**
@@ -61,16 +56,16 @@ public class SupplierDialog extends javax.swing.JDialog {
         searchButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtContactNo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAddress = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        txtContactName = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        txtName = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtContactName = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtEmail = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtContactNo = new com.sv.visionplus.util.component.textfield.CStringField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,6 +77,7 @@ public class SupplierDialog extends javax.swing.JDialog {
                 "#", "Name", "Contact Name", "Contact No", "Adress", "Email"
             }
         ));
+        tblSupplier.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSupplierMouseClicked(evt);
@@ -156,12 +152,6 @@ public class SupplierDialog extends javax.swing.JDialog {
 
         jLabel6.setText("Name :");
 
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Address :");
 
         jLabel8.setText("Contact No :");
@@ -188,24 +178,24 @@ public class SupplierDialog extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtName)
-                    .addComponent(txtContactName)
-                    .addComponent(txtContactNo)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(txtEmail))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtContactName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtContactNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtContactName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(txtContactName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -216,9 +206,9 @@ public class SupplierDialog extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -259,39 +249,66 @@ public class SupplierDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupplierMouseClicked
+        if (evt.getClickCount() == 2) {
+            setTableValue();
+        }
 
     }//GEN-LAST:event_tblSupplierMouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
-        MSupplier supplier=new MSupplier();
-        supplier.setAddress(txtAddress.getText());
-        supplier.setContactName(txtContactName.getText());
-        supplier.setContactNo(txtContactNo.getText());
-        supplier.setEmail(txtEmail.getText());
-        supplier.setName(txtName.getText());
         try {
-//            Connection connection = DatabaseUtil.getInstance().openConnection();
-            Connection connection =getConnection();
-            supplierFormDAO.save(connection, supplier);
-            this.dispose();
-        } catch (SQLException ex) {
+            supplier = new MSupplier();
+            supplier.setAddress(txtAddress.getText());
+            supplier.setContactName(txtContactName.getText());
+            supplier.setContactNo(txtContactNo.getText());
+            supplier.setEmail(txtEmail.getText());
+            supplier.setName(txtName.getText());
+
+            if (!"".equals(txtName.getText()) || !"".equals(txtContactName.getText())) {
+
+                int saveSupplier = SupplierService.getInstance().saveSupplier(supplier);
+                if (saveSupplier > 0) {
+                    JOptionPane.showMessageDialog(null, "Success");
+                    supplier.setIndexNo(saveSupplier);
+                    grn.setSupplier(this.supplier);
+                    this.dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Some Error or already exists");
+                }
+            }else{
+            JOptionPane.showMessageDialog(null, "Fill component to add new Supplier");
+            }
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(SupplierDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-
+        if (tblSupplier.getSelectedRowCount() == 1) {
+            setTableValue();
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a row.");
+        }
     }//GEN-LAST:event_selectButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        supplier = new MSupplier();
+        supplier.setAddress(txtAddress.getText());
+        supplier.setContactName(txtContactName.getText());
+        supplier.setEmail(txtEmail.getText());
+        supplier.setName(txtName.getText());
+        supplier.setContactNo(txtContactNo.getText());
 
+        try {
+            List<MSupplier> searchSupplier = SupplierService.getInstance().searchSupplier(supplier);
+            System.out.println(searchSupplier.size());
+            addData(searchSupplier);
+        } catch (SQLException ex) {
+            Logger.getLogger(SupplierDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_searchButtonActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,33 +371,24 @@ public class SupplierDialog extends javax.swing.JDialog {
     private javax.swing.JButton selectButton;
     private javax.swing.JTable tblSupplier;
     private javax.swing.JTextArea txtAddress;
-    private javax.swing.JTextField txtContactName;
-    private javax.swing.JTextField txtContactNo;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtName;
+    private com.sv.visionplus.util.component.textfield.CStringField txtContactName;
+    private com.sv.visionplus.util.component.textfield.CStringField txtContactNo;
+    private com.sv.visionplus.util.component.textfield.CStringField txtEmail;
+    private com.sv.visionplus.util.component.textfield.CStringField txtName;
     // End of variables declaration//GEN-END:variables
-private GrnService grnService;
 
     public void setFrame(PCGrn grn) {
         this.grn = grn;
     }
 
     private void allSupplier() {
-      
-            List<MSupplier> allResult=null; 
-    }
 
-    private Connection getConnection() {
-            Connection connection = null;
-        try {
-            connection = DatabaseUtil.getInstance().openConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(SupplierDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return connection;
+        List<MSupplier> allSupplier = SupplierService.getInstance().allSupplier();
+        addData(allSupplier);
     }
 
     private void addData(List<MSupplier> supplierList) {
+        model.setRowCount(0);
         if (!supplierList.isEmpty()) {
             for (MSupplier supplier : supplierList) {
                 addData(supplier);
@@ -389,17 +397,40 @@ private GrnService grnService;
     }
 
     private void addData(MSupplier supplier) {
-        if (!supplier.equals(null)) {
-            
-        Object[] rowData={
+        if (supplier != null) {
+            Object[] rowData = {
                 supplier.getIndexNo(),
                 supplier.getName(),
                 supplier.getContactName(),
                 supplier.getContactNo(),
                 supplier.getAddress(),
                 supplier.getEmail()
-                };
-                model.addRow(rowData);
+            };
+            model.addRow(rowData);
         }
+    }
+
+    private void setTableValue() {
+        String indexNo = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 0).toString();
+        String name = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 1).toString();
+        String contactName = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 2).toString();
+        String contactNo = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 3).toString();
+        String address = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 4).toString();
+        String email = tblSupplier.getValueAt(tblSupplier.getSelectedRow(), 5).toString();
+
+        supplier = new MSupplier();
+        try {
+            supplier.setIndexNo(Integer.parseInt(indexNo));
+            supplier.setName(name);
+            supplier.setContactName(contactName);
+            supplier.setContactNo(contactNo);
+            supplier.setAddress(address);
+            supplier.setEmail(email);
+
+            grn.setSupplier(this.supplier);
+        } catch (ParseException ex) {
+            Logger.getLogger(SupplierDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
     }
 }
