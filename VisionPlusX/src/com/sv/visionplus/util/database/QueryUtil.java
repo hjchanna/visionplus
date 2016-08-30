@@ -67,7 +67,7 @@ public class QueryUtil<T> {
 
     public List<T> executeSelect(Connection connection) throws SQLException {
         String sql = getSelectQuery();
-
+        System.out.println(sql);
         //prepare statement
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

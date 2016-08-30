@@ -9,7 +9,7 @@ import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.checking.model.TInvoice;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +41,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cDateField1 = new com.sv.visionplus.util.component.textfield.CDateField();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmboFactory = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
@@ -58,7 +58,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
                 {null, null, null, null, null}
             },
             new String [] {
-                "#", "Receipt No", "Description", "No of Items", ""
+                "#", "InvoiceNo", "Status", "No of Items", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -82,7 +82,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
 
         jLabel4.setText("Date :");
 
-        jLabel1.setText("Company :");
+        jLabel1.setText("Factory :");
 
         jCheckBox1.setText("Return");
 
@@ -98,7 +98,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox1)
                         .addGap(14, 14, 14)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmboFactory, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(173, 173, 173)
@@ -121,7 +121,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmboChangeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmboFactory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -214,16 +214,16 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
 
     @Override
     protected TInvoice getValueAbstract() {
-        return this.invoice;
+        return null;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.sv.visionplus.util.component.textfield.CDateField cDateField1;
     private javax.swing.JComboBox cmboChangeStatus;
+    private javax.swing.JComboBox cmboFactory;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -242,19 +242,25 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
         cmboChangeStatus.addItem(InvoiceStatus.ISSUED_TO_FACTORY);
         cmboChangeStatus.addItem(InvoiceStatus.RESERVED_FROM_FACTORY);
         cmboChangeStatus.addItem(InvoiceStatus.ISSUED_TO_CUSTOMER);
+        
+        CheckingService service=new  CheckingService();
+        try {
+            cmboFactory.addItem(service.select(1).getStatus());
+           
+        } catch (VPException ex) {
+            Logger.getLogger(PCChecking.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     private void setTableData() {
         CheckingService service=new  CheckingService();
         try {
-            System.out.println("ABCD");
             TInvoice t = service.select(1);
-            System.out.println(t.getIndexNo());
             model.setRowCount(0);
             Object[] data={
+                1,
                 t.getIndexNo(),
-                t.getCustomer(),
                 t.getStatus(),
                 t.getTransaction()
             };

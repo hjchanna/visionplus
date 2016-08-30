@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.transaction.invoice.model;
+package com.sv.visionplus.transaction.checking.model;
 
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;

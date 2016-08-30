@@ -8,7 +8,8 @@ package com.sv.visionplus.transaction.checking;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.checking.model.InvoiceMix;
+import com.sv.visionplus.transaction.checking.model.TInvoice;
 
 /**
  *

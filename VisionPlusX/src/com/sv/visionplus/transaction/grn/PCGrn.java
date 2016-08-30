@@ -10,8 +10,8 @@ import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.master.item.model.MItem;
 import com.sv.visionplus.master.supplier.model.MSupplier;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.grn.dialog_form.supplier_dialog.SupplierDialog;
 import com.sv.visionplus.transaction.grn.model.TGrn;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.text.ParseException;
 import java.util.Date;
@@ -30,7 +30,6 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
      */
     public PCGrn(AbstractTransactionForm transactionForm) {
         initComponents();
-
         this.transactionForm = transactionForm;
     }
 
@@ -299,7 +298,9 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        SupplierDialog supplierDialog=new SupplierDialog(null, true);
+        supplierDialog.setFrame(this);
+        supplierDialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
