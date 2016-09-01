@@ -7,7 +7,10 @@ package com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog;
 
 import com.sv.visionplus.transaction.invoice.PCInvoice;
 import com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog.model.MCustomer;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -62,6 +65,11 @@ public class CustomerDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         selectButton.setText("Select");
         selectButton.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +79,11 @@ public class CustomerDialog extends javax.swing.JDialog {
         });
 
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -207,14 +220,14 @@ public class CustomerDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        if (tblCustomer.getSelectedRowCount()== 1) {
+        if (tblCustomer.getSelectedRowCount() == 1) {
             String indexNo = tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 0).toString();
             String name = tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 1).toString();
             String nic = tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 2).toString();
             String contactNo = tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 3).toString();
             String address = tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 4).toString();
-            
-            customer=new MCustomer();
+
+            customer = new MCustomer();
             customer.setIndexNo(Integer.parseInt(indexNo));
             customer.setAddress(address);
             customer.setName(name);
@@ -227,6 +240,33 @@ public class CustomerDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Select a row");
         }
     }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        customer = new MCustomer();
+        customer.setAddress(txtAddress.getText());
+        customer.setName(txtName.getText());
+        customer.setNic(txtNic.getText());
+        customer.setContactNo(txtContactNo.getText());
+
+        int res = CustomerService.getInstance().saveCustomer(customer);
+        if (res > 0) {
+            customer.setIndexNo(1);
+            pcInvoice.setCustomer(customer);
+            this.dispose();
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        customer = new MCustomer();
+        customer.setAddress(txtAddress.getText());
+        customer.setName(txtName.getText());
+        customer.setNic(txtNic.getText());
+        customer.setContactNo(txtContactNo.getText());
+        List<MCustomer> searchCustomer = CustomerService.getInstance().searchCustomer(customer);
+        if (searchCustomer != null) {
+            addData(searchCustomer);
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
      * @param args the command line arguments

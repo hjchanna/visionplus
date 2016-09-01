@@ -302,7 +302,6 @@ public class SupplierDialog extends javax.swing.JDialog {
 
         try {
             List<MSupplier> searchSupplier = SupplierService.getInstance().searchSupplier(supplier);
-            System.out.println(searchSupplier.size());
             addData(searchSupplier);
         } catch (SQLException ex) {
             Logger.getLogger(SupplierDialog.class.getName()).log(Level.SEVERE, null, ex);

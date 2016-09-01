@@ -38,4 +38,26 @@ public class CustomerService {
         return allCustomer;
 
     }
+ public int saveCustomer(MCustomer customer){
+            Connection connection;
+        try {
+            connection = DatabaseUtil.getInstance().openConnection();
+            return CustomerDAO.getInstance().saveCustomer(connection,customer);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+
+ }
+
+    List<MCustomer> searchCustomer(MCustomer customer) {
+         Connection connection;
+        try {
+            connection = DatabaseUtil.getInstance().openConnection();
+            return CustomerDAO.getInstance().searchCustomer(connection,customer);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

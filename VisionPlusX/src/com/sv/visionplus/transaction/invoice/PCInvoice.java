@@ -19,6 +19,7 @@ import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -910,7 +911,12 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtaAddress.setText(customer.getAddress());
         txtContactNo.setText(customer.getContactNo());
         txtNic.setText(customer.getNic());
-        txtAge.setCValue(Integer.parseInt(customer.getNic().substring(0, 2)));
+        
+        int birthYear=Integer.parseInt("19"+customer.getNic().substring(0, 2));
+        
+        int year = Integer.parseInt(FormatterUtil.getInstance().formatDate(new Date()).substring(0, 4));
+        
+        txtAge.setCValue(year-birthYear);
     }
 
 }

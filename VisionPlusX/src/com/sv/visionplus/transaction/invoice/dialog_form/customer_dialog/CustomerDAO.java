@@ -16,7 +16,8 @@ import java.util.List;
  * @author KAZA
  */
 public class CustomerDAO {
-     public static CustomerDAO INSTANCE;
+
+    public static CustomerDAO INSTANCE;
     private QueryUtil<MCustomer> queryUtil;
 
     public static CustomerDAO getInstance() {
@@ -29,8 +30,17 @@ public class CustomerDAO {
     public CustomerDAO() {
         this.queryUtil = QueryUtil.getInstance(MCustomer.class);
     }
-     List<MCustomer> allCustomer(Connection connection) throws SQLException {
+
+    List<MCustomer> allCustomer(Connection connection) throws SQLException {
         return queryUtil.executeSelect(connection);
+    }
+
+    int saveCustomer(Connection connection, MCustomer customer) throws SQLException {
+        return queryUtil.executeInsert(connection, customer);
+    }
+
+    List<MCustomer> searchCustomer(Connection connection, MCustomer customer) throws SQLException {
+        return queryUtil.executeSelect(connection, "name LIKE ? AND nic LIKE ? AND contact_no LIKE ? AND address LIKE ? ", "%" + customer.getName() + "%", "%" + customer.getNic() + "%", "%" + customer.getContactNo() + "%", "%" + customer.getAddress() + "%");
     }
 
 }
