@@ -10,9 +10,12 @@ import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import visionplusx.logFile.LogFileDAO;
+import visionplusx.logFile.LogFileModel;
 import visionplusx.model.MUser;
 
 /**
@@ -40,9 +43,27 @@ public class SystemService {
     //functions
     public MUser login(String username, String password) {
         try {
+
             Connection connection = DatabaseUtil.getInstance().openConnection();
 
             MUser user = systemDAO.login(connection, username, password);
+
+            LogFileModel logFileModel = new LogFileModel();
+            logFileModel.setDate(new Date());
+            logFileModel.setFormName("Login");
+//            logFileModel.setIndexNo(1);
+            logFileModel.setRemarks("login User");
+            logFileModel.setTime(null);
+            logFileModel.setTransactionType("search");
+            logFileModel.setValue(0.00);
+            if (user == null) {
+                logFileModel.setUser(-1);
+                logFileModel.setRemarks("login Information Wrong");
+            } else {
+                logFileModel.setUser(user.getIndexNo());
+            }
+
+            LogFileDAO.getInstance().saveLog(connection, logFileModel);
             return user;
 
         } catch (SQLException ex) {
@@ -60,6 +81,7 @@ public class SystemService {
             return Collections.emptyList();
         }
     }
+
     public List<MBrand> listBrand() {
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
