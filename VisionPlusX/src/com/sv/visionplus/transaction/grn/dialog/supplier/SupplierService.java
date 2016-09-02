@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.transaction.grn.dialog_form.supplier_dialog;
+package com.sv.visionplus.transaction.grn.dialog.supplier;
 
-import com.sv.visionplus.transaction.grn.model.MSupplier;
+import com.sv.visionplus.transaction.grn.dialog.supplier.model.MSupplier;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,37 +31,35 @@ public class SupplierService {
     }
 
     public List<MSupplier> allSupplier() {
-        Connection connection;
-        List<MSupplier> allSupplier = null;
+        List<MSupplier> allSupplier = new ArrayList<>();
         try {
-            connection = DatabaseUtil.getInstance().openConnection();
+            Connection connection = DatabaseUtil.getInstance().openConnection();
             allSupplier = SupplierDAO.getInstance().allSupplier(connection);
         } catch (SQLException ex) {
             Logger.getLogger(SupplierService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allSupplier;
-
     }
 
     public int saveSupplier(MSupplier supplier) throws SQLException {
-            Connection connection=null;
+        Connection connection = null;
         try {
             connection = DatabaseUtil.getInstance().openConnection();
         } catch (SQLException ex) {
             Logger.getLogger(SupplierService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return SupplierDAO.getInstance().addSupplier(connection,supplier);
+        return SupplierDAO.getInstance().addSupplier(connection, supplier);
     }
+
     public List<MSupplier> searchSupplier(MSupplier supplier) throws SQLException {
-            Connection connection=null;
+        Connection connection = null;
         try {
             connection = DatabaseUtil.getInstance().openConnection();
-            
         } catch (SQLException ex) {
             Logger.getLogger(SupplierService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return SupplierDAO.getInstance().searchSupplier(connection,supplier);
-        
+        return SupplierDAO.getInstance().searchSupplier(connection, supplier);
+
     }
-        
+
 }

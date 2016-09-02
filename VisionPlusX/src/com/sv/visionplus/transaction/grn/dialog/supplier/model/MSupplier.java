@@ -1,26 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog.model;
+package com.sv.visionplus.transaction.grn.dialog.supplier.model;
 
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
- * @author Mohan
+ * @author KAZA
  */
-@VPTable("m_customer")
-public class MCustomer {
-
+@VPTable("m_supplier")
+public class MSupplier {
     @VPId
     private Integer indexNo;
     private String name;
-    private String nic;
-    private String address;
+    private String contactName;
     private String contactNo;
+    private String address;
+    private String email;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -38,12 +33,20 @@ public class MCustomer {
         this.name = name;
     }
 
-    public String getNic() {
-        return nic;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setNic(String nic) {
-        this.nic = nic;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public String getAddress() {
@@ -54,12 +57,12 @@ public class MCustomer {
         this.address = address;
     }
 
-    public String getContactNo() {
-        return contactNo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

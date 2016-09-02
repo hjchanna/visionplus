@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog;
+package com.sv.visionplus.transaction.invoice.dialog.customer;
 
-import com.sv.visionplus.transaction.invoice.dialog_form.customer_dialog.model.MCustomer;
+import com.sv.visionplus.transaction.invoice.dialog.customer.model.MCustomer;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;

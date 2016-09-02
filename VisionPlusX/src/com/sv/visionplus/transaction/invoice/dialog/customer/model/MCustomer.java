@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.transaction.grn.model;
+package com.sv.visionplus.transaction.invoice.dialog.customer.model;
 
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
  *
- * @author KAZA
+ * @author Mohan
  */
-@VPTable("m_supplier")
-public class MSupplier {
+@VPTable("m_customer")
+public class MCustomer {
+
     @VPId
     private Integer indexNo;
     private String name;
-    private String contactName;
-    private String contactNo;
+    private String nic;
     private String address;
-    private String email;
+    private String contactNo;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -38,20 +38,12 @@ public class MSupplier {
         this.name = name;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getNic() {
+        return nic;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setNic(String nic) {
+        this.nic = nic;
     }
 
     public String getAddress() {
@@ -62,12 +54,12 @@ public class MSupplier {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
 }

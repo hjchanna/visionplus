@@ -23,7 +23,9 @@ public class SupplierFormGUI extends AbstractMasterFormGUI<MSupplier> {
         return new CTableModel<>(
                 new CTableColumn("Name", "name"),
                 new CTableColumn("Contact No.", "contactNo"),
-                new CTableColumn("email", "email")
+                new CTableColumn("Email", "email"),
+                new CTableColumn("Contact Name", "contactName"),
+                new CTableColumn("Address", "address")
         );
     }
 

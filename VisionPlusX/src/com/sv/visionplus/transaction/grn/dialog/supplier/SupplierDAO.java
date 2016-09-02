@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sv.visionplus.transaction.grn.dialog_form.supplier_dialog;
+package com.sv.visionplus.transaction.grn.dialog.supplier;
 
-import com.sv.visionplus.transaction.grn.model.MSupplier;
+import com.sv.visionplus.transaction.grn.dialog.supplier.model.MSupplier;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;

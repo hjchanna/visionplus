@@ -1,36 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sv.visionplus.transaction.grn;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
-import com.sv.visionplus.master.item.model.MItem;
-import com.sv.visionplus.transaction.grn.model.MSupplier;
+import com.sv.visionplus.transaction.grn.dialog.item.model.MItem;
+import com.sv.visionplus.transaction.grn.dialog.supplier.model.MSupplier;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.grn.dialog_form.supplier_dialog.SupplierDialog;
+import com.sv.visionplus.transaction.grn.dialog.item.PCItem;
+import com.sv.visionplus.transaction.grn.dialog.supplier.PCSupplier;
 import com.sv.visionplus.transaction.grn.model.TGrn;
 import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Mohan
+ * @author Nidura Prageeth
  */
 public class PCGrn extends AbstractObjectCreator<TGrn> {
-    
 
-    /**
-     * Creates new form PCInvoice
-     */
     public PCGrn(AbstractTransactionForm transactionForm) {
         initComponents();
         this.transactionForm = transactionForm;
+        tableModel = (DefaultTableModel) tableItem.getModel();
     }
 
     @SuppressWarnings("unchecked")
@@ -53,17 +48,16 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtAddress = new com.sv.visionplus.util.component.textfield.CStringField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblItem = new javax.swing.JTable();
+        tableItem = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        addButton1 = new javax.swing.JButton();
-        txtItemCode = new com.sv.visionplus.util.component.textfield.CStringField();
+        btnAdd = new javax.swing.JButton();
+        txtCode = new com.sv.visionplus.util.component.textfield.CStringField();
         txtDescription = new com.sv.visionplus.util.component.textfield.CStringField();
-        txtQyt = new com.sv.visionplus.util.component.textfield.CIntegerField();
-        txtUnitPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
         txtSalesPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtQty = new com.sv.visionplus.util.component.textfield.CIntegerField();
         jLabel7 = new javax.swing.JLabel();
-        txtGrnAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtTotalAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         jToggleButton2 = new javax.swing.JToggleButton();
         txtGrnNo = new com.sv.visionplus.util.component.textfield.CIntegerField();
         txtRefrenceNo = new com.sv.visionplus.util.component.textfield.CStringField();
@@ -143,15 +137,15 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tblItem.setModel(new javax.swing.table.DefaultTableModel(
+        tableItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Item Code", "Description", "Qty", "Unit Price", "Sales Price", "Amount"
+                "Item Code", "Description", "Sales Price", "Qty", "Amount"
             }
         ));
-        jScrollPane3.setViewportView(tblItem);
+        jScrollPane3.setViewportView(tableItem);
 
         jButton4.setText("+");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -160,10 +154,16 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             }
         });
 
-        addButton1.setText("Add");
-        addButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButton1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        txtQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQtyActionPerformed(evt);
             }
         });
 
@@ -173,20 +173,18 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtItemCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtQyt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtUnitPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSalesPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addButton1)
-                .addGap(115, 115, 115))
+                .addComponent(txtQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAdd)
+                .addGap(133, 133, 133))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,12 +192,11 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(addButton1)
-                    .addComponent(txtItemCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd)
+                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQyt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUnitPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSalesPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSalesPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -209,28 +206,29 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtGrnAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3)))
+                        .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtGrnAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jToggleButton2.setText("Search");
@@ -245,35 +243,33 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtGrnNo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRefrenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtGrnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jToggleButton2)
-                                .addGap(32, 32, 32)
-                                .addComponent(jToggleButton1)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtGrnNo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRefrenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtGrnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton2)
+                        .addGap(32, 32, 32)
+                        .addComponent(jToggleButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
@@ -288,8 +284,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -298,45 +293,87 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        SupplierDialog supplierDialog=new SupplierDialog(null, true);
-        supplierDialog.setFrame(this);
-        supplierDialog.setVisible(true);
+        PCSupplier supplier = new PCSupplier(null, true);
+        supplier.setFrame(this);
+        supplier.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+        PCItem item = new PCItem(null, true);
+        item.setFrame(this);
+        item.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void addButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Integer qtyText = Integer.parseInt(txtQty.getText());
+        String itemCode = txtCode.getText();
+        boolean itemIsNotExists = true;
+        int row = 0;
 
-    }//GEN-LAST:event_addButton1ActionPerformed
+        // check item is exists
+        for (int i = 0; i < tableItem.getRowCount(); i++) {
+            String code = (String) tableItem.getValueAt(i, 0);
+            if (code.equals(itemCode)) {
+                itemIsNotExists = true;
+                row = i;
+                break;
+            }
+        }
+
+        if (qtyText > 0) {
+            if (itemIsNotExists) {
+                Double unitPrice = Double.parseDouble(txtSalesPrice.getText());
+                Integer qty = qtyText;
+                double totalCashAmount = 0;
+
+                Double amount = unitPrice * qty;
+
+                Object[] rd = {txtCode.getText(), txtDescription.getText(), txtSalesPrice.getText(), txtQty.getText(), amount};
+                tableModel.addRow(rd);
+
+//                for (int i = 0; i < tableItem.getRowCount(); i++) {
+//                    String amounts = (String) tableModel.getValueAt(i, 7);
+//                    totalCashAmount += Double.parseDouble(amounts);
+//                    txtTotalAmount.setText(Double.toString(totalCashAmount));
+//                }
+                getTotalAmount();
+                txtCode.requestFocus();
+
+            } else {
+
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void txtQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtyActionPerformed
+        btnAdd.doClick();
+    }//GEN-LAST:event_txtQtyActionPerformed
 
     @Override
     public void setIdealMode() {
-          txtGrnNo.setCValueEditable(false);
-          txtRefrenceNo.setCValueEditable(false);
-          txtGrnDate.setEditable(false);
-          txtGrnDate.setDate(new Date());
-          txtSupplierName.setCValueEditable(false);
-          txtContactNo.setCValueEditable(false);
-          txtEmail.setCValueEditable(false);
-          txtItemCode.setCValueEditable(false);
-          txtDescription.setCValueEditable(false);
-          txtQyt.setCValueEditable(false);
-          txtUnitPrice.setCValueEditable(false);
-          txtSalesPrice.setCValueEditable(false);
-          txtAddress.setCValueEditable(false);
+        txtGrnNo.setCValueEditable(false);
+        txtRefrenceNo.setCValueEditable(false);
+        txtGrnDate.setEditable(false);
+        txtGrnDate.setDate(new Date());
+        txtSupplierName.setCValueEditable(false);
+        txtContactNo.setCValueEditable(false);
+        txtEmail.setCValueEditable(false);
+        txtCode.setCValueEditable(false);
+        txtDescription.setCValueEditable(false);
+        txtQty.setCValueEditable(false);
+        txtSalesPrice.setCValueEditable(false);
+        txtAddress.setCValueEditable(false);
     }
 
     @Override
     public void setNewMode() {
-        this.supplier=new MSupplier();
-        this.item=new MItem();
-        
+        this.supplier = new MSupplier();
+        this.item = new MItem();
+
         txtGrnNo.setCValueEditable(true);
         txtRefrenceNo.setCValueEditable(true);
         txtGrnDate.setEditable(true);
@@ -344,17 +381,16 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
-        txtItemCode.setCValueEditable(true);
+        txtCode.setCValueEditable(true);
         txtDescription.setCValueEditable(true);
-        txtQyt.setCValueEditable(true);
-        txtUnitPrice.setCValueEditable(true);
-       txtSalesPrice.setCValueEditable(true);
-        
+        txtQty.setCValueEditable(true);
+        txtSalesPrice.setCValueEditable(true);
+
     }
 
     @Override
     public void setEditMode() {
-        
+
         txtGrnNo.setCValueEditable(false);
         txtRefrenceNo.setCValueEditable(true);
         txtGrnDate.setEditable(true);
@@ -362,10 +398,9 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
-        txtItemCode.setCValueEditable(true);
+        txtCode.setCValueEditable(true);
         txtDescription.setCValueEditable(true);
-        txtQyt.setCValueEditable(true);
-        txtUnitPrice.setCValueEditable(true);
+        txtQty.setCValueEditable(true);
         txtSalesPrice.setCValueEditable(true);
     }
 
@@ -378,10 +413,9 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.resetCValue();
         txtAddress.resetCValue();
         txtEmail.resetCValue();
-        txtItemCode.resetCValue();
+        txtCode.resetCValue();
         txtDescription.resetCValue();
-        txtQyt.resetCValue();
-        txtUnitPrice.resetCValue();
+        txtQty.resetCValue();
         txtSalesPrice.resetCValue();
     }
 
@@ -390,10 +424,10 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         this.supplier.setName(txtSupplierName.getCValue());
         this.supplier.setContactNo(FormatterUtil.getInstance().formatInteger(txtContactNo.getCValue()));
         this.supplier.setEmail(txtEmail.getCValue());
-        
+
         this.item.setSalePrice(txtSalesPrice.getCValue());
         //add Model Date
-        this.grn.setAmount(txtGrnAmount.getCValue());
+        this.grn.setAmount(txtTotalAmount.getCValue());
         try {
             this.grn.setDate(FormatterUtil.getInstance().parseDate(txtGrnDate.getDate().toString()));
         } catch (ParseException ex) {
@@ -411,16 +445,15 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             Logger.getLogger(PCGrn.class.getName()).log(Level.SEVERE, null, ex);
         }
         txtEmail.setCValue(this.supplier.getEmail());
-        
-        txtItemCode.setCValue(this.item.getCode());
+
+        txtCode.setCValue(this.item.getCode());
         txtDescription.setCValue(this.item.getName());
         txtSalesPrice.setCValue(this.item.getSalePrice());
-        txtUnitPrice.setCValue(this.item.getCostPrice());
     }
 
     @Override
     protected void setValueAbstract(TGrn object) {
-        this.grn=object;
+        this.grn = object;
     }
 
     @Override
@@ -430,7 +463,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton1;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -447,31 +480,50 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JTable tblItem;
+    private javax.swing.JTable tableItem;
     private com.sv.visionplus.util.component.textfield.CStringField txtAddress;
+    private com.sv.visionplus.util.component.textfield.CStringField txtCode;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtContactNo;
     private com.sv.visionplus.util.component.textfield.CStringField txtDescription;
     private com.sv.visionplus.util.component.textfield.CStringField txtEmail;
-    private com.sv.visionplus.util.component.textfield.CDoubleField txtGrnAmount;
     private org.jdesktop.swingx.JXDatePicker txtGrnDate;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtGrnNo;
-    private com.sv.visionplus.util.component.textfield.CStringField txtItemCode;
-    private com.sv.visionplus.util.component.textfield.CIntegerField txtQyt;
+    private com.sv.visionplus.util.component.textfield.CIntegerField txtQty;
     private com.sv.visionplus.util.component.textfield.CStringField txtRefrenceNo;
     private com.sv.visionplus.util.component.textfield.CDoubleField txtSalesPrice;
     private com.sv.visionplus.util.component.textfield.CStringField txtSupplierName;
-    private com.sv.visionplus.util.component.textfield.CDoubleField txtUnitPrice;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalAmount;
     // End of variables declaration//GEN-END:variables
+    private DefaultTableModel tableModel;
     private TGrn grn;
     private final AbstractTransactionForm transactionForm;
     private MSupplier supplier;
     private MItem item;
 
-    public void setSupplier(MSupplier supplier) throws ParseException {
-        this.supplier=supplier;
+    public void setSupplier(MSupplier supplier) {
+        this.supplier = supplier;
         txtSupplierName.setCValue(supplier.getName());
         txtContactNo.setCValue(Integer.parseInt(supplier.getContactNo()));
         txtEmail.setCValue(supplier.getEmail());
         txtAddress.setCValue(supplier.getAddress());
     }
+
+    public void setItem(MItem item) {
+        txtCode.setText(item.getCode());
+        txtDescription.setText(item.getName());
+        txtSalesPrice.setText(Double.toString(item.getSalePrice()));
+        txtQty.requestFocus();
+    }
+
+    public void getTotalAmount() {
+        double totalCashAmount = 0;
+
+        for (int i = 0; i < tableItem.getRowCount(); i++) {
+            String cashAmountString = tableModel.getValueAt(i, 4).toString();
+            totalCashAmount += Double.parseDouble(cashAmountString);
+        }
+        txtTotalAmount.setCValue(totalCashAmount);
+
+    }
+
 }
