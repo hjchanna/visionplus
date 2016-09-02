@@ -25,6 +25,10 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtContactNo = new com.sv.visionplus.util.component.textfield.CStringField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txtContactName = new com.sv.visionplus.util.component.textfield.CStringField();
+        jLabel5 = new javax.swing.JLabel();
+        txtAddress = new com.sv.visionplus.util.component.textfield.CStringField();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel1.setText("Index No.:");
 
@@ -33,6 +37,10 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         jLabel3.setText("Contact No :");
 
         jLabel4.setText("Email :");
+
+        jLabel5.setText("Contact Name :");
+
+        jLabel6.setText("Address :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -44,13 +52,17 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(17, 17, 17)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtContactName, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                     .addComponent(txtIndexNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtContactNo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                    .addComponent(txtContactNo, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -72,7 +84,15 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtContactName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -82,6 +102,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtName.setCValueEditable(false);
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
+        txtContactName.setCValueEditable(false);
+        txtAddress.setCValueEditable(false);
     }
 
     @Override
@@ -92,6 +114,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtName.setCValueEditable(true);
         txtContactNo.setCValueEditable(true);
         txtEmail.setCValueEditable(true);
+        txtContactName.setCValueEditable(true);
+        txtAddress.setCValueEditable(true);
     }
 
     @Override
@@ -100,6 +124,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtName.setCValueEditable(true);
         txtContactNo.setCValueEditable(true);
         txtEmail.setCValueEditable(true);
+        txtContactName.setCValueEditable(true);
+        txtAddress.setCValueEditable(true);
     }
 
     @Override
@@ -108,6 +134,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtName.resetCValue();
         txtContactNo.resetCValue();
         txtEmail.resetCValue();
+        txtContactName.resetCValue();
+        txtAddress.resetCValue();
     }
 
     @Override
@@ -116,6 +144,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         this.supplier.setName(txtName.getCValue());
         this.supplier.setContactNo(txtContactNo.getCValue());
         this.supplier.setEmail(txtEmail.getCValue());
+        this.supplier.setContactName(txtContactName.getCValue());
+        this.supplier.setAddress(txtAddress.getCValue());
     }
 
     @Override
@@ -124,6 +154,8 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
         txtName.setCValue(this.supplier.getName());
         txtContactNo.setCValue(this.supplier.getContactNo());
         txtEmail.setCValue(this.supplier.getEmail());
+        txtContactName.setCValue(this.supplier.getContactName());
+        txtAddress.setCValue(this.supplier.getAddress());
     }
 
     @Override
@@ -141,6 +173,10 @@ public class PCSupplier extends AbstractObjectCreator<MSupplier> {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private com.sv.visionplus.util.component.textfield.CStringField txtAddress;
+    private com.sv.visionplus.util.component.textfield.CStringField txtContactName;
     private com.sv.visionplus.util.component.textfield.CStringField txtContactNo;
     private com.sv.visionplus.util.component.textfield.CStringField txtEmail;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtIndexNo;

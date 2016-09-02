@@ -60,13 +60,4 @@ public class SystemService {
             return Collections.emptyList();
         }
     }
-    public List<MBrand> listBrand() {
-        try {
-            Connection connection = DatabaseUtil.getInstance().openConnection();
-            return systemDAO.listBrand(connection);
-        } catch (SQLException e) {
-            return Collections.emptyList();
-        }
-    }
-
 }

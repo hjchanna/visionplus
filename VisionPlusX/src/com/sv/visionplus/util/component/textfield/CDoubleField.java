@@ -54,4 +54,5 @@ public class CDoubleField extends CTextField<Double> {
     static {
         DOUBLE_FORMATTER_FACTORY.setDefaultFormatter(new javax.swing.text.NumberFormatter(DOUBLE_FORMAT));
     }
+
 }

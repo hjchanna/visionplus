@@ -1,11 +1,8 @@
-package com.sv.visionplus.master.item.model;
+package com.sv.visionplus.transaction.grn.dialog.item.model;
 
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
-/**
- * @author Nidura Prageeth
- */
 @VPTable("m_item")
 public class MItem {
 
