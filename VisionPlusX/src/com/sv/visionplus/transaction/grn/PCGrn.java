@@ -5,12 +5,17 @@ import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.transaction.grn.dialog.item.model.MItem;
 import com.sv.visionplus.transaction.grn.dialog.supplier.model.MSupplier;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.grn.dialog.item.ItemService;
 import com.sv.visionplus.transaction.grn.dialog.item.PCItem;
+import com.sv.visionplus.transaction.grn.dialog.item.model.ItemMix;
 import com.sv.visionplus.transaction.grn.dialog.supplier.PCSupplier;
 import com.sv.visionplus.transaction.grn.model.TGrn;
 import com.sv.visionplus.util.formatter.FormatterUtil;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,6 +34,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }
 
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -52,10 +58,14 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         jPanel7 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        txtCode = new com.sv.visionplus.util.component.textfield.CStringField();
         txtDescription = new com.sv.visionplus.util.component.textfield.CStringField();
         txtSalesPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
         txtQty = new com.sv.visionplus.util.component.textfield.CIntegerField();
+        txtCode = new javax.swing.JTextField();
+        txtCategory = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtBrand = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtCostPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        btnClose = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtTotalAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         jToggleButton2 = new javax.swing.JToggleButton();
@@ -142,9 +152,15 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
             },
             new String [] {
-                "Item Code", "Description", "Sales Price", "Qty", "Amount"
+                "Item Code", "Description", "Category", "Brand", "Sale Price", "Cost Price", "Qty", "Amount"
             }
         ));
+        tableItem.setRowHeight(23);
+        tableItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableItemMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tableItem);
 
         jButton4.setText("+");
@@ -167,24 +183,45 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             }
         });
 
+        txtCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodeActionPerformed(evt);
+            }
+        });
+
+        btnClose.setText("X");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtCode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
+                .addComponent(txtBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSalesPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCostPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnAdd)
-                .addGap(133, 133, 133))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClose)
+                .addGap(11, 11, 11))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +230,14 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(btnAdd)
-                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSalesPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClose))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -305,7 +346,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Integer qtyText = Integer.parseInt(txtQty.getText());
+        Integer qtyText = txtQty.getCValue();
         String itemCode = txtCode.getText();
         boolean itemIsNotExists = true;
         int row = 0;
@@ -314,44 +355,98 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         for (int i = 0; i < tableItem.getRowCount(); i++) {
             String code = (String) tableItem.getValueAt(i, 0);
             if (code.equals(itemCode)) {
-                itemIsNotExists = true;
+                itemIsNotExists = false;
                 row = i;
-                break;
             }
         }
 
         if (qtyText > 0) {
             if (itemIsNotExists) {
-                Double unitPrice = Double.parseDouble(txtSalesPrice.getText());
+                Double unitPrice = txtCostPrice.getCValue();
                 Integer qty = qtyText;
-                double totalCashAmount = 0;
 
                 Double amount = unitPrice * qty;
 
-                Object[] rd = {txtCode.getText(), txtDescription.getText(), txtSalesPrice.getText(), txtQty.getText(), amount};
+                Object[] rd = {txtCode.getText(), txtDescription.getCValue(), txtCategory.getCValue(), txtBrand.getCValue(), txtSalesPrice.getCValue(), txtCostPrice.getCValue(), txtQty.getCValue(), amount};
                 tableModel.addRow(rd);
 
-//                for (int i = 0; i < tableItem.getRowCount(); i++) {
-//                    String amounts = (String) tableModel.getValueAt(i, 7);
-//                    totalCashAmount += Double.parseDouble(amounts);
-//                    txtTotalAmount.setText(Double.toString(totalCashAmount));
-//                }
                 getTotalAmount();
                 txtCode.requestFocus();
-
             } else {
+                int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Item is already exists ! Do you want to Change Details ?");
+                if (showConfirmDialog == JOptionPane.YES_OPTION) {
+//                    String oldQty = tableItem.getValueAt(row, 6).toString();
+                    Double unitPrice = txtCostPrice.getCValue();
+                    Integer qty = qtyText;
 
+                    Double amount = unitPrice * qty;
+
+                    tableItem.setValueAt(qty, row, 6);
+                    tableItem.setValueAt(amount, row, 7);
+                    getTotalAmount();
+                }
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-      
+
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void txtQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtyActionPerformed
         btnAdd.doClick();
     }//GEN-LAST:event_txtQtyActionPerformed
+
+    private void txtCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodeActionPerformed
+        String itemCode = txtCode.getText();
+
+        item = new ItemMix();
+        item.setCode(itemCode);
+        item.setName("");
+        item.setCategory("");
+        item.setBrand("");
+
+        List<ItemMix> searchResult = ItemService.getInstance().getSearchResult(item);
+        System.out.println(searchResult.size());
+        
+        if (searchResult.size() > 1) {
+            PCItem items = new PCItem(null, true);
+            items.setFrame(this);
+            items.setVisible(true);
+            items.setTable(searchResult);
+        } else {
+            for (ItemMix result : searchResult) {
+                System.out.println(result.getName());
+                txtDescription.setCValue(result.getName());
+                txtBrand.setCValue(result.getBrand());
+                txtCategory.setCValue(result.getCategory());
+                txtSalesPrice.setCValue(result.getSalePrice());
+                txtCostPrice.setCValue(result.getCostPrice());
+                txtQty.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtCodeActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        if (tableItem.getSelectedRowCount() == 1) {
+            Double amount = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 7);
+            double totalAmount = txtTotalAmount.getCValue();
+            Double total = totalAmount - amount;
+            txtTotalAmount.setCValue(total);
+            tableModel.removeRow(tableItem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void tableItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableItemMouseClicked
+        txtCode.setText(tableModel.getValueAt(tableItem.getSelectedRow(), 0).toString());
+        txtDescription.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 1).toString());
+        txtCategory.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 2).toString());
+        txtBrand.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 3).toString());
+        txtSalesPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 4));
+        txtCostPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 5));
+        txtQty.setCValue((int) tableModel.getValueAt(tableItem.getSelectedRow(), 6));
+
+    }//GEN-LAST:event_tableItemMouseClicked
 
     @Override
     public void setIdealMode() {
@@ -362,17 +457,17 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtSupplierName.setCValueEditable(false);
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
-        txtCode.setCValueEditable(false);
+        txtCode.setEditable(false);
         txtDescription.setCValueEditable(false);
-        txtQty.setCValueEditable(false);
         txtSalesPrice.setCValueEditable(false);
+        txtQty.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
     }
 
     @Override
     public void setNewMode() {
         this.supplier = new MSupplier();
-        this.item = new MItem();
+        this.mitem = new MItem();
 
         txtGrnNo.setCValueEditable(true);
         txtRefrenceNo.setCValueEditable(true);
@@ -381,16 +476,15 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
-        txtCode.setCValueEditable(true);
+        txtCode.setEditable(true);
         txtDescription.setCValueEditable(true);
-        txtQty.setCValueEditable(true);
         txtSalesPrice.setCValueEditable(true);
+        txtQty.setCValueEditable(true);
 
     }
 
     @Override
     public void setEditMode() {
-
         txtGrnNo.setCValueEditable(false);
         txtRefrenceNo.setCValueEditable(true);
         txtGrnDate.setEditable(true);
@@ -398,10 +492,10 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.setCValueEditable(false);
         txtEmail.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
-        txtCode.setCValueEditable(true);
+        txtCode.setEditable(true);
         txtDescription.setCValueEditable(true);
-        txtQty.setCValueEditable(true);
         txtSalesPrice.setCValueEditable(true);
+        txtQty.setCValueEditable(true);
     }
 
     @Override
@@ -413,7 +507,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtContactNo.resetCValue();
         txtAddress.resetCValue();
         txtEmail.resetCValue();
-        txtCode.resetCValue();
+        txtCode.setText("");
         txtDescription.resetCValue();
         txtQty.resetCValue();
         txtSalesPrice.resetCValue();
@@ -437,16 +531,16 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }
 
     @Override
-    public void initInterface() throws VPException {
+    public void initInterface() throws VPException {     
         txtSupplierName.setCValue(this.supplier.getName());
         try {
             txtContactNo.setCValue(FormatterUtil.getInstance().parseInteger(this.supplier.getContactNo()));
         } catch (ParseException ex) {
             Logger.getLogger(PCGrn.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
         txtEmail.setCValue(this.supplier.getEmail());
 
-        txtCode.setCValue(this.item.getCode());
+        txtCode.setText(this.item.getCode());
         txtDescription.setCValue(this.item.getName());
         txtSalesPrice.setCValue(this.item.getSalePrice());
     }
@@ -464,6 +558,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -482,8 +577,11 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JTable tableItem;
     private com.sv.visionplus.util.component.textfield.CStringField txtAddress;
-    private com.sv.visionplus.util.component.textfield.CStringField txtCode;
+    private com.sv.visionplus.util.component.textfield.CStringField txtBrand;
+    private com.sv.visionplus.util.component.textfield.CStringField txtCategory;
+    private javax.swing.JTextField txtCode;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtContactNo;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtCostPrice;
     private com.sv.visionplus.util.component.textfield.CStringField txtDescription;
     private com.sv.visionplus.util.component.textfield.CStringField txtEmail;
     private org.jdesktop.swingx.JXDatePicker txtGrnDate;
@@ -498,7 +596,8 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private TGrn grn;
     private final AbstractTransactionForm transactionForm;
     private MSupplier supplier;
-    private MItem item;
+    private ItemMix item;
+    private MItem mitem;
 
     public void setSupplier(MSupplier supplier) {
         this.supplier = supplier;
@@ -508,10 +607,13 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtAddress.setCValue(supplier.getAddress());
     }
 
-    public void setItem(MItem item) {
+    public void setItem(ItemMix item) {
         txtCode.setText(item.getCode());
-        txtDescription.setText(item.getName());
-        txtSalesPrice.setText(Double.toString(item.getSalePrice()));
+        txtDescription.setCValue(item.getName());
+        txtBrand.setCValue(item.getBrand());
+        txtCategory.setCValue(item.getCategory());
+        txtCostPrice.setCValue(item.getCostPrice());
+        txtSalesPrice.setCValue(item.getSalePrice());
         txtQty.requestFocus();
     }
 
@@ -519,7 +621,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         double totalCashAmount = 0;
 
         for (int i = 0; i < tableItem.getRowCount(); i++) {
-            String cashAmountString = tableModel.getValueAt(i, 4).toString();
+            String cashAmountString = tableModel.getValueAt(i, 7).toString();
             totalCashAmount += Double.parseDouble(cashAmountString);
         }
         txtTotalAmount.setCValue(totalCashAmount);

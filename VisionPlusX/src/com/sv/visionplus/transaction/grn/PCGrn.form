@@ -243,10 +243,13 @@
             <Component class="javax.swing.JTable" name="tableItem">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
+                  <Table columnCount="8" rowCount="0">
                     <Column editable="true" title="Item Code" type="java.lang.Object"/>
                     <Column editable="true" title="Description" type="java.lang.Object"/>
-                    <Column editable="true" title="Sales Price" type="java.lang.Object"/>
+                    <Column editable="true" title="Category" type="java.lang.Object"/>
+                    <Column editable="true" title="Brand" type="java.lang.Object"/>
+                    <Column editable="true" title="Sale Price" type="java.lang.Object"/>
+                    <Column editable="true" title="Cost Price" type="java.lang.Object"/>
                     <Column editable="true" title="Qty" type="java.lang.Object"/>
                     <Column editable="true" title="Amount" type="java.lang.Object"/>
                   </Table>
@@ -278,12 +281,31 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="rowHeight" type="int" value="23"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableItemMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -296,16 +318,24 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="txtCode" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton4" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="txtDescription" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCategory" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Component id="txtBrand" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="txtSalesPrice" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCostPrice" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="txtQty" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClose" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -316,10 +346,14 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCode" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDescription" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtSalesPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtQty" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCostPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnClose" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -343,8 +377,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtCode">
-            </Component>
             <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtDescription">
             </Component>
             <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtSalesPrice">
@@ -352,6 +384,25 @@
             <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="txtQty">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQtyActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtCode">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodeActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtCategory">
+            </Component>
+            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtBrand">
+            </Component>
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtCostPrice">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnClose">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="X"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCloseActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

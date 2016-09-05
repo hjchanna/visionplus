@@ -1,5 +1,6 @@
 package com.sv.visionplus.transaction.grn.dialog.item;
 
+import com.sv.visionplus.transaction.grn.dialog.item.model.ItemMix;
 import com.sv.visionplus.transaction.grn.dialog.item.model.MItem;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import java.sql.Connection;
@@ -27,25 +28,28 @@ public class ItemService {
 
     }
 
-    public List<MItem> getAllItems() {
-        List<MItem> allItems = new ArrayList<>();
+    public List<ItemMix> getAllItems() {
+        List<ItemMix> list = new ArrayList<>();
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
-            allItems = ItemFormDAO.getInstance().getAllItems(connection);
+            list = ItemFormDAO.getInstance().getAllItems(connection);
         } catch (SQLException ex) {
             Logger.getLogger(ItemService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return allItems;
+        return list;
+
     }
 
-    public List<MItem> getSearchResult(MItem item) {
-        List<MItem> items = new ArrayList<>();
+    public List<ItemMix> getSearchResult(ItemMix item) {
+        
+        List<ItemMix> list = new ArrayList<>();
         try {
             Connection connection = DatabaseUtil.getInstance().openConnection();
-            items = ItemFormDAO.getInstance().getSearchResult(connection, item);
+            list = ItemFormDAO.getInstance().getSearchResult(connection, item);
+            System.out.println(list.size());
         } catch (SQLException ex) {
             Logger.getLogger(ItemService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return items;
+        return list;
     }
 }
