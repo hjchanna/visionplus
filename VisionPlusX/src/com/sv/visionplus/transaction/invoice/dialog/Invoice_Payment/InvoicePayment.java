@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment;
 
+import com.sv.visionplus.transaction.invoice.MBankBranch;
 import com.sv.visionplus.transaction.invoice.PCInvoice;
 import com.sv.visionplus.transaction.invoice.dialog.customer.model.MCustomer;
 import com.sv.visionplus.transaction.invoice.model.Status;
@@ -12,6 +13,7 @@ import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.transaction.invoice.model.TInvoiceItem;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
 import com.sv.visionplus.transaction.invoice.model.TTransaction;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,7 +63,12 @@ public class InvoicePayment extends javax.swing.JDialog {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         rdoCardPayment = new javax.swing.JRadioButton();
-        cmboCardBank = new com.sv.visionplus.util.component.combobox.CComboBox();
+        cmboCardBank = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return allBankBranch();
+            }
+        };
         txtCardAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         txtCardNo = new com.sv.visionplus.util.component.textfield.CIntegerField();
         chequePanel = new javax.swing.JPanel();
@@ -368,8 +375,8 @@ public class InvoicePayment extends javax.swing.JDialog {
 //        try {
 //            boolean res = InvoiceDao.getInstance().addInvoice(invoiceModel, patientInformation);
 //            if (res) {
-                JOptionPane.showMessageDialog(this, "invoice Saved Successfully..");
-                this.dispose();
+        JOptionPane.showMessageDialog(this, "invoice Saved Successfully..");
+        this.dispose();
 //            }
 //        } catch (SQLException ex) {
 //            Logger.getLogger(InvoicePayment.class.getName()).log(Level.SEVERE, null, ex);
@@ -508,5 +515,17 @@ public class InvoicePayment extends javax.swing.JDialog {
 
     public void setValue(TInvoice tInvoice, TInvoiceItem tInvoiceItem, TPatientInformation tPatientInformation, MCustomer customer, Status status, TTransaction tTransaction) {
         txtInvoiceValue.setCValue(tInvoice.getAmount());
+    }
+
+    private List<MBankBranch> allBankBranch() {
+//        List<MBankBranch> allBankBanch = BankBranchDAO.getInstance().allBankBanch();
+        return BankBranchDAO.getInstance().allBankBanch();
+//        if (allBankBanch != null) {
+//            for (MBankBranch bankBanch : allBankBanch) {
+//                System.out.println(bankBanch.getBank());
+//                cmboCardBank.setCValue(bankBanch.getCode() + "" + bankBanch.getBank() + "" + bankBanch.getBranch());
+//                cmboChequeBank.setCValue(bankBanch.getCode() + "" + bankBanch.getBank() + "" + bankBanch.getBranch());
+//            }
+//        }
     }
 }

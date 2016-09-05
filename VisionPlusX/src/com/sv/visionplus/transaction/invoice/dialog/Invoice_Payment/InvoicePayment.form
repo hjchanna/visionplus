@@ -301,6 +301,9 @@
           </Events>
         </Component>
         <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="cmboCardBank">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;    @Override&#xa;    public List getComboData(){&#xa;        return allBankBranch();&#xa;    }&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtCardAmount">
           <Events>

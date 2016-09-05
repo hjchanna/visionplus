@@ -230,12 +230,15 @@ public class CustomerDialog extends javax.swing.JDialog {
         customer.setName(txtName.getText());
         customer.setNic(txtNic.getText());
         customer.setContactNo(txtContactNo.getText());
-
-        int res = CustomerService.getInstance().saveCustomer(customer);
-        if (res > 0) {
-            customer.setIndexNo(1);
-            pcInvoice.setCustomer(customer);
-            this.dispose();
+        if (!"".equals(txtAddress.getText()) && !"".equals(txtName.getText())) {
+            int res = CustomerService.getInstance().saveCustomer(customer);
+            if (res > 0) {
+                customer.setIndexNo(1);
+                pcInvoice.setCustomer(customer);
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Empty set.");
         }
     }//GEN-LAST:event_addButtonActionPerformed
 

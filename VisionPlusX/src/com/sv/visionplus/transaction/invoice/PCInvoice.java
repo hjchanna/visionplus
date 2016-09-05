@@ -829,7 +829,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         paymentDialog.setFrame(this);
         TInvoice tInvoice = new TInvoice();
         tInvoice.setAmount(5000.00);
-        paymentDialog.setValue(tInvoice,new TInvoiceItem(),new TPatientInformation(),customer,new Status(),new TTransaction());
+        paymentDialog.setValue(tInvoice, new TInvoiceItem(), new TPatientInformation(), customer, new Status(), new TTransaction());
         paymentDialog.setVisible(true);
 //        set Invoice Detail
 //        this.invoiceMix.getInvoice().setIndexNo();
@@ -1048,12 +1048,13 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtaAddress.setText(customer.getAddress());
         txtContactNo.setText(customer.getContactNo());
         txtNic.setText(customer.getNic());
-
-        int birthYear = Integer.parseInt("19" + customer.getNic().substring(0, 2));
-
-        int year = Integer.parseInt(FormatterUtil.getInstance().formatDate(new Date()).substring(0, 4));
-
-        txtAge.setCValue(year - birthYear);
+        
+        if (!"".equals(txtNic.getText())) {
+            int birthYear = Integer.parseInt("19" + customer.getNic().substring(0, 2));
+            int year = Integer.parseInt(FormatterUtil.getInstance().formatDate(new Date()).substring(0, 4));
+            txtAge.setCValue(year - birthYear);
+        }
+            txtAge.setCValue(-1);
     }
 
 }

@@ -31,6 +31,6 @@ public class LogFileDAO {
     }
 
     public int saveLog(Connection connection, LogFileModel log) throws SQLException {
-        return queryUtil.executeInsert(connection, log);
+        return (int) queryUtil.executeInsert(connection, log);
     }
 }

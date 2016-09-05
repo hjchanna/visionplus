@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -161,7 +163,7 @@ public class QueryUtil<T> {
         String sql = getInsertQuery();
 
         //prepare statement
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         int i = 1;
         for (Column column : columns) {
@@ -169,7 +171,16 @@ public class QueryUtil<T> {
             i++;
         }
 
-        return preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
+
+        //get generated id
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+        while (resultSet.next()) {
+            return ((Long) resultSet.getObject(1)).intValue();
+        }
+
+        return -1;
     }
 
     private String getInsertQuery() {
@@ -217,7 +228,16 @@ public class QueryUtil<T> {
             preparedStatement.setObject(i + j, param);
         }
 
-        return preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
+
+        //get generated id
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+        while (resultSet.next()) {
+            return ((Long) resultSet.getObject(1)).intValue();
+        }
+
+        return -1;
     }
 
     private String getUpdateQuery(String criteria) {
