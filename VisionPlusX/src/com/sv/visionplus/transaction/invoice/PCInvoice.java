@@ -10,16 +10,23 @@ import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.transaction.invoice.dialog.customer.model.MCustomer;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
+import com.sv.visionplus.resource.SplitConfig.SplitConfig;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment.InvoicePayment;
 import com.sv.visionplus.transaction.invoice.dialog.customer.CustomerDialog;
+import com.sv.visionplus.transaction.invoice.dialog.customer.CustomerService;
 import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
+import com.sv.visionplus.transaction.invoice.model.Status;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.transaction.invoice.model.TInvoiceItem;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
+import com.sv.visionplus.transaction.invoice.model.TTransaction;
 import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -64,6 +71,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -92,7 +100,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
-        itemAmountLabel = new javax.swing.JLabel();
+        lblAmount = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -119,7 +127,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithoutGlassRight = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithPhLeft = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithPhRight = new com.sv.visionplus.util.component.textfield.CStringField();
-        cStringField1 = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtVaWithGlassLeft = new com.sv.visionplus.util.component.textfield.CStringField();
         txtVaWithGlassRight = new com.sv.visionplus.util.component.textfield.CStringField();
         txtHbRxLeft = new com.sv.visionplus.util.component.textfield.CStringField();
         txtHbRxSubLeft = new com.sv.visionplus.util.component.textfield.CStringField();
@@ -207,6 +215,12 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
 
         jLabel7.setText("Age :");
 
+        txtNic.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNicKeyPressed(evt);
+            }
+        });
+
         txtContactNo.setText("");
 
         txtAge.setText("");
@@ -280,9 +294,9 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             }
         });
 
-        itemAmountLabel.setText("00.00");
-        itemAmountLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        itemAmountLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblAmount.setText("00.00");
+        lblAmount.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblAmount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -299,7 +313,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(itemAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -309,7 +323,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
                     .addComponent(jButton2)
                     .addComponent(jLabel11)
                     .addComponent(jButton11)
-                    .addComponent(itemAmountLabel))
+                    .addComponent(lblAmount))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 9, Short.MAX_VALUE))
@@ -451,7 +465,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtVaWithPhLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cStringField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtVaWithGlassLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtAutoRefLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNtcLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtHbRxLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -510,7 +524,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cStringField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtVaWithGlassLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtVaWithGlassRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -534,6 +548,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         patientEyeDetailTable.setRowHeight(25);
         jScrollPane2.setViewportView(patientEyeDetailTable);
 
+        buttonGroup1.add(myopiaRadio);
         myopiaRadio.setText("Myopia");
         myopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -541,6 +556,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             }
         });
 
+        buttonGroup1.add(presbyopiaRadio);
         presbyopiaRadio.setText("Presbyopia");
         presbyopiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,6 +564,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             }
         });
 
+        buttonGroup1.add(hypermtropiaRadio);
         hypermtropiaRadio.setText("Hypermtropia");
         hypermtropiaRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,6 +572,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             }
         });
 
+        buttonGroup1.add(astimatismRadio);
         astimatismRadio.setText("Astimatism");
         astimatismRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,7 +676,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
-        CustomerDialog dialog=new CustomerDialog(null, true);
+        CustomerDialog dialog = new CustomerDialog(null, true);
         dialog.setFrame(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddCustomerActionPerformed
@@ -668,7 +686,11 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void otherChechBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherChechBoxActionPerformed
-
+        if (otherChechBox.isSelected()) {
+            txtOther.setCValueEditable(true);
+        } else {
+            txtOther.setCValueEditable(false);
+        }
     }//GEN-LAST:event_otherChechBoxActionPerformed
 
     private void myopiaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myopiaRadioActionPerformed
@@ -686,6 +708,10 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private void astimatismRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_astimatismRadioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_astimatismRadioActionPerformed
+
+    private void txtNicKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNicKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNicKeyPressed
 
     @Override
     public void setIdealMode() {
@@ -710,7 +736,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithoutGlassRight.setCValueEditable(false);
         txtVaWithPhLeft.setCValueEditable(false);
         txtVaWithPhRight.setCValueEditable(false);
-        cStringField1.setCValueEditable(false);
+        txtVaWithGlassLeft.setCValueEditable(false);
         txtVaWithGlassRight.setCValueEditable(false);
     }
 
@@ -719,13 +745,13 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         this.invoice = new TInvoice();
 
         txtIndexNo.setCValueEditable(false);
-        txtDate.setCValueEditable(false);
+        txtDate.setCValueEditable(true);
         txtName.setCValueEditable(true);
         txtNic.setCValueEditable(true);
         txtaAddress.setEditable(true);
         txtContactNo.setCValueEditable(true);
         txtAge.setCValueEditable(true);
-        txtOther.setCValueEditable(true);
+        txtOther.setCValueEditable(false);
         txtRemarks.setCValueEditable(true);
         txtHbRxLeft.setCValueEditable(true);
         txtHbRxRight.setCValueEditable(true);
@@ -739,14 +765,14 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithoutGlassRight.setCValueEditable(true);
         txtVaWithPhLeft.setCValueEditable(true);
         txtVaWithPhRight.setCValueEditable(true);
-        cStringField1.setCValueEditable(true);
+        txtVaWithGlassLeft.setCValueEditable(true);
         txtVaWithGlassRight.setCValueEditable(true);
     }
 
     @Override
     public void setEditMode() {
         txtIndexNo.setCValueEditable(false);
-        txtDate.setCValueEditable(false);
+        txtDate.setCValueEditable(true);
         txtName.setCValueEditable(true);
         txtNic.setCValueEditable(true);
         txtaAddress.setEditable(true);
@@ -766,7 +792,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithoutGlassRight.setCValueEditable(true);
         txtVaWithPhLeft.setCValueEditable(true);
         txtVaWithPhRight.setCValueEditable(true);
-        cStringField1.setCValueEditable(true);
+        txtVaWithGlassLeft.setCValueEditable(true);
         txtVaWithGlassRight.setCValueEditable(true);
     }
 
@@ -793,27 +819,137 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithoutGlassRight.resetCValue();
         txtVaWithPhLeft.resetCValue();
         txtVaWithPhRight.resetCValue();
-        cStringField1.resetCValue();
+        txtVaWithGlassLeft.resetCValue();
         txtVaWithGlassRight.resetCValue();
     }
 
     @Override
-    public void initObject() throws VPException { 
-
-        this.invoiceMix.getInvoice().setIndexNo(txtIndexNo.getCValue());
+    public void initObject() throws VPException {
+        InvoicePayment paymentDialog = new InvoicePayment(null, true);
+        paymentDialog.setFrame(this);
+        TInvoice tInvoice = new TInvoice();
+        tInvoice.setAmount(5000.00);
+        paymentDialog.setValue(tInvoice,new TInvoiceItem(),new TPatientInformation(),customer,new Status(),new TTransaction());
+        paymentDialog.setVisible(true);
+//        set Invoice Detail
+//        this.invoiceMix.getInvoice().setIndexNo();
         this.invoiceMix.getInvoice().setStatus(InvoiceStatus.RESERVED_FROM_CUSTOMER);
         try {
-            this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(itemAmountLabel.getText()));
+            this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(lblAmount.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(PCInvoice.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.invoiceMix.getInvoice().setCustomer(null);
+        this.invoiceMix.getInvoice().setCustomer(this.customer.getIndexNo());
         this.invoiceMix.getInvoice().setTransaction(null);
+        this.invoiceMix.getInvoice().setFactory(null);
+        this.invoiceMix.getInvoice().setInvoiceDate(new Date());
+        this.invoiceMix.getInvoice().setIsDelete(false);
+
+//        set PatientInformation
+        TPatientInformation patientInfomation = new TPatientInformation();
+//            patientInfomation.setIndexNo();  //aut increment
+        patientInfomation.setAutoRefLeft(txtAutoRefLeft.getText());
+        patientInfomation.setAutoRefRight(txtAutoRefRight.getText());
+
+        String complains = "";
+        if (visionNDCheckBox.isSelected()) {
+            complains += "VISION-N/D" + SplitConfig.spritComplains;
+        }
+        if (redCheckBox.isSelected()) {
+            complains += "RED" + SplitConfig.spritComplains;
+        }
+        if (headacheCheckBox.isSelected()) {
+            complains += "HEADACHE" + SplitConfig.spritComplains;
+        }
+        if (itchingCheckBox.isSelected()) {
+            complains += "ITCHING" + SplitConfig.spritComplains;
+        }
+        if (dischargeCheckBox.isSelected()) {
+            complains += "DISCHARGE" + SplitConfig.spritComplains;
+        }
+        if (irritationCheckBox.isSelected()) {
+            complains += "IRRITATION" + SplitConfig.spritComplains;
+        }
+        if (tearingCheckBox.isSelected()) {
+            complains += "TEARING" + SplitConfig.spritComplains;
+        }
+        if (otherChechBox.isSelected()) {
+            String otherComplains = txtOther.getText();
+            if (otherComplains == "" || otherComplains.equals(null)) {
+                otherComplains = "OTHER COMPLAINS";
+            }
+            complains += otherComplains + SplitConfig.spritComplains;
+        }
+        patientInfomation.setComplains(complains);
+        patientInfomation.setHbRxLeft(txtHbRxLeft.getText());
+        patientInfomation.setHbRxRight(txtHbRxRight.getText());
+        patientInfomation.setHbRxSubLeft(txtHbRxSubLeft.getText());
+        patientInfomation.setHbRxSubRight(txtHbRxSubRight.getText());
+        patientInfomation.setLenseType(null);
+        patientInfomation.setNtcLeft(txtNtcLeft.getText());
+        patientInfomation.setNtcRight(txtNtcRight.getText());
+
+        String refractiveError = "";
+        if (myopiaRadio.isSelected()) {
+            refractiveError = "MYOPIA";
+        } else if (presbyopiaRadio.isSelected()) {
+            refractiveError = "PREABYOPIA";
+        } else if (hypermtropiaRadio.isSelected()) {
+            refractiveError = "HYPERMTROPIA";
+        } else if (astimatismRadio.isSelected()) {
+            refractiveError = "ASTIMATISM";
+        } else {
+            refractiveError = "";
+        }
+        patientInfomation.setRefractiveError(refractiveError);
+        patientInfomation.setRemarks(txtRemarks.getText());
+        patientInfomation.setVaWithGlassLeft(txtVaWithGlassLeft.getText());
+        patientInfomation.setVaWithGlassRight(txtVaWithGlassRight.getText());
+        patientInfomation.setVaWithPhLeft(txtVaWithPhLeft.getText());
+        patientInfomation.setVaWithPhRight(txtVaWithPhRight.getText());
+        patientInfomation.setVaWithoutGlassLeft(txtVaWithoutGlassLeft.getText());
+        patientInfomation.setVaWithoutGlassRight(txtVaWithGlassRight.getText());
+
+        //table Date add to model
+        patientInfomation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
+        patientInfomation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
+        patientInfomation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 3) + "");
+        patientInfomation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 4) + "");
+        patientInfomation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 5) + "");
+        patientInfomation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 6) + "");
+
+        patientInfomation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
+        patientInfomation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
+        patientInfomation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 3) + "");
+        patientInfomation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 4) + "");
+        patientInfomation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 5) + "");
+        patientInfomation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 6) + "");
+
+        invoiceMix.setPatientInformation(patientInfomation);
+
+//        invoiceItem.setIndexNo(WIDTH); //Auto incerment 
+        TInvoiceItem invoiceItem = new TInvoiceItem();
+        invoiceItem.setDiscount(0.00);
+        invoiceItem.setInvoice(0);
+        invoiceItem.setNetValue(Double.parseDouble(lblAmount.getText()));
+        invoiceItem.setQty(0);
+        invoiceItem.setUnitPrice(0.00);
+        invoiceItem.setValue(0.00);
+        invoiceMix.setInvoiceItem(invoiceItem);
+
+//        status.setIndexNo(0);  //auto Incerment
+        Status status = new Status();
+        status.setDate(new Date());
+        status.setInvoice(0);
+        status.setName(InvoiceStatus.RESERVED_FROM_CUSTOMER);
+        status.setTransaction(null);
+        invoiceMix.setStatus(status);
+
     }
 
     @Override
     public void initInterface() throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
@@ -830,13 +966,12 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton astimatismRadio;
     private javax.swing.JButton btnAddCustomer;
-    private com.sv.visionplus.util.component.textfield.CStringField cStringField1;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox dischargeCheckBox;
     private javax.swing.JCheckBox headacheCheckBox;
     private javax.swing.JRadioButton hypermtropiaRadio;
     private javax.swing.JCheckBox irritationCheckBox;
     private javax.swing.JCheckBox itchingCheckBox;
-    private javax.swing.JLabel itemAmountLabel;
     private javax.swing.JList itemList;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -870,6 +1005,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane3;
+    private javax.swing.JLabel lblAmount;
     private javax.swing.JRadioButton myopiaRadio;
     private javax.swing.JCheckBox otherChechBox;
     private javax.swing.JTable patientEyeDetailTable;
@@ -892,6 +1028,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private com.sv.visionplus.util.component.textfield.CStringField txtNtcRight;
     private com.sv.visionplus.util.component.textfield.CStringField txtOther;
     private com.sv.visionplus.util.component.textfield.CStringField txtRemarks;
+    private com.sv.visionplus.util.component.textfield.CStringField txtVaWithGlassLeft;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithGlassRight;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithPhLeft;
     private com.sv.visionplus.util.component.textfield.CStringField txtVaWithPhRight;
@@ -906,17 +1043,17 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private TInvoice invoice;
 
     public void setCustomer(MCustomer customer) {
-        this.customer=customer;
+        this.customer = customer;
         txtName.setCValue(customer.getName());
         txtaAddress.setText(customer.getAddress());
         txtContactNo.setText(customer.getContactNo());
         txtNic.setText(customer.getNic());
-        
-        int birthYear=Integer.parseInt("19"+customer.getNic().substring(0, 2));
-        
+
+        int birthYear = Integer.parseInt("19" + customer.getNic().substring(0, 2));
+
         int year = Integer.parseInt(FormatterUtil.getInstance().formatDate(new Date()).substring(0, 4));
-        
-        txtAge.setCValue(year-birthYear);
+
+        txtAge.setCValue(year - birthYear);
     }
 
 }

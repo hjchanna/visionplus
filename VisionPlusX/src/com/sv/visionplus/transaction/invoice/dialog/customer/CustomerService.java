@@ -50,7 +50,7 @@ public class CustomerService {
 
  }
 
-    List<MCustomer> searchCustomer(MCustomer customer) {
+   public List<MCustomer> searchCustomer(MCustomer customer) {
          Connection connection;
         try {
             connection = DatabaseUtil.getInstance().openConnection();

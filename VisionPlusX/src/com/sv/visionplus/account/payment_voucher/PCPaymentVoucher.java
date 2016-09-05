@@ -11,6 +11,7 @@ import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.system.exception.VPException;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,7 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         this.transactionForm = transactionForm;
         txtMainHidden.setCValueEditable(false);
         txtSubHidden.setCValueEditable(false);
+        model = (DefaultTableModel) tblVoucher.getModel();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,21 +38,21 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cStringField1 = new com.sv.visionplus.util.component.textfield.CStringField();
-        cDoubleField2 = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtDescription = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         jLabel1 = new javax.swing.JLabel();
-        cDateField1 = new com.sv.visionplus.util.component.textfield.CDateField();
-        comboMainCategory = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        txtDate = new com.sv.visionplus.util.component.textfield.CDateField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtMainHidden = new com.sv.visionplus.util.component.textfield.CStringField();
         txtSubHidden = new com.sv.visionplus.util.component.textfield.CStringField();
+        comboMainCategory = new com.sv.visionplus.util.component.combobox.CComboBox();
+        comboSubCategory = new com.sv.visionplus.util.component.combobox.CComboBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVoucher = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        cDoubleField1 = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        txtTotalAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
 
         jLabel4.setText("Description :");
 
@@ -58,18 +60,21 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
 
         jLabel1.setText("Date :");
 
-        comboMainCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "other", "2" }));
-        comboMainCategory.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboMainCategoryItemStateChanged(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setText("Main Category :");
 
         jLabel3.setText("Sub Category :");
+
+        comboMainCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboMainCategoryMouseClicked(evt);
+            }
+        });
+
+        comboSubCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboSubCategoryMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -83,15 +88,15 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cStringField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cDoubleField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cDateField1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                     .addComponent(txtMainHidden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtSubHidden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboMainCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboMainCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboSubCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -100,50 +105,50 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
                 .addGap(55, 55, 55)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cStringField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboMainCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(comboMainCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMainHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(comboSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cDoubleField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVoucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Description", "Amount"
+                "Date", "Description", "Main Category", "Sub Category", "Amount"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblVoucher);
 
         jLabel6.setText("Daily Voucher Amount:");
 
@@ -156,10 +161,10 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 51, Short.MAX_VALUE)
+                        .addGap(0, 149, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cDoubleField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -169,7 +174,7 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cDoubleField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
@@ -190,30 +195,77 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboMainCategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMainCategoryItemStateChanged
-        if (comboMainCategory.getSelectedItem().toString().equals("other")) {
+    private void comboMainCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboMainCategoryMouseClicked
+        if (comboMainCategory.getCValue().equals("other")) {
             txtMainHidden.setCValueEditable(true);
+        } else {
+            txtMainHidden.setCValueEditable(false);
         }
-    }//GEN-LAST:event_comboMainCategoryItemStateChanged
+    }//GEN-LAST:event_comboMainCategoryMouseClicked
+
+    private void comboSubCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboSubCategoryMouseClicked
+        if (comboSubCategory.getCValue().equals("other")) {
+            txtSubHidden.setCValueEditable(true);
+        } else {
+            txtSubHidden.setCValueEditable(false);
+        }
+    }//GEN-LAST:event_comboSubCategoryMouseClicked
 
     @Override
     public void setIdealMode() {
-
+        txtDate.setCValue(new Date());
+        txtDate.setCValueEditable(false);
+        txtDescription.setCValueEditable(false);
+        comboMainCategory.resetCValue();
+        comboSubCategory.resetCValue();
+        txtMainHidden.setCValueEditable(false);
+        txtSubHidden.setCValueEditable(false);
+        txtAmount.setCValueEditable(false);
+        txtTotalAmount.setCValueEditable(false);
+        model.setRowCount(0);
     }
 
     @Override
     public void setNewMode() {
-
+        txtDate.setCValue(new Date());
+        txtDate.setCValueEditable(false);
+        txtDescription.setCValueEditable(true);
+        comboMainCategory.setCValue("A");
+        comboMainCategory.setCValue("other");
+        comboSubCategory.setCValue("B");
+        comboSubCategory.setCValue("other");
+        txtMainHidden.setCValueEditable(true);
+        txtSubHidden.setCValueEditable(true);
+        txtAmount.setCValueEditable(true);
+        txtTotalAmount.setCValueEditable(false);
+//        model.addRow(null);
     }
 
     @Override
     public void setEditMode() {
-
+        txtDate.setCValue(new Date());
+        txtDate.setCValueEditable(true);
+        txtDescription.setCValueEditable(true);
+        comboMainCategory.setCValueEditable(true);
+        comboSubCategory.setCValueEditable(true);
+        txtMainHidden.setCValueEditable(true);
+        txtSubHidden.setCValueEditable(true);
+        txtAmount.setCValueEditable(true);
+        txtTotalAmount.setCValueEditable(false);
+//        model.addRow(null);
     }
 
     @Override
     public void resetFields() {
-
+        txtDate.resetCValue();
+        txtDescription.resetCValue();
+        comboMainCategory.resetCValue();
+        comboSubCategory.resetCValue();
+        txtMainHidden.resetCValue();
+        txtSubHidden.resetCValue();
+        txtAmount.resetCValue();
+        txtTotalAmount.resetCValue();
+        model.setRowCount(0);
     }
 
     @Override
@@ -237,12 +289,8 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.sv.visionplus.util.component.textfield.CDateField cDateField1;
-    private com.sv.visionplus.util.component.textfield.CDoubleField cDoubleField1;
-    private com.sv.visionplus.util.component.textfield.CDoubleField cDoubleField2;
-    private com.sv.visionplus.util.component.textfield.CStringField cStringField1;
-    private javax.swing.JComboBox comboMainCategory;
-    private javax.swing.JComboBox jComboBox2;
+    private com.sv.visionplus.util.component.combobox.CComboBox comboMainCategory;
+    private com.sv.visionplus.util.component.combobox.CComboBox comboSubCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -252,9 +300,13 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblVoucher;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtAmount;
+    private com.sv.visionplus.util.component.textfield.CDateField txtDate;
+    private com.sv.visionplus.util.component.textfield.CStringField txtDescription;
     private com.sv.visionplus.util.component.textfield.CStringField txtMainHidden;
     private com.sv.visionplus.util.component.textfield.CStringField txtSubHidden;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalAmount;
     // End of variables declaration//GEN-END:variables
     private AbstractTransactionForm<TInvoice> transactionForm;
     private DefaultTableModel model;

@@ -45,15 +45,15 @@
                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cStringField1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cDoubleField2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cDateField1" alignment="0" pref="199" max="32767" attributes="0"/>
+                      <Component id="txtDescription" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtAmount" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtDate" alignment="0" pref="236" max="32767" attributes="0"/>
                       <Component id="txtMainHidden" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtSubHidden" alignment="0" max="32767" attributes="0"/>
-                      <Component id="comboMainCategory" alignment="0" max="32767" attributes="0"/>
+                      <Component id="comboMainCategory" max="32767" attributes="0"/>
+                      <Component id="comboSubCategory" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -65,31 +65,31 @@
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cDateField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cStringField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDescription" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="comboMainCategory" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboMainCategory" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtMainHidden" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboSubCategory" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtSubHidden" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cDoubleField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="186" max="32767" attributes="0"/>
               </Group>
@@ -107,42 +107,16 @@
             <Property name="text" type="java.lang.String" value="Amount :"/>
           </Properties>
         </Component>
-        <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField1">
+        <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtDescription">
         </Component>
-        <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField2">
+        <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtAmount">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Date :"/>
           </Properties>
         </Component>
-        <Component class="com.sv.visionplus.util.component.textfield.CDateField" name="cDateField1">
-        </Component>
-        <Component class="javax.swing.JComboBox" name="comboMainCategory">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="1"/>
-                <StringItem index="1" value="other"/>
-                <StringItem index="2" value="2"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="comboMainCategoryItemStateChanged"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
+        <Component class="com.sv.visionplus.util.component.textfield.CDateField" name="txtDate">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -158,6 +132,16 @@
         </Component>
         <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtSubHidden">
         </Component>
+        <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="comboMainCategory">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comboMainCategoryMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="comboSubCategory">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comboSubCategoryMouseClicked"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
@@ -170,10 +154,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="51" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="149" max="32767" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cDoubleField1" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="txtTotalAmount" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -187,7 +171,7 @@
                   <Component id="jScrollPane1" min="-2" pref="131" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cDoubleField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTotalAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="145" max="32767" attributes="0"/>
@@ -203,14 +187,45 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblVoucher">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="4">
+                  <Table columnCount="5" rowCount="4">
                     <Column editable="false" title="Date" type="java.lang.Object"/>
                     <Column editable="false" title="Description" type="java.lang.Object"/>
+                    <Column editable="false" title="Main Category" type="java.lang.Object"/>
+                    <Column editable="false" title="Sub Category" type="java.lang.Object"/>
                     <Column editable="false" title="Amount" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -224,7 +239,7 @@
             <Property name="text" type="java.lang.String" value="Daily Voucher Amount:"/>
           </Properties>
         </Component>
-        <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField1">
+        <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtTotalAmount">
         </Component>
       </SubComponents>
     </Container>
