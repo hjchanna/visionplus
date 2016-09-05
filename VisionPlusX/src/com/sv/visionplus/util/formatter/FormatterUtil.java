@@ -1,8 +1,10 @@
 package com.sv.visionplus.util.formatter;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -38,6 +40,7 @@ public class FormatterUtil {
     public String formatDate(Date d) {
         return DATE_FORMAT.format(d);
     }
+    
 
     public Double parseDouble(String s) throws ParseException {
         return (Double) DECIMAL_FORMAT.parse(s);
@@ -49,6 +52,10 @@ public class FormatterUtil {
 
     public Date parseDate(String s) throws ParseException {
         return (Date) DATE_FORMAT.parse(s);
+    }
+   
+    public String getTime(){
+        return new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
     }
 
 }

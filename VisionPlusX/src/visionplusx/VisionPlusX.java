@@ -8,7 +8,7 @@ import visionplusx.model.MUser;
 public class VisionPlusX implements Runnable {
 
     public static void main(String[] args) {
-        // TODO: system init point
+        //  system init point
         //look and feel
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);

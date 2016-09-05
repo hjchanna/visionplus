@@ -125,7 +125,7 @@ public class PCChecking extends AbstractObjectCreator<TInvoice> {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("Reciept No :");
+        jLabel3.setText("Invoice No :");
 
         jButton1.setText("S");
 

@@ -7,8 +7,12 @@ package visionplusx.controller;
 
 import com.sv.visionplus.master.item.brand.model.MBrand;
 import com.sv.visionplus.util.database.DatabaseUtil;
+import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -51,9 +55,9 @@ public class SystemService {
             LogFileModel logFileModel = new LogFileModel();
             logFileModel.setDate(new Date());
             logFileModel.setFormName("Login");
-//            logFileModel.setIndexNo(1);
+//            logFileModel.setIndexNo(1); //Auto incerment
             logFileModel.setRemarks("login User");
-            logFileModel.setTime(null);
+            logFileModel.setTime(FormatterUtil.getInstance().getTime());
             logFileModel.setTransactionType("search");
             logFileModel.setValue(0.00);
             if (user == null) {
@@ -81,14 +85,4 @@ public class SystemService {
             return Collections.emptyList();
         }
     }
-
-    public List<MBrand> listBrand() {
-        try {
-            Connection connection = DatabaseUtil.getInstance().openConnection();
-            return systemDAO.listBrand(connection);
-        } catch (SQLException e) {
-            return Collections.emptyList();
-        }
-    }
-
 }

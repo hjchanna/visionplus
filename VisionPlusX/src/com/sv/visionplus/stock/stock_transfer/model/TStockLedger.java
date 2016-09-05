@@ -16,7 +16,7 @@ public class TStockLedger {
     private Integer indexNo;
     private Integer store;
     private Integer item;
-    private Date date;
+    private String date;
     private double qty;
     private String form;
 
@@ -44,11 +44,11 @@ public class TStockLedger {
         this.item = item;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
