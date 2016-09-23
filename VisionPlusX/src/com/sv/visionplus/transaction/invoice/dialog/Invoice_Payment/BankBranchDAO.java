@@ -5,7 +5,7 @@
  */
 package com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment;
 
-import com.sv.visionplus.transaction.invoice.MBankBranch;
+import com.sv.visionplus.transaction.invoice.model.MBankBranch;
 import com.sv.visionplus.util.database.DatabaseUtil;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;

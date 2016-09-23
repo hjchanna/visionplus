@@ -5,7 +5,6 @@
  */
 package com.sv.visionplus.account.payment_voucher.model;
 
-import com.sv.visionplus.account.money_collection.model.*;
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
@@ -21,12 +20,9 @@ public class TAccountTransaction {
     private Integer indexNo;
     private Date date;
     private Integer account;
-    private Integer customer;
-    private Integer supplier;
     private String description;
     private double debit;
     private double credit;
-    private Integer transaction;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -52,22 +48,7 @@ public class TAccountTransaction {
         this.account = account;
     }
 
-    public Integer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Integer customer) {
-        this.customer = customer;
-    }
-
-    public Integer getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Integer supplier) {
-        this.supplier = supplier;
-    }
-
+    
     public String getDescription() {
         return description;
     }
@@ -92,12 +73,5 @@ public class TAccountTransaction {
         this.credit = credit;
     }
 
-    public Integer getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Integer transaction) {
-        this.transaction = transaction;
-    }
-
+   
 }

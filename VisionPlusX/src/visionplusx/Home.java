@@ -7,6 +7,7 @@ package visionplusx;
 
 import com.sv.visionplus.account.money_collection.MoneyCollectionForm;
 import com.sv.visionplus.account.payment_voucher.PaymentVoucherForm;
+import com.sv.visionplus.log_file.LogFileForm;
 import com.sv.visionplus.master.bank_branch.BankBranchFormGUI;
 import com.sv.visionplus.master.customer.CustomerFormGUI;
 import com.sv.visionplus.master.factory.FactoryFormGUI;
@@ -17,16 +18,18 @@ import javax.swing.JPanel;
 import static com.sv.visionplus.resource.VPResources.*;
 import com.sv.visionplus.stock.stock_adjustment.StockAdjustmentForm;
 import com.sv.visionplus.stock.stock_transfer.StockTransferForm;
-import com.sv.visionplus.transaction.checking.CheckingForm;
+import com.sv.visionplus.transaction.check_In.CheckingForm;
 import com.sv.visionplus.transaction.customer_payment.CustomerPaymentForm;
 import com.sv.visionplus.transaction.grn.GrnForm;
 import com.sv.visionplus.transaction.invoice.InvoiceForm;
+import com.sv.visionplus.transaction.supplier_payment.SupplierPaymentForm;
 import com.sv.visionplus.util.backup.BackupRestore;
 import com.sv.visionplus.util.component.main_frame.DefaultMainframe;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import visionplusx.model.MUser;
 
 /**
  *
@@ -43,6 +46,7 @@ public class Home extends DefaultMainframe {
 
         return INSTANCE;
     }
+    private static MUser user;
 
     private Home() {
     }
@@ -57,6 +61,8 @@ public class Home extends DefaultMainframe {
     @Override
     protected void createGUI() {
         createMaster();
+        
+        setTitle("Vision Plus Management System");
     }
 
     public ActionListener getActionListener(final Class<? extends JPanel> panelClass) {
@@ -100,6 +106,7 @@ public class Home extends DefaultMainframe {
 
         addBand("Payment", getImageUrl(TRANSACTION_PAYMENT));
         addButton("Customer Payment", getImageUrl(TRANSACTION_PAYMENT), DefaultMainframe.ElementPriority.TOP, getActionListener(CustomerPaymentForm.class));
+        addButton("Supplier Payment", getImageUrl(SUPPLIER_PAYMENT), DefaultMainframe.ElementPriority.TOP, getActionListener(SupplierPaymentForm.class));
 
         addBand("Checking", getImageUrl(TRANSACTION_PAYMENT));
         addButton("Checking", getImageUrl(TRANSACTION_CHECK), DefaultMainframe.ElementPriority.TOP, getActionListener(CheckingForm.class));
@@ -115,14 +122,25 @@ public class Home extends DefaultMainframe {
         addBand("Stock", getImageUrl(STOCK_TRANSFER));
         addButton("stock Adjustmant", getImageUrl(STOCK_ADJUST), DefaultMainframe.ElementPriority.TOP, getActionListener(StockAdjustmentForm.class));
         addButton("stock transfer", getImageUrl(STOCK_TRANSFER), DefaultMainframe.ElementPriority.TOP, getActionListener(StockTransferForm.class));
+        
+        addTask("Log File");
+        addBand("Stock", getImageUrl(LOG_FILE));
+        addButton("stock Adjustmant", getImageUrl(LOG_FILE), DefaultMainframe.ElementPriority.TOP, getActionListener(LogFileForm.class));
+        
 
         addTask("Backup");
 
-        addBand("Backup", getImageUrl(BACKUP_EXPORT));
-        addButton("Export", getImageUrl(BACKUP_EXPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
-        addButton("Import", getImageUrl(BACKUP_IMPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
+        addBand("Save Data", getImageUrl(BACKUP_EXPORT));
+        addButton("Backup", getImageUrl(BACKUP_EXPORT), DefaultMainframe.ElementPriority.TOP, getActionListener(BackupRestore.class));
 
     }
 
     private ContentPanel contentPanel;
+
+    void setUser(MUser user) {
+        this.user=user;
+    }
+    public MUser getUser() {
+        return this.user;
+    }
 }

@@ -15,8 +15,8 @@ public class MAccount {
     private Integer indexNo;
     private String Description;
     private String type;
-    private Integer mainCategroy;
-    private Integer subCategory;
+    private Integer main_category;
+    private Integer sub_category;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -42,19 +42,20 @@ public class MAccount {
         this.type = type;
     }
 
-    public Integer getMainCategroy() {
-        return mainCategroy;
+    public Integer getMainCategory() {
+        return main_category;
     }
 
-    public void setMainCategroy(Integer mainCategroy) {
-        this.mainCategroy = mainCategroy;
+    public void setMainCategory(Integer main_category) {
+        this.main_category = main_category;
     }
 
     public Integer getSubCategory() {
-        return subCategory;
+        return sub_category;
     }
 
-    public void setSubCategory(Integer subCategory) {
-        this.subCategory = subCategory;
+    public void setSubCategory(Integer sub_category) {
+        this.sub_category = sub_category;
     }
+
 }

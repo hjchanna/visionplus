@@ -18,7 +18,6 @@ public class TInvoice {
 
     @VPId
     private Integer indexNo;
-    private Integer transaction;
     private Integer customer;
     private Integer factory;
     private Date invoiceDate;
@@ -32,14 +31,6 @@ public class TInvoice {
 
     public void setIndexNo(Integer indexNo) {
         this.indexNo = indexNo;
-    }
-
-    public Integer getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Integer transaction) {
-        this.transaction = transaction;
     }
 
     public Integer getCustomer() {

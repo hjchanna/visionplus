@@ -1,0 +1,1364 @@
+-- MySQL dump 10.13  Distrib 5.1.55, for Win32 (ia32)
+--
+-- Host: localhost    Database: mydb
+-- ------------------------------------------------------
+-- Server version	5.5.27
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Temporary table structure for view `bal_qty`
+--
+
+DROP TABLE IF EXISTS `bal_qty`;
+/*!50001 DROP VIEW IF EXISTS `bal_qty`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `bal_qty` (
+  `item` int(10),
+  `balQty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `bal_qty_b`
+--
+
+DROP TABLE IF EXISTS `bal_qty_b`;
+/*!50001 DROP VIEW IF EXISTS `bal_qty_b`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `bal_qty_b` (
+  `item` int(10),
+  `balQty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `bal_qty_f`
+--
+
+DROP TABLE IF EXISTS `bal_qty_f`;
+/*!50001 DROP VIEW IF EXISTS `bal_qty_f`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `bal_qty_f` (
+  `item` int(10),
+  `balQty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `bank_branch`
+--
+
+DROP TABLE IF EXISTS `bank_branch`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bank_branch` (
+  `code` varchar(25) NOT NULL,
+  `bank` varchar(50) DEFAULT NULL,
+  `branch` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bank_branch`
+--
+
+LOCK TABLES `bank_branch` WRITE;
+/*!40000 ALTER TABLE `bank_branch` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bank_branch` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `customer_invoice`
+--
+
+DROP TABLE IF EXISTS `customer_invoice`;
+/*!50001 DROP VIEW IF EXISTS `customer_invoice`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `customer_invoice` (
+  `invoice_no` int(10),
+  `invoice_date` date,
+  `status` varchar(25),
+  `customer_id` int(10),
+  `name` varchar(100),
+  `contact_no` varchar(25),
+  `nic` varchar(25),
+  `amount` double(10,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `customer_payment`
+--
+
+DROP TABLE IF EXISTS `customer_payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer_payment` (
+  `index_no` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `payment` int(10) NOT NULL,
+  `invoice` int(10) NOT NULL,
+  `is_advance` tinyint(1) DEFAULT NULL,
+  KEY `fk_customer_payment_t_payment1_idx` (`payment`),
+  KEY `fk_customer_payment_t_invoice1_idx` (`invoice`),
+  KEY `index_no` (`index_no`),
+  CONSTRAINT `fk_customer_payment_t_invoice1` FOREIGN KEY (`invoice`) REFERENCES `t_invoice` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_customer_payment_t_payment1` FOREIGN KEY (`payment`) REFERENCES `t_payment` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_payment`
+--
+
+LOCK TABLES `customer_payment` WRITE;
+/*!40000 ALTER TABLE `customer_payment` DISABLE KEYS */;
+INSERT INTO `customer_payment` VALUES (7,'2016-09-20',12,14,1),(8,'2016-09-20',13,14,0),(13,'2016-09-20',18,14,0),(14,'2016-09-20',19,14,0),(15,'2016-09-20',20,14,0),(16,'2016-09-20',21,1,0),(17,'2016-09-20',22,15,1);
+/*!40000 ALTER TABLE `customer_payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `customer_payment_view`
+--
+
+DROP TABLE IF EXISTS `customer_payment_view`;
+/*!50001 DROP VIEW IF EXISTS `customer_payment_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `customer_payment_view` (
+  `reciept_no` int(11),
+  `cash_amount` double(10,2),
+  `cheque_amount` double(10,2),
+  `card_amount` double(10,2),
+  `total_amount` double(10,2),
+  `date` date,
+  `is_advance` tinyint(1),
+  `invoice` int(10)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `factory`
+--
+
+DROP TABLE IF EXISTS `factory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factory` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factory`
+--
+
+LOCK TABLES `factory` WRITE;
+/*!40000 ALTER TABLE `factory` DISABLE KEYS */;
+INSERT INTO `factory` VALUES (1,'Default','N/N','0000000000'),(2,'factory jagath','polonnaruwa','01121212112');
+/*!40000 ALTER TABLE `factory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `grn_search_item`
+--
+
+DROP TABLE IF EXISTS `grn_search_item`;
+/*!50001 DROP VIEW IF EXISTS `grn_search_item`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `grn_search_item` (
+  `index_no` int(10),
+  `code` varchar(25),
+  `item_name` varchar(50),
+  `brand_name` varchar(50),
+  `category_name` varchar(50),
+  `sale_price` double(10,2),
+  `cost_price` double(10,2),
+  `isstock_item` tinyint(1),
+  `bal_qty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `log_file`
+--
+
+DROP TABLE IF EXISTS `log_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `log_file` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `time` varchar(25) DEFAULT NULL,
+  `user` int(10) DEFAULT NULL,
+  `form_name` varchar(25) DEFAULT NULL,
+  `transaction_type` varchar(25) DEFAULT NULL,
+  `value` double(10,2) DEFAULT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log_file`
+--
+
+LOCK TABLES `log_file` WRITE;
+/*!40000 ALTER TABLE `log_file` DISABLE KEYS */;
+INSERT INTO `log_file` VALUES (23,'2016-09-20','00:12:06',1,'Login','search',0.00,'login User'),(24,'2016-09-20','00:16:00',1,'GRN','Save',1200.00,'Save GRN'),(25,'2016-09-20','00:16:43',1,'Invoice Form','Save',200.00,'SaveInvoice'),(26,'2016-09-20','00:16:53',1,'Invoice Payment','Save',200.00,'Invoice Advance Payment'),(27,'2016-09-20','00:21:11',1,'Login','search',0.00,'login User'),(28,'2016-09-20','00:23:15',1,'Login','search',0.00,'login User'),(29,'2016-09-20','00:23:43',1,'GRN','Save',99.00,'Save GRN'),(30,'2016-09-20','00:34:10',1,'Login','search',0.00,'login User'),(31,'2016-09-20','00:59:43',1,'Login','search',0.00,'login User'),(32,'2016-09-20','01:00:34',1,'Invoice Form','Save',200.00,'SaveInvoice'),(33,'2016-09-20','01:00:40',1,'Invoice Payment','Save',100.00,'Invoice Advance Payment'),(34,'2016-09-20','01:01:47',1,'Customer Payment','Save',100.00,'Save Customer Payment'),(35,'2016-09-20','01:23:32',1,'Login','search',0.00,'login User'),(36,'2016-09-20','01:25:11',1,'Invoice Form','Save',200.00,'SaveInvoice'),(37,'2016-09-20','01:25:29',1,'Invoice Payment','Save',100.00,'Invoice Advance Payment'),(38,'2016-09-20','01:34:58',1,'Login','search',0.00,'login User'),(39,'2016-09-20','01:35:39',1,'GRN','Save',1584.00,'Save GRN'),(40,'2016-09-20','02:00:27',1,'Login','search',0.00,'login User'),(41,'2016-09-20','02:07:21',1,'Login','search',0.00,'login User'),(42,'2016-09-20','02:09:33',1,'Login','search',0.00,'login User'),(43,'2016-09-20','05:55:16',1,'Login','search',0.00,'login User'),(46,'2016-09-20','06:00:44',1,'Login','search',0.00,'login User'),(47,'2016-09-20','06:01:42',1,'Invoice Form','Save',200.00,'SaveInvoice'),(48,'2016-09-20','06:01:47',1,'Invoice Payment','Save',100.00,'Invoice Advance Payment'),(49,'2016-09-20','06:34:13',1,'Login','search',0.00,'login User'),(50,'2016-09-20','06:42:50',1,'Login','search',0.00,'login User'),(51,'2016-09-20','08:17:20',1,'Login','search',0.00,'login User'),(52,'2016-09-20','08:23:44',1,'Login','search',0.00,'login User'),(53,'2016-09-20','08:26:39',1,'Login','search',0.00,'login User'),(54,'2016-09-20','09:13:39',1,'Login','search',0.00,'login User'),(55,'2016-09-20','09:17:49',1,'Login','search',0.00,'login User'),(56,'2016-09-20','09:25:43',1,'Login','search',0.00,'login User'),(57,'2016-09-20','09:31:07',1,'Login','search',0.00,'login User'),(58,'2016-09-20','09:42:50',1,'Login','search',0.00,'login User'),(59,'2016-09-20','13:02:47',1,'Login','search',0.00,'login User'),(60,'2016-09-20','13:07:18',1,'Login','search',0.00,'login User'),(61,'2016-09-20','13:30:06',1,'Login','search',0.00,'login User'),(62,'2016-09-20','13:32:51',1,'Customer Payment','Save',100.00,'Save Customer Payment'),(63,'2016-09-20','13:36:16',1,'Login','search',0.00,'login User'),(66,'2016-09-20','13:41:06',1,'Login','search',0.00,'login User'),(68,'2016-09-20','13:43:44',1,'Login','search',0.00,'login User'),(70,'2016-09-20','13:48:02',1,'Login','search',0.00,'login User'),(71,'2016-09-20','13:48:23',1,'Customer Payment','Save',200.00,'Save Customer Payment'),(72,'2016-09-20','13:50:39',1,'Login','search',0.00,'login User'),(73,'2016-09-20','13:51:25',1,'Customer Payment','Save',200.00,'Save Customer Payment'),(74,'2016-09-20','14:03:12',1,'Login','search',0.00,'login User'),(75,'2016-09-20','14:08:36',1,'Login','search',0.00,'login User'),(76,'2016-09-20','14:11:02',1,'Customer Payment','Save',400.00,'Save Customer Payment'),(77,'2016-09-20','14:23:57',1,'Customer Payment','Save',200.00,'Save Customer Payment'),(78,'2016-09-20','14:24:58',1,'Invoice Form','Save',200.00,'SaveInvoice'),(79,'2016-09-20','14:25:11',1,'Invoice Payment','Save',200.00,'Invoice Advance Payment'),(80,'2016-09-20','14:52:52',1,'Login','search',0.00,'login User'),(81,'2016-09-20','14:55:36',1,'Login','search',0.00,'login User'),(82,'2016-09-20','14:56:44',1,'Login','search',0.00,'login User'),(83,'2016-09-20','23:25:39',1,'Login','search',0.00,'login User'),(84,'2016-09-21','00:26:13',1,'Login','search',0.00,'login User'),(85,'2016-09-20','01:06:40',1,'Login','search',0.00,'login User'),(86,'2016-09-20','01:19:11',1,'Login','search',0.00,'login User'),(87,'2016-09-20','01:21:13',1,'Login','search',0.00,'login User'),(88,'2016-09-20','02:08:49',1,'Login','search',0.00,'login User'),(89,'2016-09-20','02:27:42',1,'Login','search',0.00,'login User'),(90,'2016-09-20','02:29:16',1,'Login','search',0.00,'login User'),(91,'2016-09-20','02:31:34',1,'Login','search',0.00,'login User'),(92,'2016-09-20','02:33:25',1,'Login','search',0.00,'login User'),(93,'2016-09-20','02:34:03',1,'Login','search',0.00,'login User'),(94,'2016-09-20','02:45:21',1,'Login','search',0.00,'login User'),(95,'2016-09-20','02:47:20',1,'Login','search',0.00,'login User'),(96,'2016-09-20','02:52:08',1,'Login','search',0.00,'login User'),(97,'2016-09-20','03:09:15',1,'Login','search',0.00,'login User'),(98,'2016-09-20','03:11:54',1,'Login','search',0.00,'login User'),(99,'2016-09-20','03:22:16',1,'Login','search',0.00,'login User'),(100,'2016-09-20','03:24:10',1,'Login','search',0.00,'login User'),(101,'2016-09-20','03:36:47',1,'Login','search',0.00,'login User'),(102,'2016-09-20','03:42:15',1,'Login','search',0.00,'login User'),(103,'2016-09-20','03:49:04',1,'Login','search',0.00,'login User'),(104,'2016-09-20','03:51:52',1,'Login','search',0.00,'login User'),(105,'2016-09-20','03:54:02',1,'GRN','Save',990.00,'Save GRN'),(106,'2016-09-20','04:36:06',1,'GRN','Save',600.00,'Save GRN'),(107,'2016-09-20','05:26:17',1,'Login','search',0.00,'login User'),(108,'2016-09-20','05:28:58',1,'Login','search',0.00,'login User'),(109,'2016-09-20','05:31:27',1,'Login','search',0.00,'login User'),(110,'2016-09-20','05:34:30',1,'Login','search',0.00,'login User'),(111,'2016-09-20','06:18:53',1,'Login','search',0.00,'login User'),(112,'2016-09-20','09:55:21',1,'Login','search',0.00,'login User'),(113,'2016-09-20','09:59:11',1,'Login','search',0.00,'login User'),(114,'2016-09-20','10:00:14',1,'Supplier Payment','Save',90.00,'Supplier Payment'),(115,'2016-09-21','07:09:39',1,'Login','search',0.00,'login User'),(116,'2016-09-21','07:11:43',1,'Supplier Payment','Save',0.00,'Supplier Payment'),(117,'2016-09-21','07:47:36',1,'Login','search',0.00,'login User'),(118,'2016-09-21','08:10:27',1,'Login','search',0.00,'login User'),(119,'2016-09-21','08:11:26',1,'Login','search',0.00,'login User'),(120,'2016-09-21','08:14:44',1,'Login','search',0.00,'login User'),(121,'2016-09-21','08:15:16',1,'Login','search',0.00,'login User'),(122,'2016-09-21','08:18:58',1,'Login','search',0.00,'login User'),(123,'2016-09-21','08:19:40',1,'Login','search',0.00,'login User'),(124,'2016-09-21','08:23:07',1,'Login','search',0.00,'login User'),(125,'2016-09-21','08:37:54',1,'Login','search',0.00,'login User'),(126,'2016-09-22','01:19:11',1,'Login','search',0.00,'login User'),(127,'2016-09-22','01:20:16',1,'Login','search',0.00,'login User'),(128,'2016-09-22','01:23:36',1,'Login','search',0.00,'login User'),(129,'2016-09-21','02:11:09',1,'Login','search',0.00,'login User'),(130,'2016-09-20','02:22:39',1,'Login','search',0.00,'login User'),(131,'2016-09-20','02:25:13',1,'Login','search',0.00,'login User'),(132,'2016-09-20','02:33:18',1,'Login','search',0.00,'login User'),(133,'2016-09-20','02:35:14',1,'Login','search',0.00,'login User'),(134,'2016-09-20','02:38:24',1,'Login','search',0.00,'login User'),(135,'2016-09-20','02:41:36',1,'Login','search',0.00,'login User'),(136,'2016-09-20','02:42:45',1,'Login','search',0.00,'login User'),(137,'2016-09-20','02:48:52',1,'Login','search',0.00,'login User'),(138,'2016-09-20','02:53:50',1,'Login','search',0.00,'login User'),(139,'2016-09-20','02:55:47',1,'Login','search',0.00,'login User'),(140,'2016-09-20','03:04:34',1,'Login','search',0.00,'login User'),(141,'2016-09-20','03:07:50',1,'Login','search',0.00,'login User'),(142,'2016-09-20','03:29:43',1,'Login','search',0.00,'login User'),(143,'2016-09-20','03:37:22',1,'Login','search',0.00,'login User'),(144,'2016-09-20','03:45:36',1,'Login','search',0.00,'login User'),(145,'2016-09-20','03:48:59',1,'Login','search',0.00,'login User'),(146,'2016-09-20','04:01:15',1,'Login','search',0.00,'login User'),(147,'2016-09-20','04:33:07',1,'Login','search',0.00,'login User'),(148,'2016-09-20','04:42:44',1,'Login','search',0.00,'login User'),(149,'2016-09-20','04:49:38',1,'Login','search',0.00,'login User'),(150,'2016-09-20','05:38:26',1,'Login','search',0.00,'login User'),(151,'2016-09-20','05:43:31',1,'Login','search',0.00,'login User'),(152,'2016-09-20','05:44:57',1,'Login','search',0.00,'login User'),(153,'2016-09-20','05:48:30',1,'GRN','Save',1200.00,'Save GRN'),(154,'2016-09-20','05:49:26',1,'Supplier Payment','Save',200.00,'Supplier Payment'),(155,'2016-09-20','07:03:59',1,'Login','search',0.00,'login User'),(156,'2016-09-21','11:18:58',1,'Login','search',0.00,'login User'),(157,'2016-09-21','11:22:25',1,'Login','search',0.00,'login User'),(158,'2016-09-21','11:24:42',1,'Login','search',0.00,'login User'),(160,'2016-09-21','11:34:37',1,'Login','search',0.00,'login User'),(161,'2016-09-21','11:35:02',1,'Stock Transfer','Save',0.00,'1Item Transfer'),(162,'2016-09-21','12:29:32',1,'Login','search',0.00,'login User'),(163,'2016-09-21','12:30:00',1,'Stock Transfer','Save',0.00,'1Item Transfer');
+/*!40000 ALTER TABLE `log_file` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_account`
+--
+
+DROP TABLE IF EXISTS `m_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_account` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `description` varchar(50) DEFAULT NULL,
+  `type` varchar(25) DEFAULT NULL,
+  `main_category` int(10) NOT NULL,
+  `sub_category` int(10) NOT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_m_account_main_category1_idx` (`main_category`),
+  KEY `fk_m_account_sub_category1_idx` (`sub_category`),
+  CONSTRAINT `fk_m_account_main_category1` FOREIGN KEY (`main_category`) REFERENCES `main_category` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_m_account_sub_category1` FOREIGN KEY (`sub_category`) REFERENCES `sub_category` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_account`
+--
+
+LOCK TABLES `m_account` WRITE;
+/*!40000 ALTER TABLE `m_account` DISABLE KEYS */;
+INSERT INTO `m_account` VALUES (1,'Invoice Advance Payment','INCOME',1,1),(2,'Main Sub','EXPENSE',6,5),(3,'INVOICE INVOICE ADVANCE','EXPENSE',1,1),(4,'desc','VOUCHER',4,6),(5,'desal expense','VOUCHER',3,7),(6,'Customer Payment','INVOICE',1,2),(7,'Customer Payment','INVOICE',1,2),(8,'Customer Payment','INVOICE',1,2),(9,'Customer Payment','INVOICE',1,2),(10,'Invoice Advance Payment','INVOICE',1,1),(11,'','VOUCHER',3,7),(12,'Grn Payment','GRN',2,3),(13,'Grn Payment','GRN',2,3),(14,'transport','VOUCHER',3,8),(15,'Grn Payment','GRN',2,3);
+/*!40000 ALTER TABLE `m_account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_brand`
+--
+
+DROP TABLE IF EXISTS `m_brand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_brand` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_brand`
+--
+
+LOCK TABLES `m_brand` WRITE;
+/*!40000 ALTER TABLE `m_brand` DISABLE KEYS */;
+INSERT INTO `m_brand` VALUES (1,'N/N'),(3,'rayban');
+/*!40000 ALTER TABLE `m_brand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_category`
+--
+
+DROP TABLE IF EXISTS `m_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_category` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_category`
+--
+
+LOCK TABLES `m_category` WRITE;
+/*!40000 ALTER TABLE `m_category` DISABLE KEYS */;
+INSERT INTO `m_category` VALUES (1,'N/N'),(3,'Frame');
+/*!40000 ALTER TABLE `m_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_customer`
+--
+
+DROP TABLE IF EXISTS `m_customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_customer` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `nic` varchar(25) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `contact_no` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_customer`
+--
+
+LOCK TABLES `m_customer` WRITE;
+/*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
+INSERT INTO `m_customer` VALUES (1,'Default','000000000V','N/N','0000000000');
+/*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_item`
+--
+
+DROP TABLE IF EXISTS `m_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_item` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `brand` int(10) DEFAULT NULL,
+  `category` int(10) DEFAULT NULL,
+  `code` varchar(25) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `sale_price` double(10,2) DEFAULT NULL,
+  `cost_price` double(10,2) DEFAULT NULL,
+  `reorder_qty` int(10) DEFAULT NULL,
+  `isstock_item` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_m_item_m_brand1_idx` (`brand`),
+  KEY `fk_m_item_m_category1_idx` (`category`),
+  CONSTRAINT `fk_m_item_m_brand1` FOREIGN KEY (`brand`) REFERENCES `m_brand` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_m_item_m_category1` FOREIGN KEY (`category`) REFERENCES `m_category` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_item`
+--
+
+LOCK TABLES `m_item` WRITE;
+/*!40000 ALTER TABLE `m_item` DISABLE KEYS */;
+INSERT INTO `m_item` VALUES (5,3,1,'2111','brown',200.00,100.00,0,1),(6,3,1,'3333','trim',200.00,100.00,6,1);
+/*!40000 ALTER TABLE `m_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_payment_voucher`
+--
+
+DROP TABLE IF EXISTS `m_payment_voucher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_payment_voucher` (
+  `index_no` date NOT NULL,
+  `date` date DEFAULT NULL,
+  `description` varchar(25) DEFAULT NULL,
+  `amount` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_payment_voucher`
+--
+
+LOCK TABLES `m_payment_voucher` WRITE;
+/*!40000 ALTER TABLE `m_payment_voucher` DISABLE KEYS */;
+/*!40000 ALTER TABLE `m_payment_voucher` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_stock`
+--
+
+DROP TABLE IF EXISTS `m_stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_stock` (
+  `inde_no` date NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`inde_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_stock`
+--
+
+LOCK TABLES `m_stock` WRITE;
+/*!40000 ALTER TABLE `m_stock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `m_stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_supplier`
+--
+
+DROP TABLE IF EXISTS `m_supplier`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_supplier` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `contact_no` varchar(25) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `contact_name` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_supplier`
+--
+
+LOCK TABLES `m_supplier` WRITE;
+/*!40000 ALTER TABLE `m_supplier` DISABLE KEYS */;
+INSERT INTO `m_supplier` VALUES (1,'Default','0000000000','N/N','N/N','N/N'),(2,'kasun','0112232332','email','panadura','chamara');
+/*!40000 ALTER TABLE `m_supplier` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `m_user`
+--
+
+DROP TABLE IF EXISTS `m_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `m_user` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL,
+  `user_name` varchar(25) DEFAULT NULL,
+  `password` varchar(25) NOT NULL,
+  `type` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `m_user`
+--
+
+LOCK TABLES `m_user` WRITE;
+/*!40000 ALTER TABLE `m_user` DISABLE KEYS */;
+INSERT INTO `m_user` VALUES (1,'div','Q','Q','Admin');
+/*!40000 ALTER TABLE `m_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `main_category`
+--
+
+DROP TABLE IF EXISTS `main_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `main_category` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `main_category`
+--
+
+LOCK TABLES `main_category` WRITE;
+/*!40000 ALTER TABLE `main_category` DISABLE KEYS */;
+INSERT INTO `main_category` VALUES (1,'INVOICE'),(2,'GRN'),(3,'TRANSPORT'),(4,'FOODS'),(6,'Main');
+/*!40000 ALTER TABLE `main_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `search_grn`
+--
+
+DROP TABLE IF EXISTS `search_grn`;
+/*!50001 DROP VIEW IF EXISTS `search_grn`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_grn` (
+  `grn_no` int(10),
+  `date` date,
+  `amount` double(10,2),
+  `ref_no` varchar(50),
+  `supplier` int(10),
+  `name` varchar(50),
+  `contact_no` varchar(25)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `search_grn_item`
+--
+
+DROP TABLE IF EXISTS `search_grn_item`;
+/*!50001 DROP VIEW IF EXISTS `search_grn_item`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_grn_item` (
+  `grn_no` int(10),
+  `code` varchar(25),
+  `name` varchar(50),
+  `brand` varchar(50),
+  `category` varchar(50),
+  `unit_price` double(10,2),
+  `qty` double(10,2),
+  `value` double(10,2),
+  `discount` double(10,2),
+  `net_value` double(10,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `search_grn_payment`
+--
+
+DROP TABLE IF EXISTS `search_grn_payment`;
+/*!50001 DROP VIEW IF EXISTS `search_grn_payment`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_grn_payment` (
+  `grn_no` int(10),
+  `receipt_no` int(10),
+  `date` date,
+  `cash` double(10,2),
+  `cheque` double(10,2),
+  `total` double(10,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `search_item_b`
+--
+
+DROP TABLE IF EXISTS `search_item_b`;
+/*!50001 DROP VIEW IF EXISTS `search_item_b`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_item_b` (
+  `index_no` int(10),
+  `code` varchar(25),
+  `item_name` varchar(50),
+  `brand_name` varchar(50),
+  `category_name` varchar(50),
+  `sale_price` double(10,2),
+  `cost_price` double(10,2),
+  `isstock_item` tinyint(1),
+  `bal_qty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `search_item_f`
+--
+
+DROP TABLE IF EXISTS `search_item_f`;
+/*!50001 DROP VIEW IF EXISTS `search_item_f`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_item_f` (
+  `index_no` int(10),
+  `code` varchar(25),
+  `item_name` varchar(50),
+  `brand_name` varchar(50),
+  `category_name` varchar(50),
+  `sale_price` double(10,2),
+  `cost_price` double(10,2),
+  `isstock_item` tinyint(1),
+  `bal_qty` double(19,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `search_voucher`
+--
+
+DROP TABLE IF EXISTS `search_voucher`;
+/*!50001 DROP VIEW IF EXISTS `search_voucher`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `search_voucher` (
+  `index_no` int(10),
+  `date` date,
+  `description` varchar(50),
+  `credit` double(10,2),
+  `debit` double(10,2),
+  `main_category` varchar(25),
+  `sub_category` varchar(25),
+  `type` varchar(25)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `status` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `invoice` int(10) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `transaction` int(10) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_status_t_invoice1_idx` (`invoice`),
+  CONSTRAINT `fk_status_t_invoice1` FOREIGN KEY (`invoice`) REFERENCES `t_invoice` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status`
+--
+
+LOCK TABLES `status` WRITE;
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (10,1,'Issue To Factory','2016-09-20',NULL),(11,2,'Issue To Factory','2016-09-20',NULL),(12,3,'Issue To Factory','2016-09-20',NULL),(13,1,'Reserved From Factory','2016-09-20',NULL),(14,2,'Reserved From Factory','2016-09-20',NULL),(15,3,'Reserved From Factory','2016-09-20',NULL),(16,1,'Issue To Customer','2016-09-20',NULL),(17,2,'Issue To Customer','2016-09-20',NULL),(18,3,'Issue To Customer','2016-09-20',NULL),(19,3,'Reserved From Customer','2016-09-20',NULL),(21,14,'Reserved From Customer','2016-09-20',NULL),(22,15,'Reserved From Customer','2016-09-20',NULL);
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `store`
+--
+
+DROP TABLE IF EXISTS `store`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `store` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `store`
+--
+
+LOCK TABLES `store` WRITE;
+/*!40000 ALTER TABLE `store` DISABLE KEYS */;
+INSERT INTO `store` VALUES (1,'FRONT'),(2,'BULK');
+/*!40000 ALTER TABLE `store` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sub_category`
+--
+
+DROP TABLE IF EXISTS `sub_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sub_category` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sub_category`
+--
+
+LOCK TABLES `sub_category` WRITE;
+/*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
+INSERT INTO `sub_category` VALUES (1,'INVOICE ADVANCE'),(2,'CUSTOMER PAYMENT'),(3,'SUPPLIER PAYMENT'),(5,'Sub'),(6,'sathosa'),(7,'WE-2332 saman'),(8,'HH-8890');
+/*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `supplier_payment`
+--
+
+DROP TABLE IF EXISTS `supplier_payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supplier_payment` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `payment` int(10) NOT NULL,
+  `grn` int(10) NOT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_supplier_payment_t_payment1_idx` (`payment`),
+  KEY `fk_supplier_payment_t_grn1_idx` (`grn`),
+  CONSTRAINT `fk_supplier_payment_t_grn1` FOREIGN KEY (`grn`) REFERENCES `t_grn` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_supplier_payment_t_payment1` FOREIGN KEY (`payment`) REFERENCES `t_payment` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supplier_payment`
+--
+
+LOCK TABLES `supplier_payment` WRITE;
+/*!40000 ALTER TABLE `supplier_payment` DISABLE KEYS */;
+INSERT INTO `supplier_payment` VALUES (1,21,7,'2016-08-21'),(2,22,7,'2016-09-20'),(3,23,7,'2016-09-20'),(4,24,7,'2016-09-21'),(5,25,9,'2016-09-20');
+/*!40000 ALTER TABLE `supplier_payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_account_transaction`
+--
+
+DROP TABLE IF EXISTS `t_account_transaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_account_transaction` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `account` int(10) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `debit` double(10,2) DEFAULT NULL,
+  `credit` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_account_transaction_account1_idx` (`account`),
+  CONSTRAINT `fk_t_account_transaction_account1` FOREIGN KEY (`account`) REFERENCES `m_account` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_account_transaction`
+--
+
+LOCK TABLES `t_account_transaction` WRITE;
+/*!40000 ALTER TABLE `t_account_transaction` DISABLE KEYS */;
+INSERT INTO `t_account_transaction` VALUES (1,'2016-09-20',1,'Invoice Advance Payment',100.00,0.00),(2,'2016-09-20',2,'Main Sub 1000.0',0.00,1000.00),(3,'2016-09-20',3,'INVOICE INVOICE ADVANCE 1000.0',0.00,1000.00),(4,'2016-09-20',4,'desc',0.00,100.00),(5,'2016-09-20',5,'desal expense',0.00,20000.00),(6,'2016-09-20',7,'Customer Payment',200.00,0.00),(7,'2016-09-20',8,'Customer Payment',400.00,0.00),(8,'2016-09-20',9,'Customer Payment',200.00,0.00),(9,'2016-09-20',10,'Invoice Advance Payment',200.00,0.00),(10,'2016-09-20',11,'',0.00,200.00),(11,'2016-09-20',12,'Grn Payment',0.00,90.00),(12,'2016-09-21',13,'Grn Payment',0.00,0.00),(13,'2016-09-20',14,'transport',0.00,12000.00),(14,'2016-09-20',15,'Grn Payment',0.00,200.00);
+/*!40000 ALTER TABLE `t_account_transaction` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_card_details`
+--
+
+DROP TABLE IF EXISTS `t_card_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_card_details` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `payment` int(10) DEFAULT NULL,
+  `bank_branch` varchar(25) DEFAULT NULL,
+  `card_no` varchar(25) DEFAULT NULL,
+  `amount` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_card_details_t_payment1_idx` (`payment`),
+  KEY `fk_t_card_details_bank_branch1_idx` (`bank_branch`),
+  CONSTRAINT `fk_t_card_details_bank_branch1` FOREIGN KEY (`bank_branch`) REFERENCES `bank_branch` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_card_details_t_payment1` FOREIGN KEY (`payment`) REFERENCES `t_payment` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_card_details`
+--
+
+LOCK TABLES `t_card_details` WRITE;
+/*!40000 ALTER TABLE `t_card_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_card_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_cheque_details`
+--
+
+DROP TABLE IF EXISTS `t_cheque_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_cheque_details` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `payment` int(10) DEFAULT NULL,
+  `bank_branch` varchar(25) DEFAULT NULL,
+  `cheque_no` varchar(25) DEFAULT NULL,
+  `amount` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_cheque_details_t_payment1_idx` (`payment`),
+  KEY `fk_t_cheque_details_bank_branch1_idx` (`bank_branch`),
+  CONSTRAINT `fk_t_cheque_details_bank_branch1` FOREIGN KEY (`bank_branch`) REFERENCES `bank_branch` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_cheque_details_t_payment1` FOREIGN KEY (`payment`) REFERENCES `t_payment` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_cheque_details`
+--
+
+LOCK TABLES `t_cheque_details` WRITE;
+/*!40000 ALTER TABLE `t_cheque_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_cheque_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_grn`
+--
+
+DROP TABLE IF EXISTS `t_grn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_grn` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `supplier` int(10) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `amount` double(10,2) DEFAULT NULL,
+  `ref_no` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_grn_m_supplier1_idx` (`supplier`),
+  CONSTRAINT `fk_t_grn_m_supplier1` FOREIGN KEY (`supplier`) REFERENCES `m_supplier` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_grn`
+--
+
+LOCK TABLES `t_grn` WRITE;
+/*!40000 ALTER TABLE `t_grn` DISABLE KEYS */;
+INSERT INTO `t_grn` VALUES (4,1,'2016-09-20',1200.00,'R001'),(5,1,'2016-09-20',99.00,'N/N'),(6,1,'2016-09-20',1584.00,'N/N'),(7,2,'2016-09-20',990.00,'N/N'),(8,1,'2016-09-20',600.00,'N/N'),(9,2,'2016-09-20',1200.00,'N/N');
+/*!40000 ALTER TABLE `t_grn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_grn_item`
+--
+
+DROP TABLE IF EXISTS `t_grn_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_grn_item` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `grn` int(10) DEFAULT NULL,
+  `item` int(10) DEFAULT NULL,
+  `unit_price` double(10,2) DEFAULT NULL,
+  `qty` double(10,2) DEFAULT NULL,
+  `value` double(10,2) DEFAULT NULL,
+  `discount` double(10,2) DEFAULT NULL,
+  `net_value` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_grn_item_t_grn1_idx` (`grn`),
+  KEY `fk_t_grn_item_m_item1_idx` (`item`),
+  CONSTRAINT `fk_t_grn_item_m_item1` FOREIGN KEY (`item`) REFERENCES `m_item` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_grn_item_t_grn1` FOREIGN KEY (`grn`) REFERENCES `t_grn` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_grn_item`
+--
+
+LOCK TABLES `t_grn_item` WRITE;
+/*!40000 ALTER TABLE `t_grn_item` DISABLE KEYS */;
+INSERT INTO `t_grn_item` VALUES (7,7,5,100.00,10.00,1000.00,10.00,990.00),(8,8,5,100.00,6.00,600.00,0.00,600.00),(9,9,6,100.00,12.00,1200.00,0.00,1200.00);
+/*!40000 ALTER TABLE `t_grn_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_invoice`
+--
+
+DROP TABLE IF EXISTS `t_invoice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_invoice` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `customer` int(10) DEFAULT NULL,
+  `factory` int(10) NOT NULL,
+  `invoice_date` date DEFAULT NULL,
+  `amount` double(10,2) DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+  `isdelete` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_invoice_m_customer_idx` (`customer`),
+  KEY `fk_t_invoice_factory1_idx` (`factory`),
+  CONSTRAINT `fk_t_invoice_factory1` FOREIGN KEY (`factory`) REFERENCES `factory` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_invoice_m_customer` FOREIGN KEY (`customer`) REFERENCES `m_customer` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_invoice`
+--
+
+LOCK TABLES `t_invoice` WRITE;
+/*!40000 ALTER TABLE `t_invoice` DISABLE KEYS */;
+INSERT INTO `t_invoice` VALUES (1,1,2,'2016-09-20',200.00,'Issue To Customer',0),(2,1,2,'2016-09-20',200.00,'Issue To Customer',0),(3,1,2,'2016-09-20',200.00,'Reserved From Customer',0),(14,1,1,'2016-09-20',5000.00,'Reserved From Customer',0),(15,1,1,'2016-09-20',200.00,'Reserved From Customer',0);
+/*!40000 ALTER TABLE `t_invoice` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_invoice_item1`
+--
+
+DROP TABLE IF EXISTS `t_invoice_item1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_invoice_item1` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `invoice` int(10) DEFAULT NULL,
+  `item` int(10) DEFAULT NULL,
+  `unit_price` double(10,2) DEFAULT NULL,
+  `qty` int(10) DEFAULT NULL,
+  `value` double(10,2) DEFAULT NULL,
+  `discount` double(10,2) DEFAULT NULL,
+  `net_value` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_invoice_item_t_invoice1_idx` (`invoice`),
+  KEY `fk_t_invoice_item_m_item1_idx` (`item`),
+  CONSTRAINT `fk_t_invoice_item_m_item1` FOREIGN KEY (`item`) REFERENCES `m_item` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_invoice_item_t_invoice1` FOREIGN KEY (`invoice`) REFERENCES `t_invoice` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_invoice_item1`
+--
+
+LOCK TABLES `t_invoice_item1` WRITE;
+/*!40000 ALTER TABLE `t_invoice_item1` DISABLE KEYS */;
+INSERT INTO `t_invoice_item1` VALUES (10,14,5,200.00,1,200.00,0.00,200.00),(11,15,5,200.00,1,200.00,0.00,200.00);
+/*!40000 ALTER TABLE `t_invoice_item1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_invoice_patient_infomation`
+--
+
+DROP TABLE IF EXISTS `t_invoice_patient_infomation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_invoice_patient_infomation` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `invoice` int(10) NOT NULL,
+  `complains` varchar(100) DEFAULT NULL,
+  `hb_rx_left` varchar(25) DEFAULT NULL,
+  `hb_rx_right` varchar(25) DEFAULT NULL,
+  `hb_rx_sub_left` varchar(25) DEFAULT NULL,
+  `hb_rx_sub_right` varchar(25) DEFAULT NULL,
+  `auto_ref_left` varchar(25) DEFAULT NULL,
+  `auto_ref_right` varchar(25) DEFAULT NULL,
+  `ntc_left` varchar(25) DEFAULT NULL,
+  `ntc_right` varchar(25) DEFAULT NULL,
+  `va_without_glass_left` varchar(25) DEFAULT NULL,
+  `va_without_glass_right` varchar(25) DEFAULT NULL,
+  `va_with_ph_left` varchar(25) DEFAULT NULL,
+  `va_with_ph_right` varchar(25) DEFAULT NULL,
+  `va_with_glass_left` varchar(25) DEFAULT NULL,
+  `va_with_glass_right` varchar(25) DEFAULT NULL,
+  `dist_sph_left` varchar(25) DEFAULT NULL,
+  `dist_sph_right` varchar(25) DEFAULT NULL,
+  `dist_cyl_left` varchar(25) DEFAULT NULL,
+  `dist_cyl_right` varchar(25) DEFAULT NULL,
+  `dist_axis_left` varchar(25) DEFAULT NULL,
+  `dist_axis_right` varchar(25) DEFAULT NULL,
+  `near_sph_left` varchar(25) DEFAULT NULL,
+  `near_cyl_left` varchar(25) DEFAULT NULL,
+  `near_axis_left` varchar(25) DEFAULT NULL,
+  `near_sph_right` varchar(25) DEFAULT NULL,
+  `near_cyl_right` varchar(25) DEFAULT NULL,
+  `near_axis_right` varchar(25) DEFAULT NULL,
+  `lense_type` varchar(50) DEFAULT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  `refractive_error` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_invoice_patient_infomation_t_invoice1_idx` (`invoice`),
+  CONSTRAINT `fk_t_invoice_patient_infomation_t_invoice1` FOREIGN KEY (`invoice`) REFERENCES `t_invoice` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_invoice_patient_infomation`
+--
+
+LOCK TABLES `t_invoice_patient_infomation` WRITE;
+/*!40000 ALTER TABLE `t_invoice_patient_infomation` DISABLE KEYS */;
+INSERT INTO `t_invoice_patient_infomation` VALUES (11,14,'','','','','','','','','','','','','','','','null','null','null','null','null','null','null','null','null','null','null','null','','',''),(12,15,'','','','','','','','','','','','','','','','null','null','null','null','null','null','null','null','null','null','null','null','','','');
+/*!40000 ALTER TABLE `t_invoice_patient_infomation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_payment`
+--
+
+DROP TABLE IF EXISTS `t_payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_payment` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `transaction` int(10) DEFAULT NULL,
+  `total_amount` double(10,2) DEFAULT NULL,
+  `cash_amount` double(10,2) DEFAULT NULL,
+  `cheque_amount` double(10,2) DEFAULT NULL,
+  `card_amount` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`index_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_payment`
+--
+
+LOCK TABLES `t_payment` WRITE;
+/*!40000 ALTER TABLE `t_payment` DISABLE KEYS */;
+INSERT INTO `t_payment` VALUES (12,NULL,100.00,100.00,0.00,0.00),(13,NULL,100.00,100.00,0.00,0.00),(18,NULL,200.00,200.00,0.00,0.00),(19,NULL,200.00,200.00,0.00,0.00),(20,NULL,400.00,400.00,0.00,0.00),(21,NULL,200.00,200.00,0.00,0.00),(22,NULL,200.00,200.00,0.00,0.00),(23,NULL,90.00,80.00,10.00,0.00),(24,NULL,0.00,0.00,100.00,0.00),(25,NULL,200.00,200.00,0.00,0.00);
+/*!40000 ALTER TABLE `t_payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_stock_information`
+--
+
+DROP TABLE IF EXISTS `t_stock_information`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_stock_information` (
+  `item` date NOT NULL,
+  `stock` date NOT NULL,
+  `qty` date DEFAULT NULL,
+  PRIMARY KEY (`item`,`stock`),
+  KEY `fk_m_item_has_m_stock_m_stock1_idx` (`stock`),
+  CONSTRAINT `fk_m_item_has_m_stock_m_stock1` FOREIGN KEY (`stock`) REFERENCES `m_stock` (`inde_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_stock_information`
+--
+
+LOCK TABLES `t_stock_information` WRITE;
+/*!40000 ALTER TABLE `t_stock_information` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_stock_information` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_stock_ledger`
+--
+
+DROP TABLE IF EXISTS `t_stock_ledger`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_stock_ledger` (
+  `index_no` int(10) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `store` int(10) DEFAULT NULL,
+  `item` int(10) DEFAULT NULL,
+  `qty` double(10,2) DEFAULT NULL,
+  `form` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`index_no`),
+  KEY `fk_t_stock_ledger_m_item1_idx` (`item`),
+  KEY `fk_t_stock_ledger_store1_idx` (`store`),
+  CONSTRAINT `fk_t_stock_ledger_m_item1` FOREIGN KEY (`item`) REFERENCES `m_item` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_t_stock_ledger_store1` FOREIGN KEY (`store`) REFERENCES `store` (`index_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_stock_ledger`
+--
+
+LOCK TABLES `t_stock_ledger` WRITE;
+/*!40000 ALTER TABLE `t_stock_ledger` DISABLE KEYS */;
+INSERT INTO `t_stock_ledger` VALUES (11,'2016-09-20',2,5,12.00,'GRN'),(12,'2016-09-20',2,5,-1.00,'Invoice'),(13,'2016-09-20',2,5,1.00,'GRN'),(14,'2016-09-20',2,5,-1.00,'Invoice'),(15,'2016-09-20',2,5,-1.00,'Invoice'),(16,'2016-09-20',2,5,16.00,'GRN'),(18,'2016-09-20',2,5,-1.00,'Invoice'),(19,'2016-09-20',2,5,-1.00,'Invoice'),(20,'2016-09-20',2,5,10.00,'GRN'),(21,'2016-09-20',2,5,6.00,'GRN'),(22,'2016-09-20',2,6,12.00,'GRN'),(25,'2016-09-21',2,6,-12.00,'Stock Transfer'),(26,'2016-09-21',1,6,12.00,'Stock Transfer'),(27,'2016-09-21',1,6,-6.00,'Stock Transfer'),(28,'2016-09-21',2,6,6.00,'Stock Transfer');
+/*!40000 ALTER TABLE `t_stock_ledger` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `view_invoice_payment`
+--
+
+DROP TABLE IF EXISTS `view_invoice_payment`;
+/*!50001 DROP VIEW IF EXISTS `view_invoice_payment`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `view_invoice_payment` (
+  `invoice_no` int(10),
+  `date` date,
+  `cash` double(10,2),
+  `cheque` double(10,2),
+  `card` double(10,2),
+  `total` double(10,2)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `bal_qty`
+--
+
+/*!50001 DROP TABLE IF EXISTS `bal_qty`*/;
+/*!50001 DROP VIEW IF EXISTS `bal_qty`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `bal_qty` AS select `t_stock_ledger`.`item` AS `item`,sum(`t_stock_ledger`.`qty`) AS `balQty` from `t_stock_ledger` group by `t_stock_ledger`.`item` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `bal_qty_b`
+--
+
+/*!50001 DROP TABLE IF EXISTS `bal_qty_b`*/;
+/*!50001 DROP VIEW IF EXISTS `bal_qty_b`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `bal_qty_b` AS select `t_stock_ledger`.`item` AS `item`,sum(`t_stock_ledger`.`qty`) AS `balQty` from `t_stock_ledger` where (`t_stock_ledger`.`store` = 2) group by `t_stock_ledger`.`item` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `bal_qty_f`
+--
+
+/*!50001 DROP TABLE IF EXISTS `bal_qty_f`*/;
+/*!50001 DROP VIEW IF EXISTS `bal_qty_f`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `bal_qty_f` AS select `t_stock_ledger`.`item` AS `item`,sum(`t_stock_ledger`.`qty`) AS `balQty` from `t_stock_ledger` where (`t_stock_ledger`.`store` = 1) group by `t_stock_ledger`.`item` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `customer_invoice`
+--
+
+/*!50001 DROP TABLE IF EXISTS `customer_invoice`*/;
+/*!50001 DROP VIEW IF EXISTS `customer_invoice`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `customer_invoice` AS select `t_invoice`.`index_no` AS `invoice_no`,`t_invoice`.`invoice_date` AS `invoice_date`,`t_invoice`.`status` AS `status`,`m_customer`.`index_no` AS `customer_id`,`m_customer`.`name` AS `name`,`m_customer`.`contact_no` AS `contact_no`,`m_customer`.`nic` AS `nic`,`t_invoice`.`amount` AS `amount` from (`t_invoice` join `m_customer`) where (`m_customer`.`index_no` = `t_invoice`.`customer`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `customer_payment_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `customer_payment_view`*/;
+/*!50001 DROP VIEW IF EXISTS `customer_payment_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `customer_payment_view` AS select `customer_payment`.`index_no` AS `reciept_no`,`t_payment`.`cash_amount` AS `cash_amount`,`t_payment`.`cheque_amount` AS `cheque_amount`,`t_payment`.`card_amount` AS `card_amount`,`t_payment`.`total_amount` AS `total_amount`,`customer_payment`.`date` AS `date`,`customer_payment`.`is_advance` AS `is_advance`,`t_invoice`.`index_no` AS `invoice` from ((`customer_payment` join `t_payment`) join `t_invoice`) where ((`t_invoice`.`index_no` = `customer_payment`.`invoice`) and (`customer_payment`.`payment` = `t_payment`.`index_no`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `grn_search_item`
+--
+
+/*!50001 DROP TABLE IF EXISTS `grn_search_item`*/;
+/*!50001 DROP VIEW IF EXISTS `grn_search_item`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `grn_search_item` AS select `m_item`.`index_no` AS `index_no`,`m_item`.`code` AS `code`,`m_item`.`name` AS `item_name`,`m_brand`.`name` AS `brand_name`,`m_category`.`name` AS `category_name`,`m_item`.`sale_price` AS `sale_price`,`m_item`.`cost_price` AS `cost_price`,`m_item`.`isstock_item` AS `isstock_item`,ifnull(`bal_qty`.`balQty`,0.00) AS `bal_qty` from ((`m_category` join (`m_brand` join `m_item` on((`m_brand`.`index_no` = `m_item`.`brand`))) on((`m_category`.`index_no` = `m_item`.`category`))) left join `bal_qty` on((`m_item`.`index_no` = `bal_qty`.`item`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_grn`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_grn`*/;
+/*!50001 DROP VIEW IF EXISTS `search_grn`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_grn` AS select `t_grn`.`index_no` AS `grn_no`,`t_grn`.`date` AS `date`,`t_grn`.`amount` AS `amount`,`t_grn`.`ref_no` AS `ref_no`,`m_supplier`.`index_no` AS `supplier`,`m_supplier`.`name` AS `name`,`m_supplier`.`contact_no` AS `contact_no` from (`t_grn` join `m_supplier`) where (`m_supplier`.`index_no` = `t_grn`.`supplier`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_grn_item`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_grn_item`*/;
+/*!50001 DROP VIEW IF EXISTS `search_grn_item`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_grn_item` AS select `t_grn`.`index_no` AS `grn_no`,`m_item`.`code` AS `code`,`m_item`.`name` AS `name`,`m_brand`.`name` AS `brand`,`m_category`.`name` AS `category`,`t_grn_item`.`unit_price` AS `unit_price`,`t_grn_item`.`qty` AS `qty`,`t_grn_item`.`value` AS `value`,`t_grn_item`.`discount` AS `discount`,`t_grn_item`.`net_value` AS `net_value` from ((((`m_item` join `t_grn_item`) join `m_brand`) join `m_category`) join `t_grn`) where ((`t_grn`.`index_no` = `t_grn_item`.`grn`) and (`m_item`.`index_no` = `t_grn_item`.`item`) and (`m_brand`.`index_no` = `m_item`.`brand`) and (`m_category`.`index_no` = `m_item`.`category`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_grn_payment`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_grn_payment`*/;
+/*!50001 DROP VIEW IF EXISTS `search_grn_payment`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_grn_payment` AS select `t_grn`.`index_no` AS `grn_no`,`t_payment`.`index_no` AS `receipt_no`,`supplier_payment`.`date` AS `date`,`t_payment`.`cash_amount` AS `cash`,`t_payment`.`cheque_amount` AS `cheque`,`t_payment`.`total_amount` AS `total` from ((`t_grn` join `t_payment`) join `supplier_payment`) where ((`t_grn`.`index_no` = `supplier_payment`.`grn`) and (`t_payment`.`index_no` = `supplier_payment`.`payment`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_item_b`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_item_b`*/;
+/*!50001 DROP VIEW IF EXISTS `search_item_b`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_item_b` AS select `m_item`.`index_no` AS `index_no`,`m_item`.`code` AS `code`,`m_item`.`name` AS `item_name`,`m_brand`.`name` AS `brand_name`,`m_category`.`name` AS `category_name`,`m_item`.`sale_price` AS `sale_price`,`m_item`.`cost_price` AS `cost_price`,`m_item`.`isstock_item` AS `isstock_item`,ifnull(`bal_qty_b`.`balQty`,0.00) AS `bal_qty` from ((`m_category` join (`m_brand` join `m_item` on((`m_brand`.`index_no` = `m_item`.`brand`))) on((`m_category`.`index_no` = `m_item`.`category`))) left join `bal_qty_b` on((`m_item`.`index_no` = `bal_qty_b`.`item`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_item_f`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_item_f`*/;
+/*!50001 DROP VIEW IF EXISTS `search_item_f`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_item_f` AS select `m_item`.`index_no` AS `index_no`,`m_item`.`code` AS `code`,`m_item`.`name` AS `item_name`,`m_brand`.`name` AS `brand_name`,`m_category`.`name` AS `category_name`,`m_item`.`sale_price` AS `sale_price`,`m_item`.`cost_price` AS `cost_price`,`m_item`.`isstock_item` AS `isstock_item`,ifnull(`bal_qty_f`.`balQty`,0.00) AS `bal_qty` from ((`m_category` join (`m_brand` join `m_item` on((`m_brand`.`index_no` = `m_item`.`brand`))) on((`m_category`.`index_no` = `m_item`.`category`))) left join `bal_qty_f` on((`m_item`.`index_no` = `bal_qty_f`.`item`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `search_voucher`
+--
+
+/*!50001 DROP TABLE IF EXISTS `search_voucher`*/;
+/*!50001 DROP VIEW IF EXISTS `search_voucher`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `search_voucher` AS select `t_account_transaction`.`index_no` AS `index_no`,`t_account_transaction`.`date` AS `date`,`t_account_transaction`.`description` AS `description`,`t_account_transaction`.`credit` AS `credit`,`t_account_transaction`.`debit` AS `debit`,`main_category`.`name` AS `main_category`,`sub_category`.`name` AS `sub_category`,`m_account`.`type` AS `type` from (((`t_account_transaction` join `main_category`) join `sub_category`) join `m_account`) where ((`main_category`.`index_no` = `m_account`.`main_category`) and (`sub_category`.`index_no` = `m_account`.`sub_category`) and (`m_account`.`index_no` = `t_account_transaction`.`account`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_invoice_payment`
+--
+
+/*!50001 DROP TABLE IF EXISTS `view_invoice_payment`*/;
+/*!50001 DROP VIEW IF EXISTS `view_invoice_payment`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_invoice_payment` AS select `t_invoice`.`index_no` AS `invoice_no`,`customer_payment`.`date` AS `date`,`t_payment`.`cash_amount` AS `cash`,`t_payment`.`cheque_amount` AS `cheque`,`t_payment`.`card_amount` AS `card`,`t_payment`.`total_amount` AS `total` from ((`t_invoice` join `customer_payment`) join `t_payment`) where ((`t_payment`.`index_no` = `customer_payment`.`payment`) and (`customer_payment`.`invoice` = `t_invoice`.`index_no`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-09-21 12:31:12

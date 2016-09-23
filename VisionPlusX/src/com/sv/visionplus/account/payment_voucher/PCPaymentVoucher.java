@@ -6,19 +6,28 @@
 package com.sv.visionplus.account.payment_voucher;
 
 import com.sv.visionplus.account.payment_voucher.model.MAccount;
+import com.sv.visionplus.account.payment_voucher.model.MainCategory;
+import com.sv.visionplus.account.payment_voucher.model.PaymentVoucherMix;
+import com.sv.visionplus.account.payment_voucher.model.SearchVoucherMix;
+import com.sv.visionplus.account.payment_voucher.model.SubCategory;
 import com.sv.visionplus.account.payment_voucher.model.TAccountTransaction;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
+import com.sv.visionplus.master.item.model.MItem;
+import com.sv.visionplus.resource.accountType.AccountType;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.util.Date;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import visionplusx.Home;
+import visionplusx.logFile.LogFileModel;
 
 /**
  *
  * @author Mohan
  */
-public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction> {
+public class PCPaymentVoucher extends AbstractObjectCreator<PaymentVoucherMix> {
 
     /**
      * Creates new form PCInvoice
@@ -29,6 +38,7 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         txtMainHidden.setCValueEditable(false);
         txtSubHidden.setCValueEditable(false);
         model = (DefaultTableModel) tblVoucher.getModel();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -46,8 +56,20 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         jLabel3 = new javax.swing.JLabel();
         txtMainHidden = new com.sv.visionplus.util.component.textfield.CStringField();
         txtSubHidden = new com.sv.visionplus.util.component.textfield.CStringField();
-        comboMainCategory = new com.sv.visionplus.util.component.combobox.CComboBox();
-        comboSubCategory = new com.sv.visionplus.util.component.combobox.CComboBox();
+        comboMainCategory = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return allMainCategory();
+            }
+
+        };
+        comboSubCategory = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return allSubCategory();
+            }
+
+        };
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVoucher = new javax.swing.JTable();
@@ -63,18 +85,6 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         jLabel2.setText("Main Category :");
 
         jLabel3.setText("Sub Category :");
-
-        comboMainCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboMainCategoryMouseClicked(evt);
-            }
-        });
-
-        comboSubCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboSubCategoryMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -131,24 +141,29 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
 
         tblVoucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Date", "Description", "Main Category", "Sub Category", "Amount"
+                "#", "Date", "Description", "Main Category", "Sub Category", "Amount"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblVoucher.setToolTipText("");
+        tblVoucher.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tblVoucher);
+        tblVoucher.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblVoucher.getColumnModel().getColumnCount() > 0) {
+            tblVoucher.getColumnModel().getColumn(0).setResizable(false);
+            tblVoucher.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblVoucher.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabel6.setText("Daily Voucher Amount:");
 
@@ -195,22 +210,6 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboMainCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboMainCategoryMouseClicked
-        if (comboMainCategory.getCValue().equals("other")) {
-            txtMainHidden.setCValueEditable(true);
-        } else {
-            txtMainHidden.setCValueEditable(false);
-        }
-    }//GEN-LAST:event_comboMainCategoryMouseClicked
-
-    private void comboSubCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboSubCategoryMouseClicked
-        if (comboSubCategory.getCValue().equals("other")) {
-            txtSubHidden.setCValueEditable(true);
-        } else {
-            txtSubHidden.setCValueEditable(false);
-        }
-    }//GEN-LAST:event_comboSubCategoryMouseClicked
-
     @Override
     public void setIdealMode() {
         txtDate.setCValue(new Date());
@@ -227,18 +226,17 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
 
     @Override
     public void setNewMode() {
+        mix = new PaymentVoucherMix();
+
         txtDate.setCValue(new Date());
         txtDate.setCValueEditable(false);
         txtDescription.setCValueEditable(true);
-        comboMainCategory.setCValue("A");
-        comboMainCategory.setCValue("other");
-        comboSubCategory.setCValue("B");
-        comboSubCategory.setCValue("other");
         txtMainHidden.setCValueEditable(true);
         txtSubHidden.setCValueEditable(true);
         txtAmount.setCValueEditable(true);
         txtTotalAmount.setCValueEditable(false);
-//        model.addRow(null);
+        model.setRowCount(0);
+        setAllVouchers();
     }
 
     @Override
@@ -252,7 +250,6 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         txtSubHidden.setCValueEditable(true);
         txtAmount.setCValueEditable(true);
         txtTotalAmount.setCValueEditable(false);
-//        model.addRow(null);
     }
 
     @Override
@@ -266,11 +263,76 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
         txtAmount.resetCValue();
         txtTotalAmount.resetCValue();
         model.setRowCount(0);
+        setAllVouchers();
     }
 
     @Override
     public void initObject() throws VPException {
 
+        MainCategory category = new MainCategory();
+        String comboValue = comboMainCategory.getCValue().toString();
+        if (!comboValue.isEmpty()) {
+            String mainCategoryId = comboValue.split("-")[0];
+            String mainCategoryName = comboValue.split("-")[1];
+            if (mainCategoryId.equals("0")) {
+                category.setIndexNo(0);
+                category.setName(txtMainHidden.getCValue());
+            } else {
+                category.setName(mainCategoryName);
+                category.setIndexNo(Integer.parseInt(mainCategoryId));
+            }
+        } else {
+            category.setIndexNo(0);//auto Increment
+            category.setName(txtMainHidden.getCValue());
+        }
+        mix.setMainCategory(category);
+
+        SubCategory subCategory = new SubCategory();
+        String comboValueSub = comboSubCategory.getCValue().toString();
+        if (!comboValue.isEmpty()) {
+            String subCategoryId = comboValueSub.split("-")[0];
+            String SubCategoryName = comboValueSub.split("-")[1];
+            if (subCategoryId.equals("0")) {
+                subCategory.setIndexNo(0);
+                subCategory.setName(txtSubHidden.getCValue());
+            } else {
+                subCategory.setIndexNo(Integer.parseInt(subCategoryId));
+                subCategory.setName(SubCategoryName);
+            }
+        } else {
+            subCategory.setIndexNo(0);//auto Increment
+            subCategory.setName(txtMainHidden.getCValue());
+        }
+        mix.setSubCategory(subCategory);
+
+        MAccount account = new MAccount();
+        account.setDescription(txtDescription.getCValue());
+//        account.setIndexNo(0);//auto increment
+//        account.setMainCategroy(0);//auto increment
+//        account.setSubCategory(0);//auto increment
+        account.setType(AccountType.VOUCHER);
+        mix.setAccount(account);
+
+        TAccountTransaction transaction = new TAccountTransaction();
+//        transaction.setAccount(0);//dont know
+        transaction.setCredit(txtAmount.getCValue());
+        transaction.setDate(new Date());
+        transaction.setDebit(0.00);
+        transaction.setDescription(txtDescription.getCValue());
+//        transaction.setIndexNo();auto increment
+        mix.setAccountTransaction(transaction);
+
+        LogFileModel logFile = new LogFileModel();
+        logFile.setDate(new Date());
+        logFile.setFormName("Payment Voucher");
+//        logFile.setIndexNo(0);//auto
+        logFile.setRemarks("new Payment Voucher Saved");
+        logFile.setTime(FormatterUtil.getInstance().getTime());
+        logFile.setTransactionType("Save");
+        logFile.setUser(Home.getInstance().getUser().getIndexNo());
+        logFile.setUserName(Home.getInstance().getUser().getName());
+        logFile.setValue(txtAmount.getCValue());
+        mix.setFileModel(logFile);
     }
 
     @Override
@@ -279,12 +341,13 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
     }
 
     @Override
-    protected void setValueAbstract(TAccountTransaction object) {
+    protected void setValueAbstract(PaymentVoucherMix mix) {
+        this.mix = mix;
     }
 
     @Override
-    protected TAccountTransaction getValueAbstract() {
-        return null;
+    protected PaymentVoucherMix getValueAbstract() {
+        return this.mix;
     }
 
 
@@ -308,7 +371,47 @@ public class PCPaymentVoucher extends AbstractObjectCreator<TAccountTransaction>
     private com.sv.visionplus.util.component.textfield.CStringField txtSubHidden;
     private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalAmount;
     // End of variables declaration//GEN-END:variables
-    private AbstractTransactionForm<TInvoice> transactionForm;
+    private AbstractTransactionForm<MItem> transactionForm;
     private DefaultTableModel model;
+    private PaymentVoucherMix mix;
 
+    private List<MainCategory> allMainCategory() {
+        return MainCategoryDAO.getInstance().allCategory();
+    }
+
+    private List<SubCategory> allSubCategory() {
+        return SubCategoryDAO.getInstance().allCategory();
+    }
+
+    private void setAllVouchers() {
+        List<SearchVoucherMix> allVouchers = SearchVoucherDAO.getInstance().searchVouchers(FormatterUtil.getInstance().formatDate(new Date()),AccountType.VOUCHER);
+        addData(allVouchers);
+    }
+
+    private void addData(List<SearchVoucherMix> allVouchers) {
+        model.setRowCount(0);
+        for (SearchVoucherMix voucher : allVouchers) {
+            addData(voucher);
+        }
+        if (model.getRowCount() > 0) {
+            double totalValue = 0;
+            for (int i = 0; i < model.getRowCount(); i++) {
+                totalValue += Double.parseDouble(model.getValueAt(i, 5).toString());
+            }
+            txtTotalAmount.setCValue(totalValue);
+        }
+
+    }
+
+    private void addData(SearchVoucherMix voucher) {
+        Object[] rowData = {
+            voucher.getIndex_no(),
+            voucher.getDate(),
+            voucher.getDescription(),
+            voucher.getMain_category(),
+            voucher.getSub_category(),
+            voucher.getCredit()
+        };
+        model.addRow(rowData);
+    }
 }

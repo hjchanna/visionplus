@@ -133,14 +133,14 @@
         <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtSubHidden">
         </Component>
         <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="comboMainCategory">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comboMainCategoryMouseClicked"/>
-          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;@Override&#xa;    public List getComboData(){&#xa;        return allMainCategory();&#xa;    }&#xa;&#xa;&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="comboSubCategory">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comboSubCategoryMouseClicked"/>
-          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;@Override&#xa;    public List getComboData(){&#xa;        return allSubCategory();&#xa;    }&#xa;&#xa;}"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -190,7 +190,8 @@
             <Component class="javax.swing.JTable" name="tblVoucher">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
+                  <Table columnCount="6" rowCount="0">
+                    <Column editable="false" title="#" type="java.lang.Object"/>
                     <Column editable="false" title="Date" type="java.lang.Object"/>
                     <Column editable="false" title="Description" type="java.lang.Object"/>
                     <Column editable="false" title="Main Category" type="java.lang.Object"/>
@@ -198,9 +199,10 @@
                     <Column editable="false" title="Amount" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                  <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <TableColumnModel selectionModel="1">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -221,12 +223,18 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>

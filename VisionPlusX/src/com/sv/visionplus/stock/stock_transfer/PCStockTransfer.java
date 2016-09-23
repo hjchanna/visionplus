@@ -7,23 +7,30 @@ package com.sv.visionplus.stock.stock_transfer;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
-import com.sv.visionplus.stock.stock_transfer.model.MBrand;
-import com.sv.visionplus.stock.stock_transfer.model.MCategory;
+import com.sv.visionplus.stock.stock_transfer.dialog.ItemDialog;
 import com.sv.visionplus.stock.stock_transfer.model.MItem;
+import com.sv.visionplus.stock.stock_transfer.model.StockTransferMix;
+import com.sv.visionplus.stock.stock_transfer.model.StockTransferModelMix;
 import com.sv.visionplus.stock.stock_transfer.model.Store;
 import com.sv.visionplus.stock.stock_transfer.model.TStockLedger;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.util.formatter.FormatterUtil;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import visionplusx.Home;
+import visionplusx.logFile.LogFileModel;
 
 /**
  *
  * @author Mohan
  */
-public class PCStockTransfer extends AbstractObjectCreator<MItem> {
+public class PCStockTransfer extends AbstractObjectCreator<StockTransferModelMix> {
+
+    private StockTransferMix mix;
+    private StockTransferModelMix mix1;
 
     /**
      * Creates new form PCInvoice
@@ -33,6 +40,7 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
 
         this.transactionForm = transactionForm;
         model = (DefaultTableModel) tblItem.getModel();
+        addStoreToCombo();
 
     }
 
@@ -46,17 +54,17 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
         jLabel4 = new javax.swing.JLabel();
         cmboTo = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCount = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblItem = new javax.swing.JTable();
-        txtQty = new com.sv.visionplus.util.component.textfield.CIntegerField();
-        btnTransfer = new javax.swing.JButton();
-        cmboSelectionType = new javax.swing.JComboBox();
-        txtdescription = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtName = new com.sv.visionplus.util.component.textfield.CStringField();
         btnSearch = new javax.swing.JButton();
-        cStringField1 = new com.sv.visionplus.util.component.textfield.CStringField();
-        cStringField2 = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtBrand = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtCategory = new com.sv.visionplus.util.component.textfield.CStringField();
+        txtCode = new com.sv.visionplus.util.component.textfield.CStringField();
+        jButton1 = new javax.swing.JButton();
+        txtQty = new com.sv.visionplus.util.component.textfield.CDoubleField();
 
         jLabel3.setText("From :");
 
@@ -65,13 +73,18 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
                 cmboFromItemStateChanged(evt);
             }
         });
+        cmboFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmboFromActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("To :");
 
         jLabel1.setText("No of Item :");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("2");
+        lblCount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCount.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,7 +102,7 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblCount)
                 .addContainerGap(226, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -102,7 +115,7 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
                     .addComponent(jLabel4)
                     .addComponent(cmboTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblCount))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -137,19 +150,17 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
             tblItem.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
-        btnTransfer.setText("Transfer >>");
-        btnTransfer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTransferActionPerformed(evt);
-            }
-        });
-
-        cmboSelectionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item Code", "Name", "Brand", "Category" }));
-
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -160,20 +171,21 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(btnTransfer)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmboSelectionType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtdescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cStringField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cStringField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,17 +193,16 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmboSelectionType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtdescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch)
-                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cStringField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cStringField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTransfer)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -212,44 +223,50 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmboFromItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmboFromItemStateChanged
-        setItem();
+        model.setRowCount(0);
+        lblCount.setText("0");
+        txtBrand.resetCValue();
+        txtCategory.resetCValue();
+        txtCode.resetCValue();
+        txtName.resetCValue();
+        txtQty.resetCValue();
     }//GEN-LAST:event_cmboFromItemStateChanged
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String type = cmboSelectionType.getSelectedItem().toString();
-        String desc = txtdescription.getCValue();
-        if (!"".equals(desc)) {
-            searchItem(type, desc);
-        } else {
-            setItem();
-        }
+        int storreId = Integer.parseInt(cmboFrom.getSelectedItem().toString().split("-")[0]);
+        ItemDialog dialog = new ItemDialog(null, true);
+        dialog.setFrame(this, storreId);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemMouseClicked
-        if (tblItem.getSelectedRowCount() == 1) {
-            txtdescription.setCValue(model.getValueAt(tblItem.getSelectedRow(), 1).toString());
-            cmboSelectionType.setSelectedItem("Item Code");
-        }
+
     }//GEN-LAST:event_tblItemMouseClicked
 
-    private void btnTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferActionPerformed
-        TStockLedger ledger=new TStockLedger();
-        ledger.setDate(FormatterUtil.getInstance().formatDate(new Date()));
-        ledger.setForm("Stock Transfer");
-//        ledger.setIndexNo(0); //auto Increment
-        ledger.setItem(Integer.parseInt(model.getValueAt(tblItem.getSelectedRow(), 0).toString())); 
-        ledger.setQty(Integer.parseInt(txtQty.getText()));
-//        ledger.setStore(WIDTH);
-    }//GEN-LAST:event_btnTransferActionPerformed
+    private void cmboFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmboFromActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmboFromActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (txtQty.getCValue() > 0) {
+            if (mix.getQtyOnHand() >= txtQty.getCValue()) {
+                addData(mix);
+            }else{
+            JOptionPane.showMessageDialog(null, "Out of Range Qty");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Insert Qty..");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     @Override
     public void setIdealMode() {
         cmboFrom.setEnabled(false);
         cmboTo.setEnabled(false);
-        cmboSelectionType.setEnabled(false);
-        txtdescription.setCValueEditable(false);
+
+        txtName.setCValueEditable(false);
         model.setRowCount(0);
-        btnTransfer.setEnabled(false);
+
         txtQty.setCValueEditable(false);
         btnSearch.setEnabled(false);
 
@@ -257,13 +274,15 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
 
     @Override
     public void setNewMode() {
+        mix=new StockTransferMix();
+        mix1=new StockTransferModelMix();
+        
         cmboFrom.setEnabled(true);
         cmboTo.setEnabled(true);
-        loadStore();
-        cmboSelectionType.setEnabled(true);
-        txtdescription.setCValueEditable(true);
+
+        txtName.setCValueEditable(true);
         model.setRowCount(0);
-        btnTransfer.setEnabled(true);
+
         txtQty.setCValueEditable(true);
         btnSearch.setEnabled(true);
 
@@ -273,11 +292,10 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
     public void setEditMode() {
         cmboFrom.setEnabled(true);
         cmboTo.setEnabled(true);
-        loadStore();
-        cmboSelectionType.setEnabled(true);
-        txtdescription.setCValueEditable(true);
+
+        txtName.setCValueEditable(true);
         model.setRowCount(0);
-        btnTransfer.setEnabled(true);
+
         txtQty.setCValueEditable(true);
         btnSearch.setEnabled(true);
 
@@ -287,10 +305,10 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
     public void resetFields() {
         cmboFrom.setEnabled(false);
         cmboTo.setEnabled(false);
-        cmboSelectionType.setEnabled(false);
-        txtdescription.setCValueEditable(false);
+
+        txtName.setCValueEditable(false);
         model.setRowCount(0);
-        btnTransfer.setEnabled(false);
+
         txtQty.setCValueEditable(false);
         btnSearch.setEnabled(false);
 
@@ -299,6 +317,45 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
     @Override
     public void initObject() throws VPException {
 
+        List<TStockLedger> ledgerList = new ArrayList<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+
+            TStockLedger ledger = new TStockLedger();
+            ledger.setDate(new Date());
+            ledger.setForm("Stock Transfer");
+//        ledger.setIndexNo(0);auto
+            ledger.setItem(Integer.parseInt(model.getValueAt(i, 0).toString()));
+            double qty = Double.parseDouble(model.getValueAt(i, 5).toString());
+            ledger.setQty((qty - qty) - qty);//(- Qty)
+            ledger.setStore(mix.getStoreId());
+
+            ledgerList.add(ledger);
+
+            TStockLedger ledger2 = new TStockLedger();
+            ledger2.setDate(new Date());
+            ledger2.setForm("Stock Transfer");
+//        ledger2.setIndexNo(0);auto
+            ledger2.setItem(Integer.parseInt(model.getValueAt(i, 0).toString()));
+//            double qty = Double.parseDouble(model.getValueAt(i, 5).toString());
+            ledger2.setQty(qty);//(- Qty)
+            int storeId = Integer.parseInt(cmboTo.getSelectedItem().toString().split("-")[0]);
+            ledger2.setStore(storeId);
+
+            ledgerList.add(ledger2);
+            mix1.setLedger(ledgerList);
+        }
+
+        LogFileModel logFile = new LogFileModel();
+        logFile.setDate(new Date());
+        logFile.setFormName("Stock Transfer");
+//        logFile.setIndexNo(0);//auto
+        logFile.setRemarks("Stock Transfer");
+        logFile.setTime(FormatterUtil.getInstance().getTime());
+        logFile.setTransactionType("Save");
+        logFile.setUser(Home.getInstance().getUser().getIndexNo());
+        logFile.setUserName(Home.getInstance().getUser().getName());
+        logFile.setValue(0.00);
+        mix1.setLogFile(logFile);
     }
 
     @Override
@@ -307,99 +364,70 @@ public class PCStockTransfer extends AbstractObjectCreator<MItem> {
     }
 
     @Override
-    protected void setValueAbstract(MItem item) {
+    protected void setValueAbstract(StockTransferModelMix mix) {
+    this.mix1=mix;
     }
+    
 
     @Override
-    protected MItem getValueAbstract() {
-        return null;
+    protected StockTransferModelMix getValueAbstract() {
+        return mix1;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnTransfer;
-    private com.sv.visionplus.util.component.textfield.CStringField cStringField1;
-    private com.sv.visionplus.util.component.textfield.CStringField cStringField2;
     private javax.swing.JComboBox cmboFrom;
-    private javax.swing.JComboBox cmboSelectionType;
     private javax.swing.JComboBox cmboTo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JTable tblItem;
-    private com.sv.visionplus.util.component.textfield.CIntegerField txtQty;
-    private com.sv.visionplus.util.component.textfield.CStringField txtdescription;
+    private com.sv.visionplus.util.component.textfield.CStringField txtBrand;
+    private com.sv.visionplus.util.component.textfield.CStringField txtCategory;
+    private com.sv.visionplus.util.component.textfield.CStringField txtCode;
+    private com.sv.visionplus.util.component.textfield.CStringField txtName;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtQty;
     // End of variables declaration//GEN-END:variables
-    private AbstractTransactionForm<TInvoice> transactionForm;
+    private AbstractTransactionForm<MItem> transactionForm;
     DefaultTableModel model;
 
-    private void loadStore() {
+    private void addStoreToCombo() {
         List<Store> allStore = StoreDAO.getInstance().allStore();
-        System.out.println(allStore.size());
-        for (Store store : allStore) {
-            cmboFrom.addItem(store.getIndexNo() + " :" + store.getName());
-            cmboTo.addItem(store.getIndexNo() + " :" + store.getName());
-        }
-
-    }
-
-    private void addData(List<TStockLedger> searchItem) {
-        model.setRowCount(0);
-        for (TStockLedger stock : searchItem) {
-
-            MItem item = ItemDAO.getInstance().searchItem(stock.getItem());
-            MBrand brand = BrandDAO.getInstance().searchBrand(item.getBrand());
-            MCategory category = CategoryDAO.getInstance().searchCategory(item.getCategory());
-
-            Object[] rowData = {
-                item.getIndexNo(),
-                item.getCode(),
-                item.getName(),
-                brand.getName(),
-                category.getName(),
-                stock.getQty()
-            };
-            model.addRow(rowData);
-        }
-    }
-
-    private void searchItem(String type, String desc) {
-        if ("Item Code".equals(type)) {
-            removeRow(1, desc);
-        }
-        if ("Name".equals(type)) {
-            removeRow(2, desc);
-        }
-        if ("Brand".equals(type)) {
-            removeRow(3, desc);
-        }
-        if ("Category".equals(type)) {
-            removeRow(4, desc);
-        }
-    }
-
-    private void removeRow(int i, String desc) {
-        if (model.getRowCount() > 0) {
-            for (int j = 0; j < model.getRowCount(); j++) {
-                if (!model.getValueAt(j, i).toString().equals(desc)) {
-                    model.removeRow(j);
-                }
+        if (allStore != null) {
+            for (Store store : allStore) {
+                cmboFrom.addItem(store.getIndexNo() + "-" + store.getName());
+                cmboTo.addItem(store.getIndexNo() + "-" + store.getName());
             }
         }
     }
 
-    private void setItem() {
-        String from = cmboFrom.getSelectedItem().toString();
-        if (from != null) {
-            int storeId = Integer.parseInt(from.substring(0, 1));
-            List<TStockLedger> searchItem = StockLedgerDAO.getInstance().searchItem(storeId);
-            addData(searchItem);
+    public void setItem(StockTransferMix mix) {
+        this.mix = mix;
+        txtCode.setCValue(mix.getCode());
+        txtBrand.setCValue(mix.getBrand());
+        txtCategory.setCValue(mix.getCategory());
+        txtName.setCValue(mix.getName());
+        txtQty.setCValue(0.00);
 
-        }
     }
+
+    private void addData(StockTransferMix mix) {
+        Object[] rowData = {
+            mix.getItemNo(),
+            mix.getCode(),
+            mix.getName(),
+            mix.getBrand(),
+            mix.getCategory(),
+            txtQty.getCValue()
+        };
+        model.addRow(rowData);
+        lblCount.setText(model.getRowCount() + "");
+    }
+
 }

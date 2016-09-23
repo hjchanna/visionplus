@@ -1,6 +1,5 @@
 package com.sv.visionplus.stock.stock_transfer.model;
 
-import com.sv.visionplus.stock.stock_adjustment.model.*;
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
@@ -16,7 +15,7 @@ public class TStockLedger {
     private Integer indexNo;
     private Integer store;
     private Integer item;
-    private String date;
+    private Date date;
     private double qty;
     private String form;
 
@@ -44,11 +43,11 @@ public class TStockLedger {
         this.item = item;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

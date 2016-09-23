@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class ItemService {
 
+    private Connection connection;
     public static ItemService INSTANCE;
 
     public static ItemService getInstance() {
@@ -25,18 +26,11 @@ public class ItemService {
     }
 
     public ItemService() {
-
-    }
-
-    public List<ItemMix> getAllItems() {
-        List<ItemMix> list = new ArrayList<>();
         try {
-            Connection connection = DatabaseUtil.getInstance().openConnection();
-            list = ItemFormDAO.getInstance().getAllItems(connection);
+            connection = DatabaseUtil.getInstance().openConnection();
         } catch (SQLException ex) {
             Logger.getLogger(ItemService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
 
     }
 
@@ -44,9 +38,7 @@ public class ItemService {
         
         List<ItemMix> list = new ArrayList<>();
         try {
-            Connection connection = DatabaseUtil.getInstance().openConnection();
             list = ItemFormDAO.getInstance().getSearchResult(connection, item);
-            System.out.println(list.size());
         } catch (SQLException ex) {
             Logger.getLogger(ItemService.class.getName()).log(Level.SEVERE, null, ex);
         }

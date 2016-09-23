@@ -8,24 +8,32 @@ package com.sv.visionplus.transaction.customer_payment;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
-import com.sv.visionplus.transaction.customer_payment.model.TPayment;
+import com.sv.visionplus.transaction.customer_payment.model.CustomerPaymentMix;
 
 /**
  *
  * @author KAZA
  */
-public class CustomerPaymentForm extends AbstractTransactionForm<TPayment> {
-
+public class CustomerPaymentForm extends AbstractTransactionForm<CustomerPaymentMix> {
+private PCCustomerPayment customerPayment;
     @Override
-    protected AbstractTransactionFormService<TPayment> getTransactionFormService() {
-//        return new CustomerPaymentService();
-        return null;
+    protected AbstractTransactionFormService<CustomerPaymentMix> getTransactionFormService() {
+        return new CustomerPaymentService();
     
     }
 
     @Override
-    protected AbstractObjectCreator<TPayment> getObjectCreator() {
-        return new PCCustomerPayment(this);
+    protected AbstractObjectCreator<CustomerPaymentMix> getObjectCreator() {
+        customerPayment= new PCCustomerPayment(this);
+        return customerPayment;
+    }
+
+    @Override
+    public void doSave() {
+        super.doSave(); 
+        if (customerPayment!=null) {
+            customerPayment.resetFields();
+        }
     }
 
    

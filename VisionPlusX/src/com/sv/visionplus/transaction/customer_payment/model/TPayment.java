@@ -18,10 +18,10 @@ public class TPayment {
     @VPId
     private Integer indexNo;
     private Integer transaction;
-    private double totalAmont;
-    private double cashAmont;
-    private double cardAmont;
-    private double chequeAmont;
+    private double totalAmount;
+    private double cashAmount;
+    private double cardAmount;
+    private double chequeAmount;
 
     public Integer getIndexNo() {
         return indexNo;
@@ -40,35 +40,35 @@ public class TPayment {
     }
 
     public double getTotalAmont() {
-        return totalAmont;
+        return totalAmount;
     }
 
     public void setTotalAmont(double totalAmont) {
-        this.totalAmont = totalAmont;
+        this.totalAmount = totalAmont;
     }
 
     public double getCashAmont() {
-        return cashAmont;
+        return cashAmount;
     }
 
     public void setCashAmont(double cashAmont) {
-        this.cashAmont = cashAmont;
+        this.cashAmount = cashAmont;
     }
 
     public double getCardAmont() {
-        return cardAmont;
+        return cardAmount;
     }
 
     public void setCardAmont(double cardAmont) {
-        this.cardAmont = cardAmont;
+        this.cardAmount = cardAmont;
     }
 
     public double getChequeAmont() {
-        return chequeAmont;
+        return chequeAmount;
     }
 
     public void setChequeAmont(double chequeAmont) {
-        this.chequeAmont = chequeAmont;
+        this.chequeAmount = chequeAmont;
     }
 
 }

@@ -1,27 +1,29 @@
 package com.sv.visionplus.transaction.grn.dialog.item.model;
 
+import com.sv.visionplus.util.database.annotation.VPTable;
+
 /**
  * @author Nidura Prageeth
  */
+@VPTable("grn_search_item")
 public class ItemMix {
 
+    private Integer index_no;
     private String code;
-    private String name;
-    private String brand;
-    private String category;
-    private Double salePrice;
-    private Double costPrice;
+    private String item_name;
+    private String brand_name;
+    private String category_name;
+    private Double sale_price;
+    private Double cost_price;
+    private boolean isstock_item;
+    private double bal_qty;
 
-    public ItemMix() {
+    public Integer getIndex_no() {
+        return index_no;
     }
 
-    public ItemMix(String code, String name, String brand, String category, Double salePrice, Double costPrice) {
-        this.code = code;
-        this.name = name;
-        this.brand = brand;
-        this.category = category;
-        this.salePrice = salePrice;
-        this.costPrice = costPrice;
+    public void setIndex_no(Integer index_no) {
+        this.index_no = index_no;
     }
 
     public String getCode() {
@@ -32,44 +34,61 @@ public class ItemMix {
         this.code = code;
     }
 
-    public String getName() {
-        return name;
+    public String getItem_name() {
+        return item_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getBrand_name() {
+        return brand_name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setBrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategory_name() {
+        return category_name;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
-    public Double getSalePrice() {
-        return salePrice;
+    public Double getSale_price() {
+        return sale_price;
     }
 
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
+    public void setSale_price(Double sale_price) {
+        this.sale_price = sale_price;
     }
 
-    public Double getCostPrice() {
-        return costPrice;
+    public Double getCost_price() {
+        return cost_price;
     }
 
-    public void setCostPrice(Double costPrice) {
-        this.costPrice = costPrice;
+    public void setCost_price(Double cost_price) {
+        this.cost_price = cost_price;
     }
 
+    public boolean isIsstock_item() {
+        return isstock_item;
+    }
+
+    public void setIsstock_item(boolean isstock_item) {
+        this.isstock_item = isstock_item;
+    }
+
+    public Double getBalQty() {
+        return bal_qty;
+    }
+
+    public void setBalQty(Double bal_qty) {
+        this.bal_qty = bal_qty;
+    }
+
+    
 }

@@ -1,9 +1,6 @@
 package com.sv.visionplus.master.item;
 
-import com.sv.visionplus.master.customer.*;
 import com.sv.visionplus.base.AbstractObjectCreator;
-import com.sv.visionplus.master.customer.model.MCustomer;
-import com.sv.visionplus.master.item.brand.BrandFormDAO;
 import com.sv.visionplus.master.item.brand.BrandService;
 import com.sv.visionplus.master.item.brand.PCBrand;
 import com.sv.visionplus.master.item.brand.model.MBrand;
@@ -12,12 +9,7 @@ import com.sv.visionplus.master.item.category.PCCategory;
 import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.master.item.model.MItem;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.util.formatter.FormatterUtil;
-import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import visionplusx.controller.SystemService;
 
 /**
  *
@@ -338,18 +330,14 @@ public class PCItem extends AbstractObjectCreator<MItem> {
     private MItem item;
     private MBrand brand;
 
-    void getAllBrands() {
-        List<MBrand> allBrands = BrandService.getInstance().getAllBrands();
-        for (MBrand allBrand : allBrands) {
-            comboBrand.addItem(allBrand.getIndexNo() + " " + allBrand.getName());
-        }
+    List<MBrand> getAllBrands() {
+        return BrandService.getInstance().getAllBrands();
+        
     }
 
-    void getAllCategory() {
-        List<MCategory> allCategory = CategoryService.getInstance().getAllCategory();
-        for (MCategory allCategory1 : allCategory) {
-            comboCategory.addItem(allCategory1.getIndexNo() + " " + allCategory1.getName());
-        }
+    List<MCategory> getAllCategory() {
+        return CategoryService.getInstance().getAllCategory();
+        
     }
 
     public void setBrand(MBrand brand) {

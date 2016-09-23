@@ -7,29 +7,36 @@ package com.sv.visionplus.transaction.grn;
 
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.grn.model.TGrn;
+import com.sv.visionplus.transaction.grn.model.GrnMix;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author KAZA
  */
-public class GrnService extends AbstractTransactionFormService<TGrn>{
+public class GrnService extends AbstractTransactionFormService<GrnMix>{
 
     @Override
-    protected TGrn select(Integer indexNo) throws VPException {
+    protected GrnMix select(Integer indexNo) throws VPException {
         return null;
     }
 
     @Override
-    protected void save(TGrn object) throws VPException {
+    protected void save(GrnMix grnMix) throws VPException {
+        int grnId = GrnDAO.getInstance().saveGrn(grnMix);
+        if (grnId>0) {
+            JOptionPane.showMessageDialog(null, grnId+" Grn Saved Successfully..");
+        }else{
+            JOptionPane.showMessageDialog(null, grnId+" Grn Saved Fail..");
+        }
     }
 
     @Override
-    protected void update(TGrn object) throws VPException {
+    protected void update(GrnMix grnMix) throws VPException {
     }
 
     @Override
-    protected void delete(TGrn object) throws VPException {
+    protected void delete(GrnMix grnMix) throws VPException {
     }
     
 }

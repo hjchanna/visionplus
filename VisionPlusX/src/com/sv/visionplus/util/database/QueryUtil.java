@@ -69,7 +69,6 @@ public class QueryUtil<T> {
 
     public List<T> executeSelect(Connection connection) throws SQLException {
         String sql = getSelectQuery();
-        System.out.println(sql);
         //prepare statement
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -99,7 +98,6 @@ public class QueryUtil<T> {
 
     public List<T> executeSelect(Connection connection, String criteria, Object... params) throws SQLException {
         String sql = getSelectQuery(criteria);
-
         //prepare statement
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -211,7 +209,7 @@ public class QueryUtil<T> {
         String sql = getUpdateQuery(criteria);
 
         //prepare statement
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
         //updated values
         int i = 1;
@@ -228,16 +226,16 @@ public class QueryUtil<T> {
             preparedStatement.setObject(i + j, param);
         }
 
-        preparedStatement.executeUpdate();
-
+        int executeUpdate = preparedStatement.executeUpdate();
+        return executeUpdate;
         //get generated id
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+//        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+//
+//        while (resultSet.next()) {
+//            return ((Long) resultSet.getObject(1)).intValue();
+//        }
 
-        while (resultSet.next()) {
-            return ((Long) resultSet.getObject(1)).intValue();
-        }
-
-        return -1;
+//        return -1;
     }
 
     private String getUpdateQuery(String criteria) {

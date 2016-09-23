@@ -83,4 +83,24 @@ public class StockLedgerDAO {
 
     }
 
+    public int saveStock(Connection connection, List<TStockLedger> ledger) {
+        int count = 0;
+        try {
+            for (TStockLedger ledger1 : ledger) {
+
+                int indexNo = storeQuery.executeInsert(connection, ledger1);
+                if (indexNo>0) {
+                    count+=1;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(StockLedgerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (count==ledger.size()) {
+            return count;
+        }
+        return 0;
+    }
+
 }

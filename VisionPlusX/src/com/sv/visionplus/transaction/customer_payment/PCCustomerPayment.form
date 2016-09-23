@@ -35,12 +35,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="jPanel11" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel4" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="paymentTypePanel" max="32767" attributes="0"/>
@@ -77,26 +77,26 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" pref="68" max="32767" attributes="0"/>
+                      <Component id="jLabel3" pref="83" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="cIntegerField1" pref="99" max="32767" attributes="0"/>
+                      <Component id="txtInvoiceNo" pref="114" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="jLabel4" pref="30" max="32767" attributes="0"/>
+                      <Component id="jLabel4" pref="52" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="cStringField1" pref="95" max="32767" attributes="0"/>
+                      <Component id="txtNic" pref="110" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" pref="36" max="32767" attributes="0"/>
+                      <Component id="jLabel1" pref="51" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jXDatePicker1" max="32767" attributes="0"/>
+                      <Component id="datePicker" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" max="32767" attributes="0"/>
+                      <Component id="jLabel5" pref="43" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="cStringField2" pref="112" max="32767" attributes="0"/>
+                      <Component id="txtName" pref="114" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" pref="46" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="cIntegerField2" pref="106" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" pref="61" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtMobile" pref="118" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -108,16 +108,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cIntegerField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtInvoiceNo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cStringField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNic" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cStringField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cIntegerField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtMobile" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="datePicker" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
@@ -142,7 +142,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="S"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -153,20 +153,23 @@
                 <Property name="text" type="java.lang.String" value="Invoice No .:"/>
               </Properties>
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="cIntegerField1">
+            <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="txtInvoiceNo">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField1">
+            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtNic">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField2">
+            <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtName">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="cIntegerField2">
+            <Component class="com.sv.visionplus.util.component.textfield.CIntegerField" name="txtMobile">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Date :"/>
               </Properties>
             </Component>
-            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="datePicker">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="datePickerActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -175,20 +178,77 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Status Detail"/>
+              </Border>
+            </Property>
           </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane6" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane6" min="-2" pref="156" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="tblStatus">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="3" rowCount="0">
+                        <Column editable="false" title="#" type="java.lang.Object"/>
+                        <Column editable="false" title="DATE" type="java.lang.Object"/>
+                        <Column editable="false" title="STATUS" type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="0" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel11">
           <Properties>
@@ -213,8 +273,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="133" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" min="-2" pref="156" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -227,15 +287,57 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable5">
+                <Component class="javax.swing.JTable" name="tblPayment">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
-                        <Column editable="false" title="#" type="java.lang.Object"/>
+                      <Table columnCount="7" rowCount="0">
+                        <Column editable="false" title="Receipt No" type="java.lang.Object"/>
                         <Column editable="false" title="DATE" type="java.lang.Object"/>
-                        <Column editable="false" title="TYPE" type="java.lang.Object"/>
-                        <Column editable="false" title="AMOUNT" type="java.lang.Object"/>
+                        <Column editable="false" title="Cash" type="java.lang.Object"/>
+                        <Column editable="true" title="Cheque" type="java.lang.Object"/>
+                        <Column editable="false" title="Card" type="java.lang.Object"/>
+                        <Column editable="false" title="Total Amount" type="java.lang.Object"/>
+                        <Column editable="true" title="isAdvance" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -266,19 +368,23 @@
                           <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel7" alignment="0" pref="87" max="32767" attributes="0"/>
                           <Component id="jLabel11" max="32767" attributes="0"/>
+                          <Component id="jLabel18" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jRadioButton3" pref="140" max="32767" attributes="0"/>
-                          <Component id="cDoubleField4" alignment="0" pref="140" max="32767" attributes="0"/>
-                          <Component id="cDoubleField1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cDoubleField2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cDoubleField3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cDoubleField5" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtPaidValue" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtHaveToPay" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtCashAmount" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtNewBalance" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtInvoiceVlaue" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtTotalAmount" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="109" pref="109" max="-2" attributes="0"/>
+                      <Component id="rdoIssueGoods" pref="140" max="32767" attributes="0"/>
+                      <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -288,31 +394,35 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cDoubleField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtInvoiceVlaue" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cDoubleField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPaidValue" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cDoubleField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtHaveToPay" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cDoubleField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCashAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cDoubleField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTotalAmount" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNewBalance" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="rdoIssueGoods" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -320,7 +430,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New Ballance :"/>
+                <Property name="text" type="java.lang.String" value="New Balance :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -333,18 +443,10 @@
                 <Property name="text" type="java.lang.String" value="Invoice Value :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+            <Component class="javax.swing.JRadioButton" name="rdoIssueGoods">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Issue Goods"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="+"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -356,15 +458,25 @@
                 <Property name="text" type="java.lang.String" value="Paid Value :"/>
               </Properties>
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField1">
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtInvoiceVlaue">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField2">
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtPaidValue">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField3">
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtHaveToPay">
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField4">
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtCashAmount">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCashAmountKeyReleased"/>
+              </Events>
             </Component>
-            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField5">
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtNewBalance">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total Amount :"/>
+              </Properties>
+            </Component>
+            <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtTotalAmount">
             </Component>
           </SubComponents>
         </Container>
@@ -405,7 +517,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cardPaymentRadio" pref="132" max="32767" attributes="0"/>
+                                  <Component id="rdoCardPayment" pref="213" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -415,12 +527,19 @@
                                       <Component id="jLabel12" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="cardBankCombo" max="32767" attributes="0"/>
-                                      <Component id="cDoubleField6" max="32767" attributes="0"/>
-                                      <Component id="cStringField3" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="txtCardAmount" max="32767" attributes="0"/>
+                                              <Component id="txtCardNo" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="cmboCard" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -430,21 +549,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cardPaymentRadio" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdoCardPayment" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cDoubleField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCardAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cardBankCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmboCard" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cStringField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCardNo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -467,32 +586,25 @@
                     <Property name="text" type="java.lang.String" value=" Card No :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="cardPaymentRadio">
+                <Component class="javax.swing.JRadioButton" name="rdoCardPayment">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Card Payment"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardPaymentRadioActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoCardPaymentActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="cardBankCombo">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Sampath Bank"/>
-                        <StringItem index="1" value="HNB"/>
-                        <StringItem index="2" value="People&apos;s Bank"/>
-                        <StringItem index="3" value="Other"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
+                <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtCardAmount">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardBankComboActionPerformed"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCardAmountKeyReleased"/>
                   </Events>
                 </Component>
-                <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField6">
+                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtCardNo">
                 </Component>
-                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField3">
+                <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="cmboCard">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;@Override&#xa;    public List getComboData(){&#xa;        return allBankBranch();&#xa;    }&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -520,13 +632,16 @@
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="chequeBankCombo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cStringField4" alignment="0" pref="136" max="32767" attributes="0"/>
-                                      <Component id="cDoubleField7" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtChequeNo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtChequeAmount" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="cmboCheque" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="chequePaymentRadio" max="32767" attributes="0"/>
+                                  <Component id="rdoCheque" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -538,21 +653,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chequePaymentRadio" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdoCheque" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cDoubleField7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="chequeBankCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtChequeAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmboCheque" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                              <Component id="cStringField4" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtChequeNo" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -560,33 +675,18 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JRadioButton" name="chequePaymentRadio">
+                <Component class="javax.swing.JRadioButton" name="rdoCheque">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cheque Payment"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chequePaymentRadioActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoChequeActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
                     <Property name="text" type="java.lang.String" value=" Amount :"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="chequeBankCombo">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Sampath Bank"/>
-                        <StringItem index="1" value="HNB"/>
-                        <StringItem index="2" value="People&apos;s Bank"/>
-                        <StringItem index="3" value="Other"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chequeBankComboActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
@@ -598,9 +698,17 @@
                     <Property name="text" type="java.lang.String" value=" Cheque No :"/>
                   </Properties>
                 </Component>
-                <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="cDoubleField7">
+                <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtChequeAmount">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtChequeAmountKeyReleased"/>
+                  </Events>
                 </Component>
-                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="cStringField4">
+                <Component class="com.sv.visionplus.util.component.textfield.CStringField" name="txtChequeNo">
+                </Component>
+                <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="cmboCheque">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;@Override&#xa;    public List getComboData(){&#xa;        return allBankBranch();&#xa;    }&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

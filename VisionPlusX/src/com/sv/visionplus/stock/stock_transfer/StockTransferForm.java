@@ -8,22 +8,31 @@ package com.sv.visionplus.stock.stock_transfer;
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
-import com.sv.visionplus.stock.stock_transfer.model.MItem;
+import com.sv.visionplus.stock.stock_transfer.model.StockTransferModelMix;
 
 /**
  *
  * @author KAZA
  */
-public class StockTransferForm extends AbstractTransactionForm<MItem>{
-
+public class StockTransferForm extends AbstractTransactionForm<StockTransferModelMix>{
+    private PCStockTransfer stockTransfer;
     @Override
-    protected AbstractTransactionFormService<MItem> getTransactionFormService() {
+    protected AbstractTransactionFormService<StockTransferModelMix> getTransactionFormService() {
         return new StockTransferService();
     }
 
     @Override
-    protected AbstractObjectCreator<MItem> getObjectCreator() {
+    protected AbstractObjectCreator<StockTransferModelMix> getObjectCreator() {
         return new PCStockTransfer(this);
     }
+
+    @Override
+    public void doSave() {
+        super.doSave(); //To change body of generated methods, choose Tools | Templates.
+        if (stockTransfer!=null) {
+            stockTransfer.resetFields();
+        }
+    }
+    
     
 }

@@ -5,7 +5,6 @@
  */
 package com.sv.visionplus.stock.stock_adjustment.model;
 
-import com.sv.visionplus.master.item.model.*;
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 

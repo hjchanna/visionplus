@@ -7,32 +7,49 @@ package com.sv.visionplus.transaction.customer_payment;
 
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.customer_payment.model.CustomerPaymentMix;
 import com.sv.visionplus.util.payment.model.TPayment;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author KAZA
  */
-public class CustomerPaymentService extends AbstractTransactionFormService<TPayment> {
+public class CustomerPaymentService extends AbstractTransactionFormService<CustomerPaymentMix> {
 
     @Override
-    protected TPayment select(Integer indexNo) throws VPException {
+    protected CustomerPaymentMix select(Integer indexNo) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void save(TPayment object) throws VPException {
+    protected void save(CustomerPaymentMix mix) throws VPException {
+        if (mix != null) {
+            if (mix.getPayment().getTotalAmont()>0) {
+                
+            int paymentId = CustomerPaymentDAO.getInstance().saveCustomerPayment(mix);
+            if (paymentId > 0) {
+                JOptionPane.showMessageDialog(null, paymentId + " Save Sussess..");
+            } else {
+                JOptionPane.showMessageDialog(null, "Save fail..");
+            }
+            }else{
+            JOptionPane.showMessageDialog(null, "Check ur Payment Detail and try again.. ");
+                    
+            }
+        }else{
+        JOptionPane.showMessageDialog(null, "Empty Method..");
+        }
+    }
+
+    @Override
+    protected void update(CustomerPaymentMix mix) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void update(TPayment object) throws VPException {
+    protected void delete(CustomerPaymentMix mix) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    protected void delete(TPayment object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

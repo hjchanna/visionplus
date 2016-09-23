@@ -15,7 +15,6 @@ public class Status {
     @VPId
     private Integer indexNo;
     private Integer invoice;
-    private Integer transaction;
     private String name;
     private Date date;
 
@@ -33,14 +32,6 @@ public class Status {
 
     public void setInvoice(Integer invoice) {
         this.invoice = invoice;
-    }
-
-    public Integer getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Integer transaction) {
-        this.transaction = transaction;
     }
 
     public String getName() {

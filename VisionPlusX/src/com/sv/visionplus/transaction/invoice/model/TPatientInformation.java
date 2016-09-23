@@ -1,5 +1,6 @@
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPColumn;
 import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
@@ -13,7 +14,7 @@ import com.sv.visionplus.util.database.annotation.VPTable;
 public class TPatientInformation {
     
     @VPId
-    private Integer indexNo;
+    private Integer index_no;
     private Integer invoice;
     private String complains;
     private String hbRxLeft;
@@ -55,11 +56,11 @@ public class TPatientInformation {
     }
 
     public Integer getIndexNo() {
-        return indexNo;
+        return index_no;
     }
 
     public void setIndexNo(Integer indexNo) {
-        this.indexNo = indexNo;
+        this.index_no = indexNo;
     }
 
     public String getComplains() {

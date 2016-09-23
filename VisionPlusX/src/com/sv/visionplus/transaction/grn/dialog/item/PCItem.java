@@ -1,12 +1,7 @@
 package com.sv.visionplus.transaction.grn.dialog.item;
 
-import com.sv.visionplus.master.item.brand.model.MBrand;
-import com.sv.visionplus.master.item.category.CategoryService;
-import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.transaction.grn.PCGrn;
 import com.sv.visionplus.transaction.grn.dialog.item.model.ItemMix;
-import com.sv.visionplus.transaction.grn.dialog.item.model.MItem;
-import com.sv.visionplus.transaction.grn.model.TGrn;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,10 +41,23 @@ public class PCItem extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Code", "Name", "Brand", "Category", "Buying Price", "Sale Price"
+                "itemId", "Code", "Name", "Brand", "Category", "Buying Price", "Sale Price", "Stock Qty"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableItem);
+        if (tableItem.getColumnModel().getColumnCount() > 0) {
+            tableItem.getColumnModel().getColumn(0).setMinWidth(0);
+            tableItem.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tableItem.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         btnSelect.setText("select");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -100,19 +108,18 @@ public class PCItem extends javax.swing.JDialog {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSelect)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSearch)))
-                        .addGap(0, 176, Short.MAX_VALUE))))
+                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSelect)
+                        .addGap(0, 109, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,12 +130,11 @@ public class PCItem extends javax.swing.JDialog {
                     .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelect))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelect)
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,19 +163,17 @@ public class PCItem extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        item = new ItemMix();
+        ItemMix item = new ItemMix();
         item.setCode(txtCode.getText());
-        item.setName(txtName.getText());
-        item.setCategory(txtCategory.getText());
-        item.setBrand(txtBrand.getText());
+        item.setItem_name(txtName.getText());
+        item.setCategory_name(txtCategory.getText());
+        item.setBrand_name(txtBrand.getText());
 
         List<ItemMix> searchResult = ItemService.getInstance().getSearchResult(item);
+        System.out.println(searchResult.size());
         if (searchResult != null) {
             tableModel.setRowCount(0);
-            for (ItemMix result : searchResult) {
-                Object[] rd = {result.getCode(), result.getName(), result.getBrand(), result.getCategory(), result.getCostPrice(), result.getSalePrice()};
-                tableModel.addRow(rd);
-            }
+            addData(searchResult);
 
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -204,46 +208,73 @@ public class PCItem extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
     private PCGrn grn;
-    private ItemMix item;
+    private ItemMix item = new ItemMix();
 
     public void setFrame(PCGrn grn) {
         this.grn = grn;
     }
 
     private void getAllItem() {
-        List<ItemMix> allItems = ItemService.getInstance().getAllItems();
-        for (ItemMix allItem : allItems) {
-            Object[] rd = {allItem.getCode(), allItem.getName(), allItem.getBrand(), allItem.getCategory(), allItem.getCostPrice(), allItem.getSalePrice()};
-            tableModel.addRow(rd);
+        ItemMix searchItem = new ItemMix();
+        searchItem.setBrand_name(txtBrand.getText());
+        searchItem.setCategory_name(txtCategory.getText());
+        searchItem.setCode(txtCode.getText());
+        searchItem.setItem_name(txtName.getText());
+
+        List<ItemMix> allItems = ItemService.getInstance().getSearchResult(searchItem);
+        for (ItemMix item : allItems) {
+            if (item.isIsstock_item()) {
+                Object[] rd = {
+                    item.getIndex_no(),
+                    item.getCode(),
+                    item.getItem_name(),
+                    item.getBrand_name(),
+                    item.getCategory_name(),
+                    item.getCost_price(),
+                    item.getSale_price(),
+                    item.getBalQty()
+                };
+                tableModel.addRow(rd);
+            }
         }
     }
 
     private void setTableValue() {
-        String code = tableModel.getValueAt(tableItem.getSelectedRow(), 0).toString();
-        String name = tableModel.getValueAt(tableItem.getSelectedRow(), 1).toString();
-        String brand = tableModel.getValueAt(tableItem.getSelectedRow(), 2).toString();
-        String category = tableModel.getValueAt(tableItem.getSelectedRow(), 3).toString();
-        Double costPrice = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 4);
-        Double salePrice = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 5);
+        String itemId = tableModel.getValueAt(tableItem.getSelectedRow(), 0).toString();
+        String code = tableModel.getValueAt(tableItem.getSelectedRow(), 1).toString();
+        String name = tableModel.getValueAt(tableItem.getSelectedRow(), 2).toString();
+        String brand = tableModel.getValueAt(tableItem.getSelectedRow(), 3).toString();
+        String category = tableModel.getValueAt(tableItem.getSelectedRow(), 4).toString();
+        Double costPrice = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 5);
+        Double salePrice = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 6);
 
         item = new ItemMix();
+        item.setIndex_no(Integer.parseInt(itemId));
         item.setCode(code);
-        item.setName(name);
-        item.setBrand(brand);
-        item.setCategory(category);
-        item.setCostPrice(costPrice);
-        item.setSalePrice(salePrice);
+        item.setItem_name(name);
+        item.setBrand_name(brand);
+        item.setCategory_name(category);
+        item.setCost_price(costPrice);
+        item.setSale_price(salePrice);
 
         grn.setItem(item);
     }
 
-    public void setTable(List<ItemMix> searchResult) {
-        if (searchResult != null) {
-            for (ItemMix result : searchResult) {
-                Object[] rd = {result.getCode(), result.getName(), result.getBrand(), result.getCategory(), result.getCostPrice(), result.getSalePrice()};
+    public void addData(List<ItemMix> searchResult) {
+        for (ItemMix item : searchResult) {
+            if (item.isIsstock_item()) {
+                Object[] rd = {
+                    item.getIndex_no(),
+                    item.getCode(),
+                    item.getItem_name(),
+                    item.getBrand_name(),
+                    item.getCategory_name(),
+                    item.getCost_price(),
+                    item.getSale_price(),
+                    item.getBalQty()
+                };
                 tableModel.addRow(rd);
             }
         }
-
     }
 }

@@ -5,16 +5,20 @@
  */
 package com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment;
 
-import com.sv.visionplus.transaction.invoice.MBankBranch;
-import com.sv.visionplus.transaction.invoice.PCInvoice;
-import com.sv.visionplus.transaction.invoice.dialog.customer.model.MCustomer;
-import com.sv.visionplus.transaction.invoice.model.Status;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
-import com.sv.visionplus.transaction.invoice.model.TInvoiceItem;
-import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
-import com.sv.visionplus.transaction.invoice.model.TTransaction;
+import com.sv.visionplus.resource.accountType.AccountType;
+import com.sv.visionplus.transaction.invoice.InvoiceDAO;
+import com.sv.visionplus.transaction.invoice.model.AccountTransaction;
+import com.sv.visionplus.transaction.invoice.model.MBankBranch;
+import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
+import com.sv.visionplus.transaction.invoice.model.MAccount;
+import com.sv.visionplus.transaction.invoice.model.TCustomerPayment;
+import com.sv.visionplus.transaction.invoice.model.TPayment;
+import com.sv.visionplus.util.formatter.FormatterUtil;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import visionplusx.Home;
+import visionplusx.logFile.LogFileModel;
 
 /**
  *
@@ -22,7 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class InvoicePayment extends javax.swing.JDialog {
 
-    private PCInvoice invoiceForm;
+    private InvoiceMix invoiceMix = new InvoiceMix();
 
     /**
      * Creates new form InvoicePayment
@@ -76,7 +80,12 @@ public class InvoicePayment extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        cmboChequeBank = new com.sv.visionplus.util.component.combobox.CComboBox();
+        cmboChequeBank = new com.sv.visionplus.util.component.combobox.CComboBox(){
+            @Override
+            public List getComboData(){
+                return allBankBranch();
+            }
+        };
         txtChequeAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         txtChequeNo = new com.sv.visionplus.util.component.textfield.CIntegerField();
         jButton2 = new javax.swing.JButton();
@@ -200,7 +209,7 @@ public class InvoicePayment extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(cardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cardPanel1Layout.createSequentialGroup()
-                        .addComponent(rdoCardPayment, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .addComponent(rdoCardPayment, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                         .addGap(274, 274, 274))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardPanel1Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -271,11 +280,11 @@ public class InvoicePayment extends javax.swing.JDialog {
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cmboChequeBank, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                        .addGroup(chequePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmboChequeBank, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtChequeAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtChequeNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(19, Short.MAX_VALUE))
+                        .addGap(43, 43, 43))
                     .addGroup(chequePanelLayout.createSequentialGroup()
                         .addComponent(rdoChequePayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(212, 212, 212))))
@@ -320,19 +329,19 @@ public class InvoicePayment extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(rdoPrintBill)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chequePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(chequePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(4, 4, 4))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,15 +381,72 @@ public class InvoicePayment extends javax.swing.JDialog {
     }//GEN-LAST:event_rdoChequePaymentActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-//            boolean res = InvoiceDao.getInstance().addInvoice(invoiceModel, patientInformation);
-//            if (res) {
-        JOptionPane.showMessageDialog(this, "invoice Saved Successfully..");
-        this.dispose();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(InvoicePayment.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        if (txtNewBalance.getCValue() < 0) {
+            JOptionPane.showMessageDialog(this, "Over Payment ...! Check Payment Detail and try again..");
+        } else {
+
+            //payment Model
+            TPayment payment = new TPayment();
+            payment.setCardAmount(txtCardAmount.getCValue());
+            payment.setCashAmount(txtCashAmount.getCValue());
+            payment.setChequeAmount(txtChequeAmount.getCValue());
+//        payment.setIndexNo(0);//auto increment
+            payment.setTotalAmount(txtPayAmount.getCValue());
+            payment.setTransaction(null);
+
+            invoiceMix.setPayment(payment);
+
+            //payment Delail Model
+            TCustomerPayment customerPayment = new TCustomerPayment();
+            customerPayment.setDate(FormatterUtil.getInstance().formatDate(new Date()));
+//        customerPayment.setInvoice(0);dont know
+            customerPayment.setIsAdvance(true);
+//        customerPayment.setPayment(0); dont know
+            invoiceMix.setCustomerPayment(customerPayment);
+
+//        payment Log File
+            LogFileModel paymentLog = new LogFileModel();
+            paymentLog.setDate(new Date());
+            paymentLog.setFormName("Invoice Payment");
+//        paymentLog.setIndexNo(0);//auto increment
+            paymentLog.setRemarks("Invoice Advance Payment");
+            paymentLog.setTime(FormatterUtil.getInstance().getTime());
+            paymentLog.setTransactionType("Save");
+            paymentLog.setUser(Home.getInstance().getUser().getIndexNo());
+            paymentLog.setUserName(Home.getInstance().getUser().getName());
+            paymentLog.setValue(payment.getTotalAmount());
+            invoiceMix.setPaymentLog(paymentLog);
+
+//            MAccount
+            MAccount account = new MAccount();
+            account.setDescription("Invoice Advance Payment");
+//            account.setIndex_no(0);//auto Increment
+            account.setMain_category(1);//Invoice
+            account.setSub_category(1);//invoice Advance
+            account.setType(AccountType.INVOICE);
+            invoiceMix.setAccount(account);
+
+//            AccountTransaction
+            AccountTransaction accountTransaction = new AccountTransaction();
+//            accountTransaction.setAccount(0);//dont know yet
+            accountTransaction.setCredit(0.00);
+            accountTransaction.setDate(new Date());
+            accountTransaction.setDebit(txtPayAmount.getCValue());
+            accountTransaction.setDescription("Invoice Advance Payment");
+//            accountTransaction.setIndex_no(0);//auto increment
+            invoiceMix.setAccountTransaction(accountTransaction);
+
+            int saveInvoice = InvoiceDAO.getInstance().saveInvoice(invoiceMix);
+            if (saveInvoice > 0) {
+                JOptionPane.showMessageDialog(this, saveInvoice + " invoice Saved Successfully..");
+
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "invoice Saved Fail..");
+            }
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtCashAmountKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCashAmountKeyReleased
@@ -509,23 +575,12 @@ public class InvoicePayment extends javax.swing.JDialog {
         }
     }
 
-    public void setFrame(PCInvoice invoiceForm) {
-        this.invoiceForm = invoiceForm;
-    }
-
-    public void setValue(TInvoice tInvoice, TInvoiceItem tInvoiceItem, TPatientInformation tPatientInformation, MCustomer customer, Status status, TTransaction tTransaction) {
-        txtInvoiceValue.setCValue(tInvoice.getAmount());
-    }
-
     private List<MBankBranch> allBankBranch() {
-//        List<MBankBranch> allBankBanch = BankBranchDAO.getInstance().allBankBanch();
         return BankBranchDAO.getInstance().allBankBanch();
-//        if (allBankBanch != null) {
-//            for (MBankBranch bankBanch : allBankBanch) {
-//                System.out.println(bankBanch.getBank());
-//                cmboCardBank.setCValue(bankBanch.getCode() + "" + bankBanch.getBank() + "" + bankBanch.getBranch());
-//                cmboChequeBank.setCValue(bankBanch.getCode() + "" + bankBanch.getBank() + "" + bankBanch.getBranch());
-//            }
-//        }
+    }
+
+    public void setValue(InvoiceMix invoiceMix) {
+        this.invoiceMix = invoiceMix;
+        txtInvoiceValue.setCValue(invoiceMix.getInvoice().getAmount());
     }
 }

@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.account.payment_voucher;
 
+import com.sv.visionplus.account.payment_voucher.model.PaymentVoucherMix;
 import com.sv.visionplus.account.payment_voucher.model.TAccountTransaction;
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
@@ -13,25 +14,25 @@ import com.sv.visionplus.system.exception.VPException;
  *
  * @author KAZA
  */
-public class PaymentVoucherService extends AbstractTransactionFormService<TAccountTransaction>{
+public class PaymentVoucherService extends AbstractTransactionFormService<PaymentVoucherMix>{
 
     @Override
-    protected TAccountTransaction select(Integer indexNo) throws VPException {
+    protected PaymentVoucherMix select(Integer indexNo) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void save(TAccountTransaction object) throws VPException {
+    protected void save(PaymentVoucherMix mix) throws VPException {
+        PaymentVoucherDAO.getInstance().savePaymentVoucher(mix);
+    }
+
+    @Override
+    protected void update(PaymentVoucherMix object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void update(TAccountTransaction object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void delete(TAccountTransaction object) throws VPException {
+    protected void delete(PaymentVoucherMix object) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

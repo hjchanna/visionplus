@@ -28,9 +28,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="cardPanel1" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="rdoPrintBill" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -38,13 +38,13 @@
                               <Component id="jButton1" min="-2" pref="68" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chequePanel" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="chequePanel" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel8" max="32767" attributes="0"/>
+                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
       </Group>
@@ -227,7 +227,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="rdoCardPayment" pref="131" max="32767" attributes="0"/>
+                          <Component id="rdoCardPayment" pref="107" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -337,12 +337,12 @@
                               <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cmboChequeBank" alignment="0" pref="225" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="cmboChequeBank" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtChequeAmount" max="32767" attributes="0"/>
                               <Component id="txtChequeNo" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="rdoChequePayment" max="32767" attributes="0"/>
@@ -402,6 +402,9 @@
           </Properties>
         </Component>
         <Component class="com.sv.visionplus.util.component.combobox.CComboBox" name="cmboChequeBank">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.sv.visionplus.util.component.combobox.CComboBox(){&#xa;    @Override&#xa;    public List getComboData(){&#xa;        return allBankBranch();&#xa;    }&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="com.sv.visionplus.util.component.textfield.CDoubleField" name="txtChequeAmount">
           <Events>

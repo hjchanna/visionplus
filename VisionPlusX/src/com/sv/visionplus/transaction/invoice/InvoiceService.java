@@ -7,8 +7,10 @@ package com.sv.visionplus.transaction.invoice;
 
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.system.exception.VPException;
+import com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment.InvoicePayment;
 import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +18,24 @@ import com.sv.visionplus.transaction.invoice.model.TInvoice;
  */
 public class InvoiceService extends AbstractTransactionFormService<InvoiceMix> {
 
-
     @Override
     protected InvoiceMix select(Integer indexNo) throws VPException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void save(InvoiceMix object) throws VPException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void save(InvoiceMix invoiceMix) throws VPException {
+
+        
+        InvoicePayment payment = new InvoicePayment(null, true);
+        payment.setValue(invoiceMix);
+        payment.setModal(true);
+        payment.setVisible(true);
+        
+        
+        
+        
+
     }
 
     @Override

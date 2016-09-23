@@ -9,21 +9,34 @@ import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.base.transaction.AbstractTransactionFormService;
 import com.sv.visionplus.transaction.grn.model.TGrn;
+import com.sv.visionplus.transaction.grn.model.GrnMix;
 
 /**
  *
  * @author KAZA
  */
-public class GrnForm extends AbstractTransactionForm<TGrn>{
+public class GrnForm extends AbstractTransactionForm<GrnMix> {
+
+    private PCGrn grn;
 
     @Override
-    protected AbstractTransactionFormService<TGrn> getTransactionFormService() {
+    protected AbstractTransactionFormService<GrnMix> getTransactionFormService() {
         return new GrnService();
     }
 
     @Override
-    protected AbstractObjectCreator<TGrn> getObjectCreator() {
-        return new PCGrn(this);
+    protected AbstractObjectCreator<GrnMix> getObjectCreator() {
+        grn = new PCGrn(this);
+        return grn;
     }
-    
+
+    @Override
+    public void doSave() {
+        super.doSave();
+
+        if (grn != null) {
+            grn.resetFields();
+        }
+    }
+
 }

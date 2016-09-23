@@ -1,5 +1,6 @@
 package com.sv.visionplus.transaction.invoice.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 
 /**
@@ -10,12 +11,12 @@ import com.sv.visionplus.util.database.annotation.VPTable;
  */
 @VPTable("t_invoice_item1")
 public class TInvoiceItem {
-
+    @VPId
     private Integer indexNo;
     private Integer item;
     private Integer invoice;
     private Double unitPrice;
-    private Integer qty;
+    private double qty;
     private Double value;
     private Double discount;
     private Double netValue;
@@ -52,11 +53,11 @@ public class TInvoiceItem {
         this.unitPrice = unitPrice;
     }
 
-    public Integer getQty() {
+    public double getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(double qty) {
         this.qty = qty;
     }
 

@@ -5,6 +5,7 @@
  */
 package com.sv.visionplus.transaction.grn.model;
 
+import com.sv.visionplus.util.database.annotation.VPId;
 import com.sv.visionplus.util.database.annotation.VPTable;
 import java.util.Date;
 
@@ -14,12 +15,12 @@ import java.util.Date;
  */
 @VPTable("t_grn")
 public class TGrn {
-    
+    @VPId
     private Integer IndexNo;
-    private Integer transaction;
     private Integer supplier;
     private Date date;
     private double amount;
+    private String ref_no;
 
     public Integer getIndexNo() {
         return IndexNo;
@@ -29,12 +30,12 @@ public class TGrn {
         this.IndexNo = IndexNo;
     }
 
-    public Integer getTransaction() {
-        return transaction;
+    public String getRef_no() {
+        return ref_no;
     }
 
-    public void setTransaction(Integer transaction) {
-        this.transaction = transaction;
+    public void setRef_no(String ref_no) {
+        this.ref_no = ref_no;
     }
 
     public Integer getSupplier() {

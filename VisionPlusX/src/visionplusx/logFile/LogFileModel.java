@@ -20,10 +20,27 @@ public class LogFileModel {
     private Date date;
     private String time;
     private Integer user;
+    private String name;
     private String formName;
     private String transactionType;
     private Double value;
     private String remarks;
+
+    public Integer getUserId() {
+        return user;
+    }
+
+    public void setUserId(Integer userId) {
+        this.user = userId;
+    }
+
+    public String getUserName() {
+        return name;
+    }
+
+    public void setUserName(String userName) {
+        this.name = userName;
+    }
 
     public Integer getIndexNo() {
         return IndexNo;

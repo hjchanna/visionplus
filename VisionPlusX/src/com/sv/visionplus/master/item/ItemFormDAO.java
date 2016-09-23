@@ -6,13 +6,16 @@
 package com.sv.visionplus.master.item;
 
 import com.sv.visionplus.base.master.AbstractMasterFormDAO;
-import com.sv.visionplus.master.item.brand.model.MBrand;
-import com.sv.visionplus.master.item.category.model.MCategory;
 import com.sv.visionplus.master.item.model.MItem;
+import com.sv.visionplus.stock.stock_transfer.StockLedgerDAO;
+import com.sv.visionplus.stock.stock_transfer.model.TStockLedger;
 import com.sv.visionplus.util.database.QueryUtil;
+import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  * Date : Aug 24, 2016 Time : 12:19:51 AM
@@ -30,7 +33,12 @@ public class ItemFormDAO extends AbstractMasterFormDAO<MItem> {
 
     @Override
     public void save(Connection connection, MItem item) throws SQLException {
-        queryUtil.executeInsert(connection, item);
+        
+        int indexNo = queryUtil.executeInsert(connection, item);
+        if (indexNo>0) {
+            JOptionPane.showMessageDialog(null, "Item Save SuccessFully..");
+        }
+    
     }
 
     @Override

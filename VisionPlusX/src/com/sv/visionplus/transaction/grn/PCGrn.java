@@ -2,6 +2,7 @@ package com.sv.visionplus.transaction.grn;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
+import com.sv.visionplus.resource.IdGenerater.IdGenerater;
 import com.sv.visionplus.transaction.grn.dialog.item.model.MItem;
 import com.sv.visionplus.transaction.grn.dialog.supplier.model.MSupplier;
 import com.sv.visionplus.system.exception.VPException;
@@ -9,28 +10,32 @@ import com.sv.visionplus.transaction.grn.dialog.item.ItemService;
 import com.sv.visionplus.transaction.grn.dialog.item.PCItem;
 import com.sv.visionplus.transaction.grn.dialog.item.model.ItemMix;
 import com.sv.visionplus.transaction.grn.dialog.supplier.PCSupplier;
+import com.sv.visionplus.transaction.grn.model.GrnDetail;
 import com.sv.visionplus.transaction.grn.model.TGrn;
+import com.sv.visionplus.transaction.grn.model.TStockLedger;
+import com.sv.visionplus.transaction.grn.model.GrnMix;
 import com.sv.visionplus.util.formatter.FormatterUtil;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import visionplusx.Home;
+import visionplusx.logFile.LogFileModel;
 
 /**
  *
  * @author Nidura Prageeth
  */
-public class PCGrn extends AbstractObjectCreator<TGrn> {
+public class PCGrn extends AbstractObjectCreator<GrnMix> {
 
     public PCGrn(AbstractTransactionForm transactionForm) {
         initComponents();
         this.transactionForm = transactionForm;
         tableModel = (DefaultTableModel) tableItem.getModel();
+        txtItemIndex.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +44,6 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -66,21 +70,20 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtBrand = new com.sv.visionplus.util.component.textfield.CStringField();
         txtCostPrice = new com.sv.visionplus.util.component.textfield.CDoubleField();
         btnClose = new javax.swing.JButton();
+        txtDiscount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         jLabel7 = new javax.swing.JLabel();
+        txtTotalNetAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        jLabel9 = new javax.swing.JLabel();
+        txtTotalDiscount = new com.sv.visionplus.util.component.textfield.CDoubleField();
+        jLabel10 = new javax.swing.JLabel();
         txtTotalAmount = new com.sv.visionplus.util.component.textfield.CDoubleField();
         jToggleButton2 = new javax.swing.JToggleButton();
         txtGrnNo = new com.sv.visionplus.util.component.textfield.CIntegerField();
         txtRefrenceNo = new com.sv.visionplus.util.component.textfield.CStringField();
         txtGrnDate = new org.jdesktop.swingx.JXDatePicker();
+        txtItemIndex = new com.sv.visionplus.util.component.textfield.CIntegerField();
 
         jLabel6.setText("Date.:");
-
-        jToggleButton1.setText("Payment Details");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Ref No :");
 
@@ -152,9 +155,17 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
             },
             new String [] {
-                "Item Code", "Description", "Category", "Brand", "Sale Price", "Cost Price", "Qty", "Amount"
+                "itemId", "Item Code", "Description", "Category", "Brand", "Sale Price", "Cost Price", "Qty", "Amount", "Unit Discount", "Discount Amount", "Net Value"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableItem.setRowHeight(23);
         tableItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -162,6 +173,11 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             }
         });
         jScrollPane3.setViewportView(tableItem);
+        if (tableItem.getColumnModel().getColumnCount() > 0) {
+            tableItem.getColumnModel().getColumn(0).setMinWidth(0);
+            tableItem.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tableItem.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jButton4.setText("+");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +193,12 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             }
         });
 
+        txtDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescriptionActionPerformed(evt);
+            }
+        });
+
         txtQty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQtyActionPerformed(evt);
@@ -186,6 +208,12 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodeActionPerformed(evt);
+            }
+        });
+
+        txtCostPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCostPriceActionPerformed(evt);
             }
         });
 
@@ -209,7 +237,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSalesPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,7 +245,9 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addComponent(txtCostPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(127, 127, 127)
+                .addComponent(txtDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(95, 95, 95)
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose)
@@ -237,11 +267,16 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                     .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClose))
+                    .addComponent(btnClose)
+                    .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Total Amount : ");
+        jLabel7.setText("Total NetAmount : ");
+
+        jLabel9.setText("Total Discount : ");
+
+        jLabel10.setText("Total Amount: ");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -250,12 +285,19 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(155, 155, 155)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(txtTotalDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtTotalNetAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -265,11 +307,21 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalNetAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jToggleButton2.setText("Search");
@@ -301,8 +353,8 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                         .addComponent(txtGrnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButton2)
-                        .addGap(32, 32, 32)
-                        .addComponent(jToggleButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtItemIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,15 +362,15 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(jLabel4)
                         .addComponent(jToggleButton2)
-                        .addComponent(jToggleButton1)
                         .addComponent(txtRefrenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtGrnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtGrnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtItemIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(txtGrnNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -328,10 +380,6 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         PCSupplier supplier = new PCSupplier(null, true);
@@ -353,7 +401,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
         // check item is exists
         for (int i = 0; i < tableItem.getRowCount(); i++) {
-            String code = (String) tableItem.getValueAt(i, 0);
+            String code = (String) tableItem.getValueAt(i, 1);
             if (code.equals(itemCode)) {
                 itemIsNotExists = false;
                 row = i;
@@ -365,13 +413,32 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
                 Double unitPrice = txtCostPrice.getCValue();
                 Integer qty = qtyText;
 
-                Double amount = unitPrice * qty;
-
-                Object[] rd = {txtCode.getText(), txtDescription.getCValue(), txtCategory.getCValue(), txtBrand.getCValue(), txtSalesPrice.getCValue(), txtCostPrice.getCValue(), txtQty.getCValue(), amount};
+                Object[] rd = {
+                    txtItemIndex.getText(),
+                    txtCode.getText(),
+                    txtDescription.getCValue(),
+                    txtCategory.getCValue(),
+                    txtBrand.getCValue(),
+                    txtSalesPrice.getCValue(),
+                    unitPrice,
+                    qty,
+                    qty * unitPrice,
+                    txtDiscount.getCValue(),
+                    txtDiscount.getCValue() * qty,
+                    (unitPrice - txtDiscount.getCValue()) * qty
+                };
                 tableModel.addRow(rd);
 
                 getTotalAmount();
-                txtCode.requestFocus();
+                txtCode.setText("");
+                txtDescription.setText("");
+                txtCategory.setText("");
+                txtBrand.setText("");
+                txtCostPrice.setCValue(0.00);
+                txtSalesPrice.setCValue(0.00);
+                txtDiscount.setCValue(0.00);
+                txtQty.setCValue(0);
+                txtItemIndex.setCValue(0);
             } else {
                 int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Item is already exists ! Do you want to Change Details ?");
                 if (showConfirmDialog == JOptionPane.YES_OPTION) {
@@ -381,12 +448,13 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
                     Double amount = unitPrice * qty;
 
-                    tableItem.setValueAt(qty, row, 6);
-                    tableItem.setValueAt(amount, row, 7);
+                    tableItem.setValueAt(qty, row, 7);
+                    tableItem.setValueAt(amount, row, 8);
                     getTotalAmount();
                 }
             }
         }
+        txtCode.requestFocus();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
@@ -402,51 +470,67 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
 
         item = new ItemMix();
         item.setCode(itemCode);
-        item.setName("");
-        item.setCategory("");
-        item.setBrand("");
+        item.setItem_name("");
+        item.setCategory_name("");
+        item.setBrand_name("");
 
         List<ItemMix> searchResult = ItemService.getInstance().getSearchResult(item);
-        System.out.println(searchResult.size());
-        
+
         if (searchResult.size() > 1) {
             PCItem items = new PCItem(null, true);
             items.setFrame(this);
             items.setVisible(true);
-            items.setTable(searchResult);
+            items.addData(searchResult);
         } else {
             for (ItemMix result : searchResult) {
-                System.out.println(result.getName());
-                txtDescription.setCValue(result.getName());
-                txtBrand.setCValue(result.getBrand());
-                txtCategory.setCValue(result.getCategory());
-                txtSalesPrice.setCValue(result.getSalePrice());
-                txtCostPrice.setCValue(result.getCostPrice());
-                txtQty.requestFocus();
+                txtItemIndex.setCValue(result.getIndex_no());
+                txtCode.setText(result.getCode());
+                txtDescription.setCValue(result.getItem_name());
+                txtBrand.setCValue(result.getBrand_name());
+                txtCategory.setCValue(result.getCategory_name());
+                txtSalesPrice.setCValue(result.getSale_price());
+                txtCostPrice.setCValue(result.getCost_price());
+                txtDiscount.requestFocus();
             }
         }
     }//GEN-LAST:event_txtCodeActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         if (tableItem.getSelectedRowCount() == 1) {
-            Double amount = (Double) tableModel.getValueAt(tableItem.getSelectedRow(), 7);
-            double totalAmount = txtTotalAmount.getCValue();
-            Double total = totalAmount - amount;
-            txtTotalAmount.setCValue(total);
             tableModel.removeRow(tableItem.getSelectedRow());
         }
+        getTotalAmount();
+        txtCode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtBrand.setText("");
+        txtCostPrice.setCValue(0.00);
+        txtSalesPrice.setCValue(0.00);
+        txtDiscount.setCValue(0.00);
+        txtQty.setCValue(0);
+        txtItemIndex.setCValue(0);
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void tableItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableItemMouseClicked
-        txtCode.setText(tableModel.getValueAt(tableItem.getSelectedRow(), 0).toString());
-        txtDescription.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 1).toString());
-        txtCategory.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 2).toString());
-        txtBrand.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 3).toString());
-        txtSalesPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 4));
-        txtCostPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 5));
-        txtQty.setCValue((int) tableModel.getValueAt(tableItem.getSelectedRow(), 6));
+        txtItemIndex.setText(tableModel.getValueAt(tableItem.getSelectedRow(), 0).toString());
+        txtCode.setText(tableModel.getValueAt(tableItem.getSelectedRow(), 1).toString());
+        txtDescription.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 2).toString());
+        txtCategory.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 3).toString());
+        txtBrand.setCValue(tableModel.getValueAt(tableItem.getSelectedRow(), 4).toString());
+        txtSalesPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 5));
+        txtCostPrice.setCValue((Double) tableModel.getValueAt(tableItem.getSelectedRow(), 6));
+        txtQty.setCValue((int) tableModel.getValueAt(tableItem.getSelectedRow(), 7));
+        txtDiscount.setCValue((double) tableModel.getValueAt(tableItem.getSelectedRow(), 9));
 
     }//GEN-LAST:event_tableItemMouseClicked
+
+    private void txtCostPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCostPriceActionPerformed
+
+    private void txtDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescriptionActionPerformed
 
     @Override
     public void setIdealMode() {
@@ -460,26 +544,47 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtCode.setEditable(false);
         txtDescription.setCValueEditable(false);
         txtSalesPrice.setCValueEditable(false);
+        txtCategory.setCValueEditable(false);
+        txtBrand.setCValueEditable(false);
         txtQty.setCValueEditable(false);
         txtAddress.setCValueEditable(false);
     }
 
     @Override
     public void setNewMode() {
-        this.supplier = new MSupplier();
+        this.supplier = null;
         this.mitem = new MItem();
+        this.item = new ItemMix();
+        this.grn = new TGrn();
+        this.grnMix = new GrnMix();
 
         txtGrnNo.setCValueEditable(true);
+        txtGrnNo.setCValue(0);
         txtRefrenceNo.setCValueEditable(true);
+        txtRefrenceNo.setCValue("");
         txtGrnDate.setEditable(true);
+        txtGrnDate.setDate(new Date());
         txtSupplierName.setCValueEditable(true);
+        txtSupplierName.setCValue("");
         txtContactNo.setCValueEditable(false);
+        txtContactNo.setCValue(0);
         txtEmail.setCValueEditable(false);
+        txtEmail.setCValue("");
         txtAddress.setCValueEditable(false);
+        txtAddress.setCValue("");
         txtCode.setEditable(true);
-        txtDescription.setCValueEditable(true);
+        txtCode.setText("");
+        txtDescription.setCValueEditable(false);
+        txtDescription.setCValue("");
+        txtCategory.setCValueEditable(false);
+        txtCategory.setCValue("");
+        txtBrand.setCValueEditable(false);
+        txtBrand.setCValue("");
         txtSalesPrice.setCValueEditable(true);
+        txtSalesPrice.setCValue(0.00);
         txtQty.setCValueEditable(true);
+        txtQty.setCValue(0);
+        txtGrnNo.setCValue(IdGenerater.getInstance().getLastId("t_grn", "index_no"));
 
     }
 
@@ -511,48 +616,95 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
         txtDescription.resetCValue();
         txtQty.resetCValue();
         txtSalesPrice.resetCValue();
+
+        tableModel.setRowCount(0);
+        txtTotalAmount.resetCValue();
+        txtTotalDiscount.resetCValue();
+        txtTotalNetAmount.resetCValue();
+        txtGrnNo.setCValue(IdGenerater.getInstance().getLastId("t_grn", "index_no"));
+
     }
 
     @Override
     public void initObject() throws VPException {
-        this.supplier.setName(txtSupplierName.getCValue());
-        this.supplier.setContactNo(FormatterUtil.getInstance().formatInteger(txtContactNo.getCValue()));
-        this.supplier.setEmail(txtEmail.getCValue());
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        this.item.setSalePrice(txtSalesPrice.getCValue());
-        //add Model Date
-        this.grn.setAmount(txtTotalAmount.getCValue());
-        try {
-            this.grn.setDate(FormatterUtil.getInstance().parseDate(txtGrnDate.getDate().toString()));
-        } catch (ParseException ex) {
-            Logger.getLogger(PCGrn.class.getName()).log(Level.SEVERE, null, ex);
+        TGrn grn = new TGrn();
+        if (null == supplier) {
+            supplier = new MSupplier();
+            grn.setSupplier(1);//set defaule Customer
+
+        } else {
+            grn.setSupplier(supplier.getIndexNo());
         }
-        this.grn.setSupplier(this.supplier.getIndexNo());
+        grn.setAmount(txtTotalNetAmount.getCValue());
+        grn.setDate(txtGrnDate.getDate());
+//        grn.setIndexNo(0);// auto incerement
+        grn.setRef_no(txtRefrenceNo.getCValue());
+        if (txtRefrenceNo.getCValue().isEmpty()) {
+            grn.setRef_no("N/N");
+        } 
+
+        grnMix.setGrn(grn);
+
+        List<GrnDetail> grnItems = new ArrayList<>();
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            GrnDetail grnDetail = new GrnDetail();
+            grnDetail.setDiscount(Double.parseDouble(tableModel.getValueAt(i, 10).toString()));
+//            grnDetail.setGrn(0);//gon't know yet
+//            grnDetail.setIndexNo(0);//auto increment
+            grnDetail.setItem(Integer.parseInt(tableModel.getValueAt(i, 0).toString()));
+            grnDetail.setQty(Double.parseDouble(tableModel.getValueAt(i, 7).toString()));
+            grnDetail.setUnitPrice(Double.parseDouble(tableModel.getValueAt(i, 6).toString()));
+            grnDetail.setValue(Double.parseDouble(tableModel.getValueAt(i, 8).toString()));
+            grnDetail.setNetValue(Double.parseDouble(tableModel.getValueAt(i, 11).toString()));
+
+            grnItems.add(grnDetail);
+        }
+        grnMix.setGrnDetail(grnItems);
+
+        LogFileModel logFile = new LogFileModel();
+        logFile.setDate(new Date());
+        logFile.setFormName("GRN");
+//        logFile.setIndexNo(0);//auto increment
+        logFile.setRemarks("Save GRN");
+        logFile.setTime(FormatterUtil.getInstance().getTime());
+        logFile.setTransactionType("Save");
+        logFile.setUser(Home.getInstance().getUser().getIndexNo());
+        logFile.setUserName(Home.getInstance().getUser().getName());
+        logFile.setValue(txtTotalNetAmount.getCValue());
+
+        grnMix.setLogFileModel(logFile);
+
+        List<TStockLedger> ledgers = new ArrayList<>();
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            TStockLedger ledger = new TStockLedger();
+            ledger.setDate(new Date());
+            ledger.setForm("GRN");
+//            ledger.setIndexNo(0);//auto increment
+            ledger.setItem(Integer.parseInt(tableModel.getValueAt(i, 0).toString()));
+            ledger.setQty(Double.parseDouble(tableModel.getValueAt(i, 7).toString()));
+            ledger.setStore(2);//item add defaule bulk
+
+            ledgers.add(ledger);
+        }
+        grnMix.setLedger(ledgers);
+
     }
 
     @Override
-    public void initInterface() throws VPException {     
-        txtSupplierName.setCValue(this.supplier.getName());
-        try {
-            txtContactNo.setCValue(FormatterUtil.getInstance().parseInteger(this.supplier.getContactNo()));
-        } catch (ParseException ex) {
-            Logger.getLogger(PCGrn.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        txtEmail.setCValue(this.supplier.getEmail());
+    public void initInterface() throws VPException {
 
-        txtCode.setText(this.item.getCode());
-        txtDescription.setCValue(this.item.getName());
-        txtSalesPrice.setCValue(this.item.getSalePrice());
     }
 
     @Override
-    protected void setValueAbstract(TGrn object) {
-        this.grn = object;
+    protected void setValueAbstract(GrnMix mix) {
+        this.grnMix = mix;
     }
 
     @Override
-    protected TGrn getValueAbstract() {
-        return this.grn;
+    protected GrnMix getValueAbstract() {
+        return this.grnMix;
     }
 
 
@@ -562,6 +714,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -569,11 +722,11 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JTable tableItem;
     private com.sv.visionplus.util.component.textfield.CStringField txtAddress;
@@ -583,14 +736,18 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private com.sv.visionplus.util.component.textfield.CIntegerField txtContactNo;
     private com.sv.visionplus.util.component.textfield.CDoubleField txtCostPrice;
     private com.sv.visionplus.util.component.textfield.CStringField txtDescription;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtDiscount;
     private com.sv.visionplus.util.component.textfield.CStringField txtEmail;
     private org.jdesktop.swingx.JXDatePicker txtGrnDate;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtGrnNo;
+    private com.sv.visionplus.util.component.textfield.CIntegerField txtItemIndex;
     private com.sv.visionplus.util.component.textfield.CIntegerField txtQty;
     private com.sv.visionplus.util.component.textfield.CStringField txtRefrenceNo;
     private com.sv.visionplus.util.component.textfield.CDoubleField txtSalesPrice;
     private com.sv.visionplus.util.component.textfield.CStringField txtSupplierName;
     private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalAmount;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalDiscount;
+    private com.sv.visionplus.util.component.textfield.CDoubleField txtTotalNetAmount;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tableModel;
     private TGrn grn;
@@ -598,6 +755,7 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     private MSupplier supplier;
     private ItemMix item;
     private MItem mitem;
+    private GrnMix grnMix;
 
     public void setSupplier(MSupplier supplier) {
         this.supplier = supplier;
@@ -608,23 +766,34 @@ public class PCGrn extends AbstractObjectCreator<TGrn> {
     }
 
     public void setItem(ItemMix item) {
+
         txtCode.setText(item.getCode());
-        txtDescription.setCValue(item.getName());
-        txtBrand.setCValue(item.getBrand());
-        txtCategory.setCValue(item.getCategory());
-        txtCostPrice.setCValue(item.getCostPrice());
-        txtSalesPrice.setCValue(item.getSalePrice());
+        txtItemIndex.setCValue(item.getIndex_no());
+        txtDescription.setCValue(item.getItem_name());
+        txtBrand.setCValue(item.getBrand_name());
+        txtCategory.setCValue(item.getCategory_name());
+        txtCostPrice.setCValue(item.getCost_price());
+        txtSalesPrice.setCValue(item.getSale_price());
         txtQty.requestFocus();
     }
 
     public void getTotalAmount() {
         double totalCashAmount = 0;
+        double discount = 0;
+        double totalValue = 0;
 
         for (int i = 0; i < tableItem.getRowCount(); i++) {
-            String cashAmountString = tableModel.getValueAt(i, 7).toString();
-            totalCashAmount += Double.parseDouble(cashAmountString);
+            String netAmount = tableModel.getValueAt(i, 11).toString();
+            String discountAmount = tableModel.getValueAt(i, 10).toString();
+            String value = tableModel.getValueAt(i, 8).toString();
+
+            totalCashAmount += Double.parseDouble(netAmount);
+            discount += Double.parseDouble(discountAmount);
+            totalValue += Double.parseDouble(value);
         }
-        txtTotalAmount.setCValue(totalCashAmount);
+        txtTotalNetAmount.setCValue(totalCashAmount);
+        txtTotalDiscount.setCValue(discount);
+        txtTotalAmount.setCValue(totalValue);
 
     }
 

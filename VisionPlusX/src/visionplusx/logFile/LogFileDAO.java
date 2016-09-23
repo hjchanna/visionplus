@@ -5,10 +5,12 @@
  */
 package visionplusx.logFile;
 
-import com.sv.visionplus.util.database.DatabaseUtil;
 import com.sv.visionplus.util.database.QueryUtil;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +32,13 @@ public class LogFileDAO {
         this.queryUtil = QueryUtil.getInstance(LogFileModel.class);
     }
 
-    public int saveLog(Connection connection, LogFileModel log) throws SQLException {
-        return (int) queryUtil.executeInsert(connection, log);
+    public int saveLog(Connection connection, LogFileModel log) {
+        try {
+            return  queryUtil.executeInsert(connection, log);
+        } catch (SQLException ex) {
+            Logger.getLogger(LogFileDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
+    
 }

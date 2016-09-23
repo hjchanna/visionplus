@@ -9,7 +9,6 @@ import com.sv.visionplus.base.AbstractObjectCreator;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
 import com.sv.visionplus.stock.stock_adjustment.model.MItem;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.model.TInvoice;
 
 /**
  *
@@ -193,5 +192,5 @@ public class PCStockAdujstment extends AbstractObjectCreator<MItem> {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-    private AbstractTransactionForm<TInvoice> transactionForm;
+    private AbstractTransactionForm<MItem> transactionForm;
 }

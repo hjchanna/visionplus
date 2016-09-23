@@ -6,30 +6,32 @@
 package com.sv.visionplus.transaction.invoice;
 
 import com.sv.visionplus.base.AbstractObjectCreator;
-import com.sv.visionplus.base.master.AbstractMasterFormDAO;
 import com.sv.visionplus.base.transaction.AbstractTransactionForm;
+import com.sv.visionplus.resource.IdGenerater.IdGenerater;
 import com.sv.visionplus.transaction.invoice.dialog.customer.model.MCustomer;
 import com.sv.visionplus.resource.InvoiceStatus.InvoiceStatus;
 import com.sv.visionplus.resource.SplitConfig.SplitConfig;
+import com.sv.visionplus.resource.ui.ItemListRenderer;
 import com.sv.visionplus.system.exception.VPException;
-import com.sv.visionplus.transaction.invoice.dialog.Invoice_Payment.InvoicePayment;
+import com.sv.visionplus.transaction.invoice.dialog.Item.ItemDialog;
+import com.sv.visionplus.transaction.invoice.dialog.Item.SearchItemMixModel;
 import com.sv.visionplus.transaction.invoice.dialog.customer.CustomerDialog;
-import com.sv.visionplus.transaction.invoice.dialog.customer.CustomerService;
 import com.sv.visionplus.transaction.invoice.model.InvoiceMix;
 import com.sv.visionplus.transaction.invoice.model.Status;
 import com.sv.visionplus.transaction.invoice.model.TInvoice;
 import com.sv.visionplus.transaction.invoice.model.TInvoiceItem;
 import com.sv.visionplus.transaction.invoice.model.TPatientInformation;
-import com.sv.visionplus.transaction.invoice.model.TTransaction;
+import com.sv.visionplus.transaction.invoice.model.TStockLedger;
 import com.sv.visionplus.util.formatter.FormatterUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import visionplusx.Home;
+import visionplusx.logFile.LogFileModel;
 
 /**
  *
@@ -63,11 +65,15 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
                 doView();
             }
         });
+
+        //list model
+        itemListModel = new DefaultListModel<>();
+        lstItem.setModel(itemListModel);
+
+        lstItem.setCellRenderer(new ItemListRenderer());
     }
 
     @SuppressWarnings("unchecked")
-
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -96,7 +102,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtAge = new com.sv.visionplus.util.component.textfield.CIntegerField();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        itemList = new javax.swing.JList();
+        lstItem = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
@@ -276,7 +282,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
-        jScrollPane3.setViewportView(itemList);
+        jScrollPane3.setViewportView(lstItem);
 
         jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -294,7 +300,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
             }
         });
 
-        lblAmount.setText("00.00");
+        lblAmount.setText("0.00");
         lblAmount.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAmount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -668,11 +674,27 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        if (0 > lstItem.getSelectedIndex()) {
+            JOptionPane.showMessageDialog(this, "Select a Item to Delete...");
+        } else {
+            SearchItemMixModel model = selectedItemList.get(lstItem.getSelectedIndex());
+            double qty = model.getTotal_qty();
+            double value = 0.00;
+            value -= (qty * model.getSale_price());
+            value += (qty * model.getDicsount());
+
+            lblAmount.setText((Double.parseDouble(lblAmount.getText()) + value) + "");
+
+            selectedItemList.remove(lstItem.getSelectedIndex());
+            itemListModel.removeElementAt(lstItem.getSelectedIndex());
+
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        ItemDialog dialog = new ItemDialog(null, true);
+        dialog.setFrame(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
@@ -743,6 +765,13 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     @Override
     public void setNewMode() {
         this.invoice = new TInvoice();
+        this.invoiceMix = new InvoiceMix();
+        this.customer = null;
+        this.status = new Status();
+        this.patientInformation = new TPatientInformation();
+        this.invoiceItem = new TInvoiceItem();
+        this.logFile = new LogFileModel();
+        this.stockLedger = new TStockLedger();
 
         txtIndexNo.setCValueEditable(false);
         txtDate.setCValueEditable(true);
@@ -767,6 +796,8 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithPhRight.setCValueEditable(true);
         txtVaWithGlassLeft.setCValueEditable(true);
         txtVaWithGlassRight.setCValueEditable(true);
+        txtIndexNo.setCValue(IdGenerater.getInstance().getLastId("t_invoice","index_no"));
+
     }
 
     @Override
@@ -821,35 +852,35 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         txtVaWithPhRight.resetCValue();
         txtVaWithGlassLeft.resetCValue();
         txtVaWithGlassRight.resetCValue();
+
+        selectedItemList = new ArrayList<>();
+        itemListModel.setSize(0);
+        lblAmount.setText("0.00");
+        txtIndexNo.setCValue(IdGenerater.getInstance().getLastId("t_invoice","index_no"));
     }
 
     @Override
     public void initObject() throws VPException {
-        InvoicePayment paymentDialog = new InvoicePayment(null, true);
-        paymentDialog.setFrame(this);
-        TInvoice tInvoice = new TInvoice();
-        tInvoice.setAmount(5000.00);
-        paymentDialog.setValue(tInvoice, new TInvoiceItem(), new TPatientInformation(), customer, new Status(), new TTransaction());
-        paymentDialog.setVisible(true);
 //        set Invoice Detail
-//        this.invoiceMix.getInvoice().setIndexNo();
-        this.invoiceMix.getInvoice().setStatus(InvoiceStatus.RESERVED_FROM_CUSTOMER);
-        try {
-            this.invoiceMix.getInvoice().setAmount(FormatterUtil.getInstance().parseDouble(lblAmount.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(PCInvoice.class.getName()).log(Level.SEVERE, null, ex);
+        if (null == customer) {
+            invoice.setCustomer(1);//set defaule Customer
+
+        } else {
+            invoice.setCustomer(customer.getIndexNo());
         }
-        this.invoiceMix.getInvoice().setCustomer(this.customer.getIndexNo());
-        this.invoiceMix.getInvoice().setTransaction(null);
-        this.invoiceMix.getInvoice().setFactory(null);
-        this.invoiceMix.getInvoice().setInvoiceDate(new Date());
-        this.invoiceMix.getInvoice().setIsDelete(false);
+        invoice.setAmount(Double.parseDouble(lblAmount.getText()));
+        invoice.setFactory(1);
+//        invoice.setIndexNo(0);//auto increment
+        invoice.setInvoiceDate(txtDate.getCValue());
+        invoice.setIsDelete(false);
+        invoice.setStatus(InvoiceStatus.RESERVED_FROM_CUSTOMER);
+
+        invoiceMix.setInvoice(invoice);
 
 //        set PatientInformation
-        TPatientInformation patientInfomation = new TPatientInformation();
 //            patientInfomation.setIndexNo();  //aut increment
-        patientInfomation.setAutoRefLeft(txtAutoRefLeft.getText());
-        patientInfomation.setAutoRefRight(txtAutoRefRight.getText());
+        patientInformation.setAutoRefLeft(txtAutoRefLeft.getText());
+        patientInformation.setAutoRefRight(txtAutoRefRight.getText());
 
         String complains = "";
         if (visionNDCheckBox.isSelected()) {
@@ -875,19 +906,19 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         }
         if (otherChechBox.isSelected()) {
             String otherComplains = txtOther.getText();
-            if (otherComplains == "" || otherComplains.equals(null)) {
+            if (otherComplains != null ? otherComplains.isEmpty() : true) {
                 otherComplains = "OTHER COMPLAINS";
             }
             complains += otherComplains + SplitConfig.spritComplains;
         }
-        patientInfomation.setComplains(complains);
-        patientInfomation.setHbRxLeft(txtHbRxLeft.getText());
-        patientInfomation.setHbRxRight(txtHbRxRight.getText());
-        patientInfomation.setHbRxSubLeft(txtHbRxSubLeft.getText());
-        patientInfomation.setHbRxSubRight(txtHbRxSubRight.getText());
-        patientInfomation.setLenseType(null);
-        patientInfomation.setNtcLeft(txtNtcLeft.getText());
-        patientInfomation.setNtcRight(txtNtcRight.getText());
+        patientInformation.setComplains(complains);
+        patientInformation.setHbRxLeft(txtHbRxLeft.getText());
+        patientInformation.setHbRxRight(txtHbRxRight.getText());
+        patientInformation.setHbRxSubLeft(txtHbRxSubLeft.getText());
+        patientInformation.setHbRxSubRight(txtHbRxSubRight.getText());
+        patientInformation.setLenseType("");
+        patientInformation.setNtcLeft(txtNtcLeft.getText());
+        patientInformation.setNtcRight(txtNtcRight.getText());
 
         String refractiveError = "";
         if (myopiaRadio.isSelected()) {
@@ -901,49 +932,86 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
         } else {
             refractiveError = "";
         }
-        patientInfomation.setRefractiveError(refractiveError);
-        patientInfomation.setRemarks(txtRemarks.getText());
-        patientInfomation.setVaWithGlassLeft(txtVaWithGlassLeft.getText());
-        patientInfomation.setVaWithGlassRight(txtVaWithGlassRight.getText());
-        patientInfomation.setVaWithPhLeft(txtVaWithPhLeft.getText());
-        patientInfomation.setVaWithPhRight(txtVaWithPhRight.getText());
-        patientInfomation.setVaWithoutGlassLeft(txtVaWithoutGlassLeft.getText());
-        patientInfomation.setVaWithoutGlassRight(txtVaWithGlassRight.getText());
+        patientInformation.setRefractiveError(refractiveError);
+        patientInformation.setRemarks(txtRemarks.getText());
+        patientInformation.setVaWithGlassLeft(txtVaWithGlassLeft.getText());
+        patientInformation.setVaWithGlassRight(txtVaWithGlassRight.getText());
+        patientInformation.setVaWithPhLeft(txtVaWithPhLeft.getText());
+        patientInformation.setVaWithPhRight(txtVaWithPhRight.getText());
+        patientInformation.setVaWithoutGlassLeft(txtVaWithoutGlassLeft.getText());
+        patientInformation.setVaWithoutGlassRight(txtVaWithGlassRight.getText());
 
         //table Date add to model
-        patientInfomation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
-        patientInfomation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
-        patientInfomation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 3) + "");
-        patientInfomation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 4) + "");
-        patientInfomation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 5) + "");
-        patientInfomation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 6) + "");
+        patientInformation.setDistSphLeft(patientEyeDetailTable.getValueAt(0, 1) + "");
+        patientInformation.setDistCylLeft(patientEyeDetailTable.getValueAt(0, 2) + "");
+        patientInformation.setDistAxisLeft(patientEyeDetailTable.getValueAt(0, 3) + "");
+        patientInformation.setDistSphRight(patientEyeDetailTable.getValueAt(0, 4) + "");
+        patientInformation.setDistCylRight(patientEyeDetailTable.getValueAt(0, 5) + "");
+        patientInformation.setDistAxisRight(patientEyeDetailTable.getValueAt(0, 6) + "");
 
-        patientInfomation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
-        patientInfomation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
-        patientInfomation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 3) + "");
-        patientInfomation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 4) + "");
-        patientInfomation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 5) + "");
-        patientInfomation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 6) + "");
-
-        invoiceMix.setPatientInformation(patientInfomation);
+        patientInformation.setNearSphLeft(patientEyeDetailTable.getValueAt(1, 1) + "");
+        patientInformation.setNearCylLeft(patientEyeDetailTable.getValueAt(1, 2) + "");
+        patientInformation.setNearAxisLeft(patientEyeDetailTable.getValueAt(1, 3) + "");
+        patientInformation.setNearSphRight(patientEyeDetailTable.getValueAt(1, 4) + "");
+        patientInformation.setNearCylRight(patientEyeDetailTable.getValueAt(1, 5) + "");
+        patientInformation.setNearAxisRight(patientEyeDetailTable.getValueAt(1, 6) + "");
+        invoiceMix.setPatientInformation(patientInformation);
 
 //        invoiceItem.setIndexNo(WIDTH); //Auto incerment 
-        TInvoiceItem invoiceItem = new TInvoiceItem();
-        invoiceItem.setDiscount(0.00);
-        invoiceItem.setInvoice(0);
-        invoiceItem.setNetValue(Double.parseDouble(lblAmount.getText()));
-        invoiceItem.setQty(0);
-        invoiceItem.setUnitPrice(0.00);
-        invoiceItem.setValue(0.00);
-        invoiceMix.setInvoiceItem(invoiceItem);
+        List<TInvoiceItem> invoiceItemList = new ArrayList<>();
+        for (SearchItemMixModel item : selectedItemList) {
+            invoiceItem.setDiscount(item.getDicsount());
+//            invoiceItem.setIndexNo(); // auto Increment
+            invoiceItem.setItem(item.getItem());
+//            invoiceItem.setInvoice(0);// not definded yet
+            invoiceItem.setQty(item.getTotal_qty());
+            invoiceItem.setUnitPrice(item.getSale_price());
+            invoiceItem.setValue(item.getTotal_qty() * item.getSale_price());
+            invoiceItem.setNetValue(invoiceItem.getValue() - (item.getTotal_qty() * item.getDicsount()));
+
+            invoiceItemList.add(invoiceItem);
+            invoiceItem = new TInvoiceItem();
+
+        }
+
+        invoiceMix.setInvoiceItem(invoiceItemList);
 
 //        status.setIndexNo(0);  //auto Incerment
-        Status status = new Status();
         status.setDate(new Date());
         status.setInvoice(0);
         status.setName(InvoiceStatus.RESERVED_FROM_CUSTOMER);
-        status.setTransaction(null);
         invoiceMix.setStatus(status);
+
+//        logFile save
+        logFile.setDate(new Date());
+        logFile.setFormName("Invoice Form");
+//        logFile.setIndexNo(0);//autoincrement
+        logFile.setRemarks("SaveInvoice");
+        logFile.setTime(FormatterUtil.getInstance().getTime());
+        logFile.setTransactionType("Save");
+        logFile.setUser(Home.getInstance().getUser().getIndexNo());
+        logFile.setUserName(Home.getInstance().getUser().getName());
+        logFile.setValue(invoice.getAmount());
+        invoiceMix.setLogFile(logFile);
+
+        List<TStockLedger> stockLedgerList = new ArrayList<>();
+        for (SearchItemMixModel item : selectedItemList) {
+            if (item.isIsstock_item()) {
+
+                stockLedger.setDate(new Date());
+                stockLedger.setForm("Invoice");
+                //          stockLedger.setIndexNo(0);//auto incerment
+                stockLedger.setItem(item.getItem());
+                //(-) Qty
+                stockLedger.setQty(item.getTotal_qty() - item.getTotal_qty() - item.getTotal_qty());
+                stockLedger.setStore(item.getStore_id());
+
+                stockLedgerList.add(stockLedger);
+                stockLedger = new TStockLedger();
+            }
+
+        }
+        invoiceMix.setStockLedgerList(stockLedgerList);
 
     }
 
@@ -972,7 +1040,6 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private javax.swing.JRadioButton hypermtropiaRadio;
     private javax.swing.JCheckBox irritationCheckBox;
     private javax.swing.JCheckBox itchingCheckBox;
-    private javax.swing.JList itemList;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
@@ -1006,6 +1073,7 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JLabel lblAmount;
+    private javax.swing.JList lstItem;
     private javax.swing.JRadioButton myopiaRadio;
     private javax.swing.JCheckBox otherChechBox;
     private javax.swing.JTable patientEyeDetailTable;
@@ -1041,20 +1109,42 @@ public class PCInvoice extends AbstractObjectCreator<InvoiceMix> {
     private InvoiceMix invoiceMix;
     private MCustomer customer;
     private TInvoice invoice;
+    private Status status;
+    private TPatientInformation patientInformation;
+    private TInvoiceItem invoiceItem;
+    private LogFileModel logFile;
+    private List<SearchItemMixModel> selectedItemList = new ArrayList<>();
+    private DefaultListModel itemListModel;
+    private TStockLedger stockLedger;
 
     public void setCustomer(MCustomer customer) {
+        this.customer = new MCustomer();
         this.customer = customer;
         txtName.setCValue(customer.getName());
         txtaAddress.setText(customer.getAddress());
         txtContactNo.setText(customer.getContactNo());
         txtNic.setText(customer.getNic());
-        
-        if (!"".equals(txtNic.getText())) {
+
+        if (!(txtNic.getText()).isEmpty()) {
             int birthYear = Integer.parseInt("19" + customer.getNic().substring(0, 2));
             int year = Integer.parseInt(FormatterUtil.getInstance().formatDate(new Date()).substring(0, 4));
             txtAge.setCValue(year - birthYear);
-        }
+        } else {
             txtAge.setCValue(-1);
+        }
+    }
+
+    public void setItem(SearchItemMixModel mixModel) {
+        selectedItemList.add(mixModel);
+        itemListModel.addElement(mixModel);
+
+        double value = 0.00;
+
+        value = mixModel.getTotal_qty() * mixModel.getSale_price();
+        value -= (mixModel.getTotal_qty() * mixModel.getDicsount());
+        value = Double.parseDouble(lblAmount.getText()) + value;
+        lblAmount.setText(value + "");
+        value = 0.00;
     }
 
 }

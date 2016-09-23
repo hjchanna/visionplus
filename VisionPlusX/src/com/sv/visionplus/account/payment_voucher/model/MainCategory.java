@@ -33,4 +33,10 @@ public class MainCategory {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return getIndexNo()+"-"+getName();
+    }
+    
+
 }
